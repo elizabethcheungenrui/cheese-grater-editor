@@ -1,0 +1,22 @@
+/* ============================================
+   GRID LAYOUT
+============================================ */
+.home-grid {
+  display: flex;
+  gap: 3.5rem;
+  margin-top: 1.5rem;
+  margin-left: 6rem;
+  margin-right: 6rem;
+  align-content: stretch;
+}
+
+.home-grid > * {
+  flex-basis: 0;
+  min-width: 0;
+}
+
+.ghost {
+  height: 0px;
+  pointer-events: none;
+  opacity: 0;
+}

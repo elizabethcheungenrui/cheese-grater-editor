@@ -1,0 +1,129 @@
+/* ============================================
+   CARD BASE STYLES
+============================================ */
+
+.card {
+  cursor: pointer;
+  margin-bottom: 0;
+  display:flex;
+  flex-direction:column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.card h3 {
+  font-family: "Bitter";
+  font-weight: 600;
+  line-height: 1.25;
+  color: #424242
+}
+
+.card p {
+  font-family: "Bitter";
+  font-weight: 400;
+  line-height: 1.25;
+  color: #424242;
+}
+
+.date {
+  font-family: "Libre Baskerville";
+  font-weight: 400;
+  font-size: 0.7rem;
+  line-height: 1.25;
+  color: #E2BA00;
+}
+
+/* ============================================
+   TAG LABELS
+============================================ */
+
+.tag {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Bitter";
+  font-weight: 800;
+
+  color: white;
+  line-height: 1;
+}
+
+.tag-major {
+  padding: 6px 6px;
+  font-size: 1rem;
+}
+
+.tag-minor {
+  padding: 4px 4px;
+  font-size: 0.7rem;
+}
+
+/* Tag colours */
+.tag-voices {
+  background: #C42873;
+}
+
+.tag-humour {
+  background: #00674B;
+}
+
+.tag-news {
+  background: #2C59AE;
+}
+
+/* ============================================
+   IMAGE ASPECT RATIO
+============================================ */
+
+/* Main + side cards (7:5) */
+.ratio-7-5 {
+  position: relative;
+  width: 100%;
+  padding-bottom: calc(100% * 5 / 7);
+  overflow: hidden;
+}
+
+.ratio-7-5 img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================
+   A-CARD
+============================================ */
+.a-card h3 {
+  font-size: 1.8rem;
+}
+
+.a-card p {
+  font-size: 1.2rem;
+}
+
+/* ============================================
+   B-CARD
+============================================ */
+.b-card h3 {
+  font-size: 1.4rem;
+}
+
+.b-card p {
+  font-size: 1rem;
+}
+
+/* ============================================
+   C-CARD
+============================================ */
+.c-card h3 {
+  color: #f3f2f1;
+  font-size: 1rem;
+}
+
+.c-card-date {
+  color: #f3f2f1;
+}
