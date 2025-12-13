@@ -16,11 +16,13 @@ export default function MinorLayout({ data }: { data: HomepageSection }) {
 
     {data.articles.map(article => (
       <CCard
+        slug={article.slug}
         section={data.section}
         title={article.title}
         image={article.image_url || ""}
         tag={article.subsection}
         date={formatDate(article.date_published)}
+        category="layout"
       />
     ))} 
     </div>

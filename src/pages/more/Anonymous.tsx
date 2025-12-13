@@ -1,32 +1,29 @@
 import { useState } from "react";
 import Header from "../header-footer/Header";
 import MoreMenu from "../header-footer/MoreMenu"
-import Home from "./Home";
-import BestPub2025 from "./BestPub2025";
-import ArticleList from "./ArticleList";
-import Newsletter from "./Newsletter";
+import MoreTitle from "./MoreTitle";
 import Footer from "../header-footer/Footer";
 
-import "./HomePage.css";
+import "./MoreStyling.css";
 
-export default function HomePage() {
+export default function Anonymous() {
   const [moreOpen, setMoreOpen] = useState(false);
   
   return (
     <div className="page-container">
       <Header onMoreClick={() => setMoreOpen(!moreOpen)}/>      
-
       <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
 
-      <div className="home-wrapper">
-        <Home />
+      <MoreTitle headings={[
+        "Anonymous Form",
+      ]} />
+
+      <div className="more-styling">
+        <div className="more-styling-text">
+          <p>Work in Progress!! This one's a bit more complicated</p>
+        </div>
       </div>
 
-      <BestPub2025 />
-      <ArticleList section="News" />
-      <ArticleList section="Humour" />
-      <Newsletter />
-      <ArticleList section="Voices" />
       <Footer />
     </div>
   );

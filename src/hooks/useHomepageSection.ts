@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getHomepageSection } from "../api/getHomepageSection";
 import type { HomepageSection } from "../api/getHomepageSection";
 
-export function useHomepageSection(section: string, count: number) {
+export function useHomepageSection(section: string, count?: number) {
   const [data, setData] = useState<HomepageSection | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -18,7 +18,5 @@ export function useHomepageSection(section: string, count: number) {
       });
   }, [section, count]);
 
-  console.log("HOOK RUNNING FOR", section);
-  console.log("SUPABASE QUERY RESULT:", data);
   return { data, loading };
 }

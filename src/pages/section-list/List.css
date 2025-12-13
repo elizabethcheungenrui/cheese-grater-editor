@@ -1,0 +1,6 @@
+.subpage-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 0rem 10rem;
+  gap: 2rem;
+}

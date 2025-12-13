@@ -1,0 +1,88 @@
+.more-styling {
+  padding: 0 10rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.more-styling p {
+  font-family: "Libre Baskerville";
+  color: var(--cg-font);
+  font-size: 0.9rem;
+  line-height: 2rem;;
+}
+
+.more-styling h2, h3 {
+  color: var(--cg-font);
+}
+
+.more-styling a {
+  font-family: "Libre Baskerville";
+  font-size: 0.9rem;
+  color: var(--cg-yellow);
+  text-decoration: none;
+}
+
+.more-styling li {
+  font-family: "Libre Baskerville";
+  font-size: 0.9rem;
+  line-height: 2rem;
+  color: var(--cg-font);
+}
+
+.more-styling-text {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.whoweare-section {
+  display: grid;
+  gap: 1rem;
+}
+.whoweare-editors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2rem;
+}
+
+.honorary-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.awards table {
+  border-collapse: collapse;
+  font-family: "Libre Baskerville";
+  font-size: 0.9rem;
+  color: var(--cg-font);
+  width: 100%;
+  table-layout: fixed;
+}
+
+.awards thead th {
+  font-weight: 600;
+  padding: 10px 6px;
+  border: 1px solid #c5c5c5;
+  background: #ddd;
+}
+
+.awards td {
+  padding: 10px 6px;
+  border: 1px solid #c5c5c5;
+  vertical-align: top;
+}
+
+.awards th:nth-child(1),
+.awards td:nth-child(1) { width: 15%; }
+
+.awards th:nth-child(2),
+.awards td:nth-child(2) { width: 5%; }
+
+.awards th:nth-child(3),
+.awards td:nth-child(3) { width: 20%; }
+
+.awards th:nth-child(4),
+.awards td:nth-child(4) { width: 50%; }
+
+.awards th:nth-child(5),
+.awards td:nth-child(5) { width: 10%; }
+

@@ -21,6 +21,16 @@
   font-display: swap;
 }
 
+/* LIBRE BASKERVILLE BOLD (700) */
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/src/assets/fonts/Libre_Baskerville/static/LibreBaskerville-Bold.woff2") format("woff2"),
+       url("/src/assets/fonts/Libre_Baskerville/static/LibreBaskerville-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* BIITER REGULAR (400) */
 @font-face {
   font-family: "Bitter";
@@ -74,6 +84,10 @@
    GLOBAL RESET
 ----------------------------------------------- */
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -84,7 +98,7 @@ body {
   font-family: "Bitter", serif;
   font-weight: 400;
   color: #000;
-  background: #f3f2f1;
+  background: var(--cg-white);
   line-height: 1.5;
 }
 
@@ -105,4 +119,21 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
   margin: 0 auto;
   padding-top: 2rem;
+}
+
+:root {
+  --cg-yellow: #e2ba00;
+  --cg-yellow-t: #e2ba00aa;
+
+  --cg-news: #2c59ae;
+  --cg-news-t: #2c59aeaa;
+
+  --cg-humour: #00674b;
+  --cg-humour-t: #00674baa;
+
+  --cg-voices: #c42873;
+  --cg-voices-t: #c42873aa;
+
+  --cg-white: #f3f2f1;
+  --cg-font: #424242;
 }

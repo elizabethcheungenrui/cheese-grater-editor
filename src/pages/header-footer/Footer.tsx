@@ -19,12 +19,12 @@ export default function Footer() {
         {/* RIGHT COLUMN */}
         <div className="column">
           <h3 className="header">Mailing Address</h3>
-          <p>The Cheese Grater Magazine Society</p>
-          <p>C/O Students' Union UCL</p>
-          <p>2/F Bloomsbury Theatre</p>
-          <p>15 Gordon St</p>
-          <p>London WC1H 0AH</p>
-          <p>We accept fan mail, just no clothing of the used variety.</p>
+          <p>The Cheese Grater Magazine Society
+          <br/>C/O Students' Union UCL
+          <br/>2/F Bloomsbury Theatre
+          <br/>15 Gordon St
+          <br/>London WC1H 0AH
+          <br/>We accept fan mail, just no clothing of the used variety.</p>
         </div>
 
       </div>
@@ -33,7 +33,7 @@ export default function Footer() {
         <p className="copyright-text">Copyright © 2004–{new Date().getFullYear()} The Cheese Grater Magazine, Students’ Union UCL</p>
 
         <div className="lizzie">
-          <p className="lizzie-text">Website made in React by Elizabeth Cheung</p>
+          <p className="lizzie-text">Website made in React + Vite + Supabase by Elizabeth Cheung</p>
           <p className="lizzie-text">Please direct any website issues to <a href="mailto:elizabeth.cheung.25@ucl.ac.uk"> elizabeth.cheung.25@ucl.ac.uk</a></p>
         </div>
       </div>

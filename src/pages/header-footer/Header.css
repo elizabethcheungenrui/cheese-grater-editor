@@ -1,8 +1,10 @@
+.header-wrapper {
+  position: relative;
+}
+
 .header {
   margin-top: 0rem;
-  margin-bottom: 1rem;
   border-bottom: 2px solid #ddd;
-  padding-bottom: 0.5rem;
   
   display: flex;
   flex-direction: column;
@@ -26,6 +28,12 @@
   margin-bottom: -0.5rem;
 }
 
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
 /* "CHEESE GRATER" */
 .cheese-grater {
   font-family: "Bitter";
@@ -39,18 +47,14 @@
   margin: 0;
   padding: 0;
   line-height: 0.9;
-
-  user-select: none;
-  cursor: default;
-  outline: none;
 }
 
 .cheese-grater .cheese {
-  color: #E2BA00;
+  color: var(--cg-yellow);
 }
 
 .cheese-grater .grater {
-  color: #000;
+  color: black;
 }
 
 .grater-icon {
@@ -70,23 +74,58 @@
 .best {
   font-family:"Bitter";
   font-size: 1.2rem;
+  font-weight: 600;
 
   display: inline-block;
 }
 
 .menu-bar {
-  display: flex;
-  flex-direction: row;
-  align-content: space-around; 
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .menu-bar .menu-item {
-  font-family: "Bitter";
+  color: var(--cg-font);
+  text-decoration: none;
   font-size: 1rem;
   font-weight: 400;
-  padding: 0.5rem 1.5rem;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  
+  transition: 
+    background-size 400ms,
+    background-color 400ms ease;
+
+  background-image:
+    var(
+      --section-gradient,
+      linear-gradient(to right, var(--cg-yellow-t), var(--cg-yellow-t))
+    );
+  background-size: 0 2px;
+  background-position: 50% 90%;
+  background-repeat: no-repeat;
+}
+
+.menu-item:hover {
+  background-size: 80% 2px;
+  background-color: #e9e9e9;
 }
 
 .menu-bar .print-edition {
-  color: #e2ba00;
+  color: var(--cg-yellow);
+}
+
+.voices {
+  --section-gradient: linear-gradient(to right, var(--cg-yellow-t),var(--cg-voices-t));
+}
+
+.news {
+  --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-news-t));
+}
+
+.humour {
+  --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-humour-t));
 }

@@ -12,17 +12,22 @@ export default function Home() {
   const [active, setActive] = useState<"voices" | "investigations" | "humour">(
     "investigations"
   );
-  
-  const { data: voicesData, loading: voicesLoading } = useHomepageSection("Voices", 3);
-  const { data: investigationsData, loading: investigationsLoading } = useHomepageSection("News", 3);
-  const { data: humourData, loading: humourLoading } = useHomepageSection("Humour", 3);
-  
+
+  const { data: voicesData, loading: voicesLoading } =
+    useHomepageSection("Voices", 3);
+
+  const { data: investigationsData, loading: investigationsLoading } =
+    useHomepageSection("News", 3);
+
+  const { data: humourData, loading: humourLoading } =
+    useHomepageSection("Humour", 3);
+
   const spring = {
     type: "spring" as const,
     stiffness: 120,
-    damping: 20
+    damping: 20,
   };
-  
+
   if (voicesLoading || investigationsLoading || humourLoading) {
     return <div>Loading…</div>;
   }
@@ -30,7 +35,6 @@ export default function Home() {
   return (
     <div>
       <div className="home-grid">
-
         {/* VOICES COLUMN */}
         <motion.aside
           layout
@@ -40,7 +44,7 @@ export default function Home() {
           transition={spring}
         >
           <div className="ghost" />
-          
+
           <AnimatePresence mode="wait">
             <motion.div
               layout
@@ -120,5 +124,5 @@ export default function Home() {
         </motion.aside>
       </div>
     </div>
-  )
+  );
 }

@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import "./Card.css"
 
 export default function ACard({
+  slug,
   section,
   title,
   summary,
@@ -8,6 +10,7 @@ export default function ACard({
   tag,
   date,
 }: {
+  slug: string;
   section: string;
   title: string;
   summary: string;
@@ -17,19 +20,23 @@ export default function ACard({
 }) {
   return (
     <div className="card a-card">
+      <Link to={`/article/${slug}`} className="link">
       
-      <div className="ratio-7-5">
-        <img src={image} alt={title} />
-      </div>
+        <div className="ratio-7-5">
+          <img src={image} alt={title} />
+        </div>
 
-      <span className={`tag tag-major tag-${section.toLowerCase()}`}> {tag.toUpperCase()} </span>
+        <span className={`tag tag-major tag-${section.toLowerCase()}`}> {tag.toUpperCase()} </span>
 
-      <h3> {title} </h3>
+        <h3>
+          <span className="wipe">{title}</span> 
+        </h3>
       
-      <p> {summary} </p>
+        <p> {summary} </p>
 
-      <span className="date"> {date} </span>
+        <span className="date"> {date} </span>
 
+      </Link>
     </div>
   );
 }

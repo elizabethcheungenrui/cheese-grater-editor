@@ -1,7 +1,7 @@
 import { supabase } from "../lib/supabaseClient";
 
 export interface HomepageArticle {
-  id: string;
+  slug: string;
   title: string;
   summary: string | null;
   author: string;
@@ -15,14 +15,18 @@ export interface HomepageSection {
   articles: HomepageArticle[];
 }
 
-export async function getHomepageSection(section: string, limit: number = 3): Promise<HomepageSection> {
-  const { data, error } = await supabase
+export async function getHomepageSection(section: string, limit?: number): Promise<HomepageSection> {
+  let query = supabase
     .from("articles")
-    .select("id, title, summary, author, image_url, subsection, date_published")
+    .select("slug, title, summary, author, image_url, subsection, date_published")
     .eq("section", section)
     .order("date_published", { ascending: false })
-    .limit(limit);
 
+  if (typeof limit === "number") {
+    query = query.limit(limit);
+  }  
+
+  const { data, error } = await query;
   if (error) throw error;
 
   return {
@@ -30,3 +34,4 @@ export async function getHomepageSection(section: string, limit: number = 3): Pr
     articles: data as HomepageArticle[],
   };
 }
+

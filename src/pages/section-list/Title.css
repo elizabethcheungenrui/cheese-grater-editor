@@ -1,0 +1,109 @@
+.title {
+  display: grid;
+  grid-auto-rows: auto;
+
+  margin-bottom: 2rem;
+  padding: 1.7rem 6rem;
+  justify-content: space-around;
+  justify-items: center;
+  align-items: start;
+  align-content: start;
+  text-align: center;
+  gap: 1rem;
+
+  background-repeat:
+    no-repeat,
+    repeat;
+
+  background-size:
+    cover,
+    90px 90px;
+
+  background-position:
+    center,
+    center;
+
+}
+
+@keyframes cg-drift-section {
+  0% {
+    background-position:
+      center,
+      0 0;
+  }
+  50% {
+    background-position:
+      center,
+      -180px -90px;
+  }
+  100% {
+    background-position: 
+      center,
+      -360px 0;
+  }
+}
+
+.title.voices {
+  background-image: 
+    linear-gradient(
+      to right,
+      var(--cg-yellow-t) 0%,
+      var(--cg-voices-t) 100%
+    ),
+    url("/images/CG.png");
+  
+  animation: cg-drift-section 10s linear infinite;
+}
+
+.title.news {
+  background-image: 
+    linear-gradient(
+      to right,
+      var(--cg-yellow-t) 0%,
+      var(--cg-news-t) 100%
+    ),
+    url("/images/CG.png");
+  
+  animation: cg-drift-section 10s linear infinite;
+}
+
+.title.humour {
+  background-image: 
+    linear-gradient(
+      to right,
+      var(--cg-yellow-t) 0%,
+      var(--cg-humour-t) 100%
+    ),
+    url("/images/CG.png");
+  
+  animation: cg-drift-section 10s linear infinite;
+}
+
+.title.podcast, .title.print {
+  background-image: 
+    linear-gradient(
+      to right,
+      var(--cg-yellow-t) 0%,
+      #E2BA00AA 100%
+    ),
+    url("/images/CG.png");
+  
+  animation: cg-drift-section 10s linear infinite;
+}
+
+.title .heading {
+  color: var(--cg-white);
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.title .subheading {
+  color: var(--cg-white);
+  font-family: "Libre Baskerville";
+  font-weight: 400;
+}
+
+.title a {
+  text-decoration: underline;
+  color: var(--cg-white);
+}

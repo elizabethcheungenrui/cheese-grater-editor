@@ -1,49 +1,47 @@
 .footer {
   padding-top: 2rem;
   font-family: "Libre Baskerville";
-  margin-top: 2rem;
 }
 
 /* two equal columns */
-.contact {
+.footer .contact {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6rem;
-  padding: 1rem 4rem 1rem 4rem;
+  gap: 20rem;
+  padding: 2rem 10rem 2rem 10rem;
 
-  justify-items: start;
   align-items: start;
-  justify-content: space-around;
+  justify-content: space-between;
 
   background: #eeeeee;
 }
 
 /* column content styles */
-.column p {
+.footer .column p {
   margin-top: 0.6rem;
   line-height: 1.6;
-  color: #424242;
+  color: var(--cg-font);
   font-size: 0.8rem;
 }
 
-.ipso {
+.footer .ipso {
   line-height: 1;
 }
 
-.header {
+.footer .header {
   font-family: "Bitter";
   font-weight: 700;
   font-size: 1.2rem;
-  color: #424242;
+  color: var(--cg-font);
   margin-bottom: 0.5rem;
   text-align: start;
 }
 
-.column a {
-  color: #E2BA00;
+.footer .column a {
+  color: var(--cg-yellow);
   text-decoration: none;
 }
-.column a:hover {
+.footer .column a:hover {
   text-decoration: underline;
 }
 
@@ -57,7 +55,7 @@
   padding-right: 4rem;
   padding-bottom: 2rem;
   background: #eaeaea;
-  color: #424242;
+  color: var(--cg-font);
   border-top: 1px solid #ddd;
 }
 
@@ -75,6 +73,6 @@
 }
 
 .lizzie-text a {
-  color: #E2BA00;
+  color: var(--cg-yellow);
   text-decoration: none;
 }

@@ -1,10 +1,10 @@
-.best-pub {
+.newsletter {
   margin-top: 2rem;
   margin-bottom: 2rem;
   padding: 1.7rem 9.5rem 1.7rem 9.5rem;
   justify-content: space-around;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 
   display: flex;
   flex-direction: row;
@@ -12,7 +12,7 @@
   background-image: 
     linear-gradient(
       to right,
-      rgba(226, 186, 0, 0.70) 0%,
+      rgba(200, 200, 200, 0.70) 0%,
       rgba(28, 52, 104, 0.55) 100%
     ),
     url("../../public/images/CG.png");
@@ -29,49 +29,61 @@
     center,
     center;
 
-  animation: cg-drift-bestpub 5s linear infinite;
+  animation: cg-drift-newsletter 5s linear infinite;
 }
 
-@keyframes cg-drift-bestpub {
+@keyframes cg-drift-newsletter {
   from {
-    background-position:
-      center,
-      0 0;
+    background-position: center, 0 0;
   }
   to {
-    background-position:
-      center,
-      -180px -90px;
-
+    background-position: center, -180px -90px;
   }
 }
 
-.bestpub-link {
-  color: var(--cg-font);
+.newsletter button {
+  cursor: pointer;
+  padding: 10px 15px;
+  background: var(--cg-yellow-t);
+  box-shadow: none;
+  border: none;
+  border-radius: 30px;
 }
 
-.best-pub img {
+.newsletter button:hover {
+  background: var(--cg-yellow);
+}
+
+.newsletter img {
   width: 250px;
   height: auto;
 }
 
-.text {
+.newsletter .text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: start;
-  gap: 1.5rem;
+  gap: 1rem;;
 }
 
-.bestpub-header {
+.newsletter .header {
   font-family: "Bitter";
   font-weight: 800;
   font-size: 2.5rem;
   color: var(--cg-white);
-  border: 0px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: 0;
+  align-content: space-around;
 }
 
-.best-pub p {
+.button-h3 {
+  color: var(--cg-white);
+  font-size: 1.2rem;
+}
+
+.newsletter p {
   font-family: "Libre Baskerville";
   font-size: 0.9rem;
   color: var(--cg-white);
