@@ -1,11 +1,11 @@
 import parse, { Element, domToReact } from "html-react-parser";
-import type { HTMLReactParserOptions } from "html-react-parser";
+import type { DOMNode, HTMLReactParserOptions } from "html-react-parser";
 
 export default function stringToJSX(html: string) {
   if (!html) return null;
 
   const options: HTMLReactParserOptions = {
-    replace: (node) => {
+    replace: (node: DOMNode) => {
       if (!(node instanceof Element)) return;
 
       const tag = node.name;

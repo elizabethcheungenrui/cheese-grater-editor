@@ -1,0 +1,24 @@
+.section-list {
+  display: flex;
+  flex-direction: row;
+  gap: 3.5rem;
+  margin-top: 1.5rem;
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
+.section-list-title {
+  display: flex;
+  flex-direction: column;
+  font-family: "Bitter";
+  color: #424242;
+}
+
+.section-list-title h3 {
+  font-weight: 600;
+}
+
+.section-list-title p {
+  font-weight: 400;
+}
+

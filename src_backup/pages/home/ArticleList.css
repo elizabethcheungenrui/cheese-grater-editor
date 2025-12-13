@@ -1,0 +1,125 @@
+.article-list {
+ padding-top: 2rem;
+ padding-bottom: 2rem;
+ margin: 0.25rem 10rem 0.25rem 10rem;
+ color: #424242;
+ border-top: 2px solid #ddd;
+ border-bottom: 2px solid #ddd;
+}
+
+.article-list .main-grid {
+  display: grid;
+  gap: 2rem;
+  justify-content: space-around;
+}
+
+.article-list .top-grid {
+  display: grid;
+  grid-template-columns: 6.5fr 7fr 7fr;
+  align-items: start;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.article-list .titles {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 1rem;
+}
+
+.article-list .underline-link {
+  display: inline-block;
+  width: fit-content;
+  justify-self: start;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.25rem 0.4rem;
+
+  text-decoration: none;
+  color: #424242;
+  transition: 
+    background-size 400ms,
+    color 400ms;
+
+  background:
+    var(
+      --section-gradient,
+      linear-gradient(to right, red, magenta, blue)
+    );
+  background-size: 0 120%;
+  background-position: 0 80%;
+  background-repeat: no-repeat;
+}
+
+.article-list .underline-link:hover {
+  background-size: 110% 120%;
+  color: #fff;
+}
+
+.article-list h2 {
+  font-size: 0.9rem; 
+}
+
+.article-list .card.b-card h3 {
+  font-size: 1.1rem;
+}
+
+.article-list p {
+  font-size: 0.9rem;
+}
+
+.titles h3 {
+  font-family: "Bitter";
+  font-weight: 800;
+  font-size: 2rem;
+}
+
+.titles p {
+  font-family: "Bitter";
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.titles a {
+  font-family: "Bitter";
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.article-list .bottom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+/* Tag colours */
+.article-list .voices-h3 {
+  border-bottom: 4px solid #C42873;
+}
+
+.article-list .humour-h3 {
+  border-bottom: 4px solid #00674B;
+}
+
+.article-list .news-h3 {
+  border-bottom: 4px solid #2C59AE;
+}
+
+.article-list .graphics-h3 {
+  border-bottom: 4px solid #E2BA00;
+}
+
+.article-list .voices-link {
+  --section-gradient: linear-gradient(to right, #E2BA00AA,#C42873AA);
+}
+
+.article-list .news-link {
+  --section-gradient: linear-gradient(to right, #E2BA00AA, #2C59AEAA);
+}
+
+.article-list .humour-link {
+  --section-gradient: linear-gradient(to right, #E2BA00AA, #00674BAA);
+}

@@ -10,8 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdx-js/react": "^3.1.1",
+    "@mdx-js/rollup": "^3.1.1",
     "@supabase/supabase-js": "^2.84.0",
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
+    "dompurify": "^3.3.1",
     "framer-motion": "^12.23.24",
+    "html-react-parser": "^5.2.10",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",

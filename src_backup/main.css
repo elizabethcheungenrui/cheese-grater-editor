@@ -1,0 +1,123 @@
+/* ----------------------------------------------
+   IMPORT FONTS
+----------------------------------------------- */
+/* GRIFA REGULAR (400) */
+@font-face {
+  font-family: "Grifa";
+  src: url("/src/assets/fonts/Grifa/Grifa-Regular.woff2") format("woff2"),
+       url("/src/assets/fonts/Grifa/Grifa-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* LIBRE BASKERVILLE REGULAR (400) */
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/src/assets/fonts/Libre_Baskerville/static/LibreBaskerville-Regular.woff2") format("woff2"),
+       url("/src/assets/fonts/Libre_Baskerville/static/LibreBaskerville-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BIITER REGULAR (400) */
+@font-face {
+  font-family: "Bitter";
+  src: url("/src/assets/fonts/Bitter/static/Bitter-Regular.woff2") format("woff2"),
+       url("/src/assets/fonts/Bitter/static/Bitter-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BITTER BOLD (700) */
+@font-face {
+  font-family: "Bitter";
+  src: url("/src/assets/fonts/Bitter/static/Bitter-Bold.woff2") format("woff2"),
+       url("/src/assets/fonts/Bitter/static/Bitter-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BITTER BOLD ITALIC (700) */
+@font-face {
+  font-family: "Bitter";
+  src: url("/src/assets/fonts/Bitter/static/Bitter-BoldItalic.woff2") format("woff2"),
+       url("/src/assets/fonts/Bitter/static/Bitter-BoldItalic.woff") format("woff");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* BITTER EXTRA BOLD (800) */
+@font-face {
+  font-family: "Bitter";
+  src: url("/src/assets/fonts/Bitter/static/Bitter-ExtraBold.woff2") format("woff2"),
+       url("/src/assets/fonts/Bitter/static/Bitter-ExtraBold.woff") format("woff");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BITTER BLACK (900) */
+@font-face {
+  font-family: "Bitter";
+  src: url("/src/assets/fonts/Bitter/static/Bitter-Black.woff2") format("woff2"),
+       url("/src/assets/fonts/Bitter/static/Bitter-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* ----------------------------------------------
+   GLOBAL RESET
+----------------------------------------------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Bitter", serif;
+  font-weight: 400;
+  color: #000;
+  background: #f3f2f1;
+  line-height: 1.5;
+}
+
+/* ----------------------------------------------
+   TYPOGRAPHY
+----------------------------------------------- */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Bitter", serif;
+  font-weight: 600;
+}
+
+/* ----------------------------------------------
+   PAGE WRAPPER
+----------------------------------------------- */
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+:root {
+  --cg-yellow: #e2ba00;
+  --cg-yellow-t: #e2ba00aa;
+  --cg-news: #2c59ae;
+  --cg-news-t: #2c59aeaa;
+  --cg-humour: #00674b;
+  --cg-humour-t:#00674baa;
+  --cg-voices: #c42873;
+  --cg-voices-t: #c42873aa;
+}
