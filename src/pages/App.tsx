@@ -15,30 +15,35 @@ import Training from "./more/Training";
 import HelpWelfare from "./more/HelpWelfare";
 import Anonymous from "./more/Anonymous";
 
+import { Analytics } from "@vercel/analytics/react"
+
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/news" element={<SectionList section="News" />} />
-      <Route path="/humour" element={<SectionList section="Humour" />} />
-      <Route path="/voices" element={<SectionList section="Voices" />} />
-      <Route path="/podcast" element={<SectionList section="Podcast" />} />
-      <Route path="/print" element={<PrintEdition/>} />
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/news" element={<SectionList section="News" />} />
+        <Route path="/humour" element={<SectionList section="Humour" />} />
+        <Route path="/voices" element={<SectionList section="Voices" />} />
+        <Route path="/podcast" element={<SectionList section="Podcast" />} />
+        <Route path="/print" element={<PrintEdition/>} />
 
-      <Route path="/article/:slug" element={<ArticlePage />} />
-
-
-      <Route path="/who-we-are" element={<WhoWeAre/>} />
-      <Route path="/get-involved" element={<GetInvolved />} />
-      <Route path="/awards" element={<Awards />} />
-      <Route path="/past-editors" element={<PastEditors />} />
-      <Route path="/life-members" element={<Honorary />} />
+        <Route path="/article/:slug" element={<ArticlePage />} />
 
 
-      <Route path="/contact-us" element={<ContactUs />} />
-      <Route path="/anonymous-form" element={<Anonymous />} />
-      <Route path="/training-style" element={<Training />} />
-      <Route path="/help-welfare" element={<HelpWelfare />} />
-    </Routes>
+        <Route path="/who-we-are" element={<WhoWeAre/>} />
+        <Route path="/get-involved" element={<GetInvolved />} />
+        <Route path="/awards" element={<Awards />} />
+        <Route path="/past-editors" element={<PastEditors />} />
+        <Route path="/life-members" element={<Honorary />} />
+
+
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/anonymous-form" element={<Anonymous />} />
+        <Route path="/training-style" element={<Training />} />
+        <Route path="/help-welfare" element={<HelpWelfare />} />
+      </Routes>
+      <Analytics />
+    </>
   );
 }
