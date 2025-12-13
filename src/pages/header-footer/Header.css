@@ -50,7 +50,7 @@
 }
 
 .cheese-grater .cheese {
-  color: var(--cg-yellow);
+  color: var(--cg-yellow-t);
 }
 
 .cheese-grater .grater {
