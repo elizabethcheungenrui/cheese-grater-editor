@@ -2,7 +2,9 @@ import { Link } from "react-router-dom";
 
 import "./HeaderMobile.css";
 
-export default function HeaderMobile({ onMoreClick }: { onMoreClick: () => void }) {
+/*export default function HeaderMobile({ onMoreClick }: { onMoreClick: () => void }) { */
+
+export default function HeaderMobile() {
 
   return (
     <div className="header-mobile">
