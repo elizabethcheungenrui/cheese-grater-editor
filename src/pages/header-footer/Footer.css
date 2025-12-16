@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20rem;
-  padding: 2rem 10rem 2rem 10rem;
+  padding: 2rem 10rem;
 
   align-items: start;
   justify-content: space-between;
@@ -50,10 +50,7 @@
   display: grid;
   gap: 0.5rem;
   text-align: center;
-  padding-top: 1.5rem;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  padding-bottom: 2rem;
+  padding: 1.5rem 4rem 2rem 4rem;
   background: #eaeaea;
   color: var(--cg-font);
   border-top: 1px solid #ddd;
@@ -76,3 +73,15 @@
   color: var(--cg-yellow);
   text-decoration: none;
 }
+
+@media (max-width: 768px) {
+  .footer .contact {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 2rem;
+  }
+  .copyright {
+    padding: 1.5rem 2.5rem 2rem 2.5rem;
+  }
+}
+

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-import "./Header.css";
+import "./HeaderMobile.css";
 
-export default function Header({ onMoreClick }: { onMoreClick: () => void }) {
+export default function HeaderMobile({ onMoreClick }: { onMoreClick: () => void }) {
 
   return (
-    <div className="header">
+    <div className="header-mobile">
       <div className="logo">
         <h3 className="the"> THE </h3>
         <Link to="/" className="logo-link">
@@ -20,9 +20,7 @@ export default function Header({ onMoreClick }: { onMoreClick: () => void }) {
         </Link>
       </div>
 
-      <span className="best">SPA Best Publication in London 2025</span>
-
-      <div className="menu-bar">
+      {/*<div className="menu-bar hide-on-mobile">
         <Link to="/" className="menu-item">Home</Link>
         <Link to="/news" className="menu-item news">News</Link>
         <Link to="/humour" className="menu-item humour">Humour</Link>
@@ -43,7 +41,7 @@ export default function Header({ onMoreClick }: { onMoreClick: () => void }) {
         <Link to="/print" className="menu-item print-edition">Print Edition</Link>
 
         <a href="https://us17.campaign-archive.com/home/?u=65bd5c7a770205040fd2e9e8a&id=9679db51c3" target="_blank" className="menu-item print-edition">The Digestive</a>
-      </div>
+      </div>*/}
     </div>
   );
 }

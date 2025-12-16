@@ -1,4 +1,9 @@
-.page-container {
+.page-mobile {
+  max-width: none;
+  width: 100%;
+}
+
+.page-desktop {
   max-width: 1600px;
   margin: 0 auto;
 }

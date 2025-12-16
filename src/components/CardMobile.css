@@ -76,11 +76,6 @@
   font-size: 1rem;
 }
 
-.card .tag-major-mbcard {
-  padding: 6px 6px;
-  font-size: 0.8rem;
-}
-
 .card .tag-minor {
   padding: 4px 4px;
   font-size: 0.7rem;
@@ -132,22 +127,22 @@
    A-CARD
 ============================================ */
 .card.a-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
 }
 
 .card.a-card p {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 /* ============================================
    B-CARD
 ============================================ */
 .card.b-card h3 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .card.b-card p {
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 /* ============================================

@@ -8,12 +8,15 @@ import type { Article } from "../../types/Article.ts";
 import Footer from "../header-footer/Footer";
 
 import "./ArticlePage.css";
+import { useIsMobile } from "../../hooks/useIsMobile.ts";
+import HeaderMobile from "../header-footer/HeaderMobile.tsx";
 
 export default function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
   const [moreOpen, setMoreOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     async function fetchArticle() {
@@ -37,15 +40,19 @@ export default function ArticlePage() {
   if (loading) return <p>Loading…</p>;
   if (!article) return <p>Article not found</p>;
 
-  return (
-    <div className="article">
-      <Header onMoreClick={() => setMoreOpen(!moreOpen)} />
-      
-      <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
-      
-      <ArticleContent article={article} />
-
-      <Footer />
-    </div>
-  );
+  return ( 
+    isMobile? (
+      <div className="article-mobile">
+        <HeaderMobile onMoreClick={() => setMoreOpen(!moreOpen)} />
+        <ArticleContent article={article} />
+        <Footer />
+      </div>
+    ) : (
+      <div className="article-desktop">
+        <Header onMoreClick={() => setMoreOpen(!moreOpen)} />
+        <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
+        <ArticleContent article={article} />
+        <Footer />
+      </div>
+  ));
 }

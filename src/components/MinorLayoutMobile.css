@@ -1,11 +1,18 @@
 .minor-layout {
-  display: grid;
-  grid-auto-rows: auto;
-  align-content: start;
-  justify-items: center;
-  gap: 1rem;
-  padding: 1rem;
   backdrop-filter: blur(10px);
+  background-repeat:
+    no-repeat,
+    repeat;
+
+  background-size:
+    cover,
+    90px auto;
+
+  background-position:
+    center,
+    center;
+
+  height: 100%;
 }
 
 .minor-layout-Voices {
@@ -18,18 +25,6 @@
       rgba(150, 60, 110, 0.55) 100%
     ),
     url("/images/CG.png");
-
-  background-repeat:
-    no-repeat,
-    repeat;
-
-  background-size:
-    cover,
-    90px auto;
-
-  background-position:
-    center,
-    center;
 }
 
 .minor-layout-News {
@@ -42,18 +37,6 @@
       rgba(28, 52, 104, 0.55) 100%
     ),
     url("/images/CG.png");
-
-  background-repeat:
-    no-repeat,
-    repeat;
-
-  background-size:
-    cover,
-    90px auto;
-
-  background-position:
-    center,
-    center;
 }
 
 .minor-layout-Humour {
@@ -66,27 +49,4 @@
       rgba(0, 70, 50, 0.55) 100%
     ),
     url("/images/CG.png");
-
-  background-repeat:
-    no-repeat,
-    repeat;
-
-  background-size:
-    cover,
-    90px auto;
-
-  background-position:
-    center,
-    center;
-}
-
-.minor-section-title {
-  justify-self: center;
-  display: inline-block;
-  font-family: "Bitter";
-  font-weight: 800;
-  font-size: 1.3rem;
-  border-bottom: 4px solid var(--cg-white);
-  margin-top: 0;
-  color: var(--cg-white);
 }

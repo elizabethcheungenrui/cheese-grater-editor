@@ -15,7 +15,7 @@
       rgba(226, 186, 0, 0.70) 0%,
       rgba(28, 52, 104, 0.55) 100%
     ),
-    url("../../public/images/CG.png");
+    url("/images/CG.png");
 
   background-repeat:
     no-repeat,
@@ -75,4 +75,20 @@
   font-family: "Libre Baskerville";
   font-size: 0.9rem;
   color: var(--cg-white);
+}
+
+@media (max-width: 768px) {
+  .best-pub {
+    padding: 1.7rem 1.5rem;
+    display: grid;
+    gap: 0.5rem;
+    justify-items: center;
+  }
+  .bestpub-header {
+    text-align: center;
+    line-height: 3rem;
+  }
+  .text {
+    gap: 1rem;
+  }
 }

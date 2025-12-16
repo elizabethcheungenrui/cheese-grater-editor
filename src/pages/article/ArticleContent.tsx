@@ -5,15 +5,17 @@ import { formatDate } from "../../methods/formatting";
 import stringToJSX from "../../methods/stringToJSX";
 import { useHomepageSection } from "../../hooks/useHomepageSection";
 import CCard from "../../components/CCard";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 export default function ArticleContent({ article }: { article: Article }) {
   const { data, loading } = useHomepageSection(article.section, 9);
+  const isMobile = useIsMobile();
 
   if (loading || !data) return (<div>Loading</div>);
 
   const filtered = data.articles.filter(a => a.slug !== article.slug);
   const dataTop = filtered.slice(0,4);
-  const dataBottom = filtered.slice(4,8);
+  const dataBottom = !isMobile ? filtered.slice(4,8) : [];
 
   return (
     <div className="article-container">
@@ -58,19 +60,22 @@ export default function ArticleContent({ article }: { article: Article }) {
               />
             ))} 
           </div>
-          <div className="article-row">
-            {dataBottom!.map(article => (
-              <CCard
-                slug={article.slug}
-                section={data!.section}
-                title={article.title}
-                image={article.image_url || ""}
-                tag={article.subsection}
-                date={formatDate(article.date_published)}
-                category="subpage"
-              />
-            ))}  
-          </div>
+          {isMobile && (
+            <div className="article-row">
+              {dataBottom.map(article => (
+                <CCard
+                  key={article.slug}
+                  slug={article.slug}
+                  section={data.section}
+                  title={article.title}
+                  image={article.image_url || ""}
+                  tag={article.subsection}
+                  date={formatDate(article.date_published)}
+                  category="subpage"
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

@@ -1,0 +1,19 @@
+/* ============================================
+   GRID LAYOUT
+============================================ */
+.home-grid-mobile {
+  display: flex;
+  align-items: stretch;
+  min-height: 100vh;
+}
+
+.home-grid-mobile > * {
+  flex-basis: 0;
+  min-width: 0;
+}
+
+.ghost {
+  height: 0px;
+  pointer-events: none;
+  opacity: 0;
+}
