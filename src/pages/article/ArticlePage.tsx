@@ -43,7 +43,8 @@ export default function ArticlePage() {
   return ( 
     isMobile? (
       <div className="article-mobile">
-        <HeaderMobile onMoreClick={() => setMoreOpen(!moreOpen)} />
+      {/*<HeaderMobile onMoreClick={() => setMoreOpen(!moreOpen)} /> */}
+        <HeaderMobile />
         <ArticleContent article={article} />
         <Footer />
       </div>

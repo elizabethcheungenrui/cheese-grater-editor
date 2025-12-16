@@ -19,7 +19,8 @@ export default function HomePage() {
   return ( 
     isMobile ? (
       <div className="page-mobile">
-        <HeaderMobile onMoreClick={() => setMoreOpen(!moreOpen)} />
+      {/* <HeaderMobile onMoreClick={() => setMoreOpen(!moreOpen)} /> */}
+        <HeaderMobile />
         <div className="home-wrapper">
           <HomeMobile />
         </div>
