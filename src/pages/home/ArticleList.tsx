@@ -5,6 +5,7 @@ import { formatDate, truncateWords } from "../../methods/formatting";
 import { Link } from "react-router-dom";
 
 import BCard from "../../components/BCard";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 type Sections = "voices" | "news" | "humour" | "graphics";
 
@@ -42,6 +43,8 @@ type HomepageSection = typeof homepageSections[number];
 export default function ArticleList({ section }: { section: string }) {
  
   const { data, loading } = useHomepageSection(section, 9);
+
+  const isMobile = useIsMobile();
 
   if (loading) {
     return <div>Loading…</div>;
@@ -81,64 +84,46 @@ export default function ArticleList({ section }: { section: string }) {
               </Link>
             </div>
 
-            <BCard
-              slug={articlesToShow[0].slug}
-              section={data!.section}
-              title={articlesToShow[0].title}
-              summary={truncateWords(articlesToShow[0].summary!, 120) || ""}
-              image={articlesToShow[0].image_url || ""}
-              tag={articlesToShow[0].subsection}
-              date={formatDate(articlesToShow[0].date_published)} />
-          
-            <BCard
-              slug={articlesToShow[1].slug}
-              section={data!.section}
-              title={articlesToShow[1].title}
-              summary={truncateWords(articlesToShow[1].summary!, 120) || ""}
-              image={articlesToShow[1].image_url || ""}
-              tag={articlesToShow[1].subsection}
-              date={formatDate(articlesToShow[1].date_published)} />
+            {!isMobile && (
+              <>
+                <BCard
+                  slug={articlesToShow[0].slug}
+                  section={data!.section}
+                  title={articlesToShow[0].title}
+                  summary={truncateWords(articlesToShow[0].summary!, 120) || ""}
+                  image={articlesToShow[0].image_url || ""}
+                  tag={articlesToShow[0].subsection}
+                  date={formatDate(articlesToShow[0].date_published)} />
+            
+                <BCard
+                  slug={articlesToShow[1].slug}
+                  section={data!.section}
+                  title={articlesToShow[1].title}
+                  summary={truncateWords(articlesToShow[1].summary!, 120) || ""}
+                  image={articlesToShow[1].image_url || ""}
+                  tag={articlesToShow[1].subsection}
+                  date={formatDate(articlesToShow[1].date_published)} />
+              </>
+            )}
 
           </div>
 
           <div className="bottom-grid">
+
+            {(isMobile
+              ? articlesToShow.slice(0, 4)
+              : articlesToShow.slice(2, 6)
+            ).map(article => (
+              <BCard
+                slug={article.slug}
+                section={data!.section}
+                title={article.title}
+                summary=""
+                image={article.image_url || ""}
+                tag={article.subsection}
+                date={formatDate(article.date_published)} />
+            ))}
           
-            <BCard
-              slug={articlesToShow[2].slug}
-              section={data!.section}
-              title={articlesToShow[2].title}
-              summary=""
-              image={articlesToShow[2].image_url || ""}
-              tag={articlesToShow[2].subsection}
-              date={formatDate(articlesToShow[2].date_published)} />
-
-            <BCard
-              slug={articlesToShow[3].slug}
-              section={data!.section}
-              title={articlesToShow[3].title}
-              summary=""
-              image={articlesToShow[3].image_url || ""}
-              tag={articlesToShow[3].subsection}
-              date={formatDate(articlesToShow[3].date_published)} />
-
-            <BCard
-              slug={articlesToShow[4].slug}
-              section={data!.section}
-              title={articlesToShow[4].title}
-              summary=""
-              image={articlesToShow[4].image_url || ""}
-              tag={articlesToShow[4].subsection}
-              date={formatDate(articlesToShow[4].date_published)} />
-            
-            <BCard
-              slug={articlesToShow[5].slug}
-              section={data!.section}
-              title={articlesToShow[5].title}
-              summary=""
-              image={articlesToShow[5].image_url || ""}
-              tag={articlesToShow[5].subsection}
-              date={formatDate(articlesToShow[5].date_published)} />
-
           </div>
         </div>
       </div>

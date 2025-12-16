@@ -6,12 +6,6 @@
  border-bottom: 2px solid #ddd;
 }
 
-@media (max-width: 768px) {
-  .article-list {
-    padding: 2rem;
-  }
-}
-
 .article-list .main-grid {
   display: grid;
   gap: 2rem;
@@ -127,3 +121,28 @@
 .article-list .humour-link {
   --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-humour-t));
 }
+
+@media (max-width: 768px) {
+  .article-list {
+    padding: 2rem;
+  }
+  .article-list .main-grid {
+    gap: 0.8rem;
+  }
+  .article-list .top-grid {
+    grid-template-columns: 1fr;
+  }
+  .article-list .titles {
+    gap: 1rem;
+  }
+  .article-list .bottom-grid {
+    padding: 0 0.4rem;
+    grid-template-columns: 1fr;
+  }
+  .article-list .underline-link {
+    font-size: 0.8rem;
+    background-size: 110% 120%;
+    color: #fff;
+  }
+}
+

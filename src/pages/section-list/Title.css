@@ -107,3 +107,17 @@
   text-decoration: underline;
   color: var(--cg-white);
 }
+
+@media (max-width: 768px) {
+  .title {
+    padding: 1.5rem 1.2rem;
+  }
+  .title .heading {
+    font-size: 2rem;
+    line-height: 2.5rem;
+  }
+  .title .subheading {
+    font-size: 0.9rem;
+  }
+}
+

@@ -26,7 +26,9 @@ export default function HomePage() {
         </div>
         <BestPub2025 />
         <ArticleList section="News" />
+        <ArticleList section="Humour" />
         <Newsletter />
+        <ArticleList section="Voices" />
         <Footer />
       </div>
     ) : (
