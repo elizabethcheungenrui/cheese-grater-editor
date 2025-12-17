@@ -1,0 +1,39 @@
+.more-menu-mobile {
+  width: 100%;
+  background: #eaeaea;
+  border-bottom: 2px solid #ddd;
+}
+
+.more-menu-mobile .menu-inner {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  color: var(--cg-font);
+}
+
+.more-menu-mobile .yellow {
+  color: var(--cg-yellow);
+}
+
+.more-menu-mobile .more-menu-text {
+  font-family: "Bitter";
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: center;
+  border: none;
+}
+
+.more-menu-mobile .more-menu-text-sub {
+  font-family: "Bitter";
+  color: var(--cg-font);
+  text-decoration: none;
+  font-size: 1rem;
+  text-align: center;
+  border: none;
+}
+
+.more-menu-mobile .arrow {
+  font-size: 2rem;
+}

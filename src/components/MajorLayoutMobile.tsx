@@ -12,7 +12,7 @@ export default function MajorLayoutMobile({ data }: { data: HomepageSection }) {
   }
 
   return (
-    <div className="major-layout-main-grid">
+    <div className="major-layout-main-grid-mobile">
       <h3 className={`major-section-title title-${data.section}`}>{data.section}</h3>
 
       <ACard

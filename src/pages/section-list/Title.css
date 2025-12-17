@@ -79,7 +79,19 @@
   animation: cg-drift-section 10s linear infinite;
 }
 
-.title.podcast, .title.print {
+.title.podcast {
+  background-image: 
+    linear-gradient(
+      to right,
+      var(--cg-yellow-t) 0%,
+      var(--cg-podcast-t) 100%
+    ),
+    url("/images/CG.png");
+  
+  animation: cg-drift-section 10s linear infinite;
+}
+
+.title.print {
   background-image: 
     linear-gradient(
       to right,

@@ -132,6 +132,11 @@ h1, h2, h3, h4, h5, h6 {
   --cg-voices: #c42873;
   --cg-voices-t: #c42873aa;
 
+  --cg-podcast: #d24b4b;
+  --cg-podcast-t: #d24b4baa;
+
   --cg-white: #f3f2f1;
   --cg-font: #424242;
+
+  --header-height: 218px;
 }

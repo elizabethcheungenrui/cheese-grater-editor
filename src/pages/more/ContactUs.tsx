@@ -1,19 +1,18 @@
-import { useState } from "react";
-import Header from "../header-footer/Header";
-import MoreMenu from "../header-footer/MoreMenu"
 import MoreTitle from "./MoreTitle";
 import Footer from "../header-footer/Footer";
 
 import "./MoreStyling.css";
 import { Link } from "react-router-dom";
+import HeaderMobile from "../header-footer/HeaderMobile";
+import HeaderDesktop from "../header-footer/HeaderDesktop";
+import { useIsMobile } from "../../hooks/useIsMobile";
 
 export default function ContactUs() {
-  const [moreOpen, setMoreOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   return (
-    <div className="page-container">
-      <Header onMoreClick={() => setMoreOpen(!moreOpen)}/>      
-      <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
+    <div className={ isMobile ? "page-mobile" : "page-desktop" }>
+      {isMobile ? (<HeaderMobile />) : (<HeaderDesktop />)}
 
       <MoreTitle headings={[
         "Contact Us"

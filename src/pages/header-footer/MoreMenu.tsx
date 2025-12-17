@@ -1,28 +1,16 @@
-import { useEffect, useRef } from "react";
 import "./MoreMenu.css";
 import { Link } from "react-router-dom";
 
-export default function MoreMenu(
-  {isOpen, onClose }: 
-  {isOpen: boolean, onClose: () => void}) {
-  const menuRef = useRef<HTMLDivElement>(null);
+type MoreMenuProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
 
-  useEffect(() => {
-    function handleOutsideClick(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        onClose();
-      }
-    }
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
-  }, [onClose]);
+export default function MoreMenu({ isOpen, onClose }: MoreMenuProps) {
+  if (!isOpen) return null;
 
   return (
-    <div
-      ref={menuRef}
-      className={`more-menu ${isOpen ? "open" : ""}`}
-      onClick={(e) => e.stopPropagation()}>
+    <div className="more-menu open">
       <div className="menu-inner">
         <div className="more-submenu">
           <h3>About Us!</h3>          
@@ -44,6 +32,16 @@ export default function MoreMenu(
           <h3>Member Resources</h3>
           <Link to="/training-style" className="more-menu-text">Training and Style Guide</Link>
           <Link to="/help-welfare" className="more-menu-text">Help and Welfare</Link>
+        </div>
+
+        <div className="more-submenu">
+          <button
+            className="more-close"
+            onClick={onClose}
+            aria-label="Close menu"
+          >
+            <h3 className="x">&#x2718;</h3>
+          </button>
         </div>
       </div>
     </div>

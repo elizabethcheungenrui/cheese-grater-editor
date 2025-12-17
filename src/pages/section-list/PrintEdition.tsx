@@ -1,16 +1,15 @@
-import { useState } from "react";
 import Footer from "../header-footer/Footer";
-import Header from "../header-footer/Header";
-import MoreMenu from "../header-footer/MoreMenu"
 import Title from "./Title";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import HeaderMobile from "../header-footer/HeaderMobile";
+import HeaderDesktop from "../header-footer/HeaderDesktop";
 
 export default function PrintEdition() {
-  const [moreOpen, setMoreOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   return (
-    <div className="page-container">
-      <Header onMoreClick={() => setMoreOpen(!moreOpen)}/>      
-      <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
+    <div className={ isMobile ? "page-mobile" : "page-desktop" }>
+      {isMobile ? (<HeaderMobile />) : (<HeaderDesktop />)}
       <Title sectionUpper={"print"} />
       <p>SORRY WIP</p>
       <Footer />

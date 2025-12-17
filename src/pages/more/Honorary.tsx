@@ -1,19 +1,18 @@
-import { useState } from "react";
-import Header from "../header-footer/Header";
-import MoreMenu from "../header-footer/MoreMenu"
 import MoreTitle from "./MoreTitle";
 import Footer from "../header-footer/Footer";
 
 import "./MoreStyling.css";
+import { useIsMobile } from "../../hooks/useIsMobile";
+import HeaderMobile from "../header-footer/HeaderMobile";
+import HeaderDesktop from "../header-footer/HeaderDesktop";
 
 export default function Honorary() {
-  const [moreOpen, setMoreOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   return (
-    <div className="page-container">
-      <Header onMoreClick={() => setMoreOpen(!moreOpen)}/>      
-      <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
-
+    <div className={ isMobile ? "page-mobile" : "page-desktop" }>
+      {isMobile ? (<HeaderMobile />) : (<HeaderDesktop />)}
+  
       <MoreTitle headings={[
         "Honorary Life Members"
       ]} />

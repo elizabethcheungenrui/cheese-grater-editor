@@ -1,4 +1,4 @@
-.major-layout-main-grid {
+.major-layout-main-grid-mobile {
   display: grid;
   grid-auto-rows: auto;
   gap: 0.7rem;
@@ -6,14 +6,14 @@
   padding: 1rem 0.5rem;
 }
 
-.major-layout-bottom-grid {
+.major-layout-main-grid-mobile .major-layout-bottom-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-top: 1rem;
 }
 
-.major-section-title {
+.major-layout-main-grid-mobile .major-section-title {
   justify-self: center;
   display: inline-block;
   font-family: "Bitter";
@@ -24,12 +24,12 @@
   color: #3a3a3a;
 }
 
-.button-row {
+.major-layout-main-grid-mobile .button-row {
   display: grid;
   justify-items: center;
 }
 
-.button {
+.major-layout-main-grid-mobile .button {
   display: inline-block;
   color: var(--cg-font);
   padding: 0.25rem 0.25rem;
@@ -51,37 +51,37 @@
   background-repeat: no-repeat;
 }
 
-.button:hover {
+.major-layout-main-grid-mobile .button:hover {
   background-size: 110% 120%;
   color: #fff;
 }
 
-.button.title-News {
+.major-layout-main-grid-mobile .button.title-News {
   --section-gradient: linear-gradient(to right, var(--cg-news), var(--cg-news));
 }
 
-.button.title-Humour {
+.major-layout-main-grid-mobile .button.title-Humour {
   --section-gradient: linear-gradient(to right, var(--cg-humour), var(--cg-humour));
 }
 
-.button.title-Voices {
+.major-layout-main-grid-mobile .button.title-Voices {
   --section-gradient: linear-gradient(to right, var(--cg-voices), var(--cg-voices));
 }
 
-.button-row a {
+.major-layout-main-grid-mobile .button-row a {
   justify-self: center;
   text-decoration: none;
 }
 
-.title-Voices {
+.major-layout-main-grid-mobile .title-Voices {
   border-color: var(--cg-voices);
 }
 
-.title-Humour {
+.major-layout-main-grid-mobile .title-Humour {
   border-color: var(--cg-humour);
 }
 
-.title-News {
+.major-layout-main-grid-mobile .title-News {
   border-color: var(--cg-news);
 }
 

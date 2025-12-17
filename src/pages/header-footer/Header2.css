@@ -1,37 +1,41 @@
-.header {
+.header-mobile {
+  z-index: 100;
+  background: var(--cg-white);
   border-bottom: 2px solid #ddd;
-  
+
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   text-align: center;
   align-items: center;
-  gap: 0.3rem;
-  padding-top: 1.5rem;
+  align-content: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem 0.5rem 0;
 }
 
-.logo h3 {
-  margin: -0.4rem;
+.header-mobile .logo h3 {
+  margin: 0rem;
   padding: 0;
   line-height: 1;
 }
 
-.logo .the {
+.header-mobile .logo .the {
   font-family: "Grifa";
   font-weight: 400;
-  font-size: 2rem;
+  font-size: 0.5rem;
 }
 
-.logo-link {
+.header-mobile .logo-link {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
 }
 
 /* "CHEESE GRATER" */
-.cheese-grater {
+.header-mobile .cheese-grater {
   font-family: "Bitter";
   font-weight: 900;
-  font-size: 6rem;
+  font-size: 1.5rem;
 
   display: inline-block;
   transform: scaleX(0.7);
@@ -42,15 +46,15 @@
   line-height: 0.9;
 }
 
-.cheese-grater .cheese {
+.header-mobile .cheese-grater .cheese {
   color: var(--cg-yellow-t);
 }
 
-.cheese-grater .grater {
+.header-mobile .cheese-grater .grater {
   color: black;
 }
 
-.grater-icon {
+.header-mobile .grater-icon {
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -64,7 +68,7 @@
   transform: scaleX(1.4);
 }
 
-.best {
+.header-mobile .best {
   font-family:"Bitter";
   font-size: 1.2rem;
   font-weight: 600;
@@ -72,7 +76,7 @@
   display: inline-block;
 }
 
-.menu-bar {
+.header-mobile .menu-bar {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: max-content;
@@ -80,7 +84,7 @@
   align-items: center;
 }
 
-.menu-bar .menu-item {
+.header-mobile .menu-bar .menu-item {
   color: var(--cg-font);
   text-decoration: none;
   font-size: 1rem;
@@ -102,35 +106,34 @@
   background-repeat: no-repeat;
 }
 
-.menu-item:hover {
+.header-mobile .menu-item:hover {
   background-size: 80% 2px;
   background-color: #e9e9e9;
 }
 
-.menu-more {
-  background: none;
-  border: none;
-  padding: 0.75rem 1.25rem;
-  font: inherit;
-  cursor: pointer;
-}
-
-.menu-bar .print-edition {
+.header-mobile .menu-bar .print-edition {
   color: var(--cg-yellow);
 }
 
-.voices {
+.header-mobile .menu-more {
+  padding: 0.3rem;
+  background: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.header-mobile .menu-more h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.header-mobile .voices {
   --section-gradient: linear-gradient(to right, var(--cg-yellow-t),var(--cg-voices-t));
 }
 
-.news {
+.header-mobile .news {
   --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-news-t));
 }
 
-.humour {
+.header-mobile .humour {
   --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-humour-t));
-}
-
-.podcast {
-  --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-podcast-t));
 }

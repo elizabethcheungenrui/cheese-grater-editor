@@ -1,8 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
-import Header from "../header-footer/Header";
-import MoreMenu from "../header-footer/MoreMenu"
 import ArticleContent from "./ArticleContent"
 import type { Article } from "../../types/Article.ts";
 import Footer from "../header-footer/Footer";
@@ -10,12 +8,12 @@ import Footer from "../header-footer/Footer";
 import "./ArticlePage.css";
 import { useIsMobile } from "../../hooks/useIsMobile.ts";
 import HeaderMobile from "../header-footer/HeaderMobile.tsx";
+import HeaderDesktop from "../header-footer/HeaderDesktop.tsx";
 
 export default function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState<Article | null>(null);
   const [loading, setLoading] = useState(true);
-  const [moreOpen, setMoreOpen] = useState(false);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -41,19 +39,10 @@ export default function ArticlePage() {
   if (!article) return <p>Article not found</p>;
 
   return ( 
-    isMobile? (
-      <div className="article-mobile">
-      {/*<HeaderMobile onMoreClick={() => setMoreOpen(!moreOpen)} /> */}
-        <HeaderMobile />
-        <ArticleContent article={article} />
-        <Footer />
-      </div>
-    ) : (
-      <div className="article-desktop">
-        <Header onMoreClick={() => setMoreOpen(!moreOpen)} />
-        <MoreMenu isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
-        <ArticleContent article={article} />
-        <Footer />
-      </div>
-  ));
+    <div className={ isMobile ? "page-mobile" : "page-desktop" }>
+      {isMobile ? (<HeaderMobile />) : (<HeaderDesktop />)}
+      <ArticleContent article={article} />
+      <Footer />
+    </div>
+  );
 }
