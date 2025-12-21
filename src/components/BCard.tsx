@@ -25,7 +25,7 @@ export default function BCard({
           <img src={image} alt={title} />
         </div>
 
-        <h2 className={`tag tag-major tag-${section.toLowerCase()}`}> {tag.toUpperCase()} </h2>
+        { (tag != "") && <h2 className={`tag tag-major-mbcard tag-${section.toLowerCase()}`}> {tag.toUpperCase()} </h2> }
 
         <h3> 
           <span className="wipe">{title}</span>

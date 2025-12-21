@@ -1,13 +1,10 @@
 .newsletter {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   padding: 1.7rem 9.5rem;
-  justify-content: space-around;
-  align-items: center;
   gap: 2rem;
 
   display: flex;
   flex-direction: row;
+  align-items: center;
  
   background-image: 
     linear-gradient(
@@ -15,7 +12,7 @@
       rgba(200, 200, 200, 0.70) 0%,
       rgba(28, 52, 104, 0.55) 100%
     ),
-    url("/images/CG.png");
+    url("/images/logos/CG.png");
 
   background-repeat:
     no-repeat,
@@ -56,7 +53,7 @@
 
 .newsletter img {
   width: 250px;
-  height: auto;
+  height: 140px;
 }
 
 .newsletter .text {
@@ -72,7 +69,7 @@
   font-weight: 800;
   font-size: 2.5rem;
   color: var(--cg-white);
-  padding-bottom: 0;
+  padding: 0;
   margin-bottom: 0;
   border: 0;
   align-content: space-around;

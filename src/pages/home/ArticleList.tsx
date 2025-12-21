@@ -6,39 +6,22 @@ import { Link } from "react-router-dom";
 
 import BCard from "../../components/BCard";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import MBCard from "../../components/MBCard";
 
-type Sections = "voices" | "news" | "humour" | "graphics";
-
-const sectionInfo: Record<Sections, [string, string]> = {
-  voices: [
+const sectionInfo: Record<string, [string, string]> = {
+  "Voices": [
     "Tell the rest of UCL what you think",
     "See the rest of our voice pieces and letters →"
   ],
-  news: [
+  "News": [
     "Your most-trusted source of UCL Students' Union and campus news",
     "See all of our news and investigations stories →"
   ],
-  humour: [
+  "Humour": [
     "The ONLY funny people at UCL x",
     "See us take the piss out of everything else →"
   ],
-  graphics: [
-    "Lorem Ipsum",
-    "Lorem Ipsum"
-  ]
 };
-
-function toKnownSection(s: string): Sections | null {
-  const k = s.toLowerCase();
-  return (["voices", "news", "humour", "graphics"] as const).includes(
-    k as Sections
-  )
-    ? (k as Sections)
-    : null;
-}
-
-const homepageSections = ["voices", "news", "humour"] as const;
-type HomepageSection = typeof homepageSections[number];
 
 export default function ArticleList({ section }: { section: string }) {
  
@@ -50,15 +33,7 @@ export default function ArticleList({ section }: { section: string }) {
     return <div>Loading…</div>;
   } 
 
-  const key = toKnownSection(data!.section);
-  const safeKey = key ?? "news";
-  
-  const isHomepageSection = homepageSections.includes(key as HomepageSection);
-
-  const start = isHomepageSection ? 3 : 0;
-  const end = isHomepageSection ? 9 : 6;
-
-  const articlesToShow = data!.articles.slice(start, end);
+  const articlesToShow = data!.articles;
 
   const dataSection = data!.section.toLowerCase();
 
@@ -72,7 +47,7 @@ export default function ArticleList({ section }: { section: string }) {
                 { data!.section } 
               </h3>
               
-              <p>{ sectionInfo[safeKey][0] }</p>
+              <p>{ sectionInfo[data!.section][0] }</p>
 
               <Link 
                 to={`/${dataSection}`} 
@@ -80,7 +55,7 @@ export default function ArticleList({ section }: { section: string }) {
                   `underline-link
                   ${dataSection}-link`
                 }>
-                { sectionInfo[safeKey][1] }
+                { sectionInfo[data!.section][1] }
               </Link>
             </div>
 
@@ -110,20 +85,28 @@ export default function ArticleList({ section }: { section: string }) {
 
           <div className="bottom-grid">
 
-            {(isMobile
-              ? articlesToShow.slice(0, 4)
-              : articlesToShow.slice(2, 6)
-            ).map(article => (
-              <BCard
-                slug={article.slug}
-                section={data!.section}
-                title={article.title}
-                summary=""
-                image={article.image_url || ""}
-                tag={article.subsection}
-                date={formatDate(article.date_published)} />
-            ))}
-          
+            {isMobile
+              ? (articlesToShow.slice(0, 4).map(article => 
+                (
+                  <MBCard
+                    slug={article.slug}
+                    section={data!.section}
+                    title={article.title}
+                    image={article.image_url || ""}
+                    tag={article.subsection}
+                    date={formatDate(article.date_published)} />
+                ))) 
+              : (articlesToShow.slice(2, 6).map(article => 
+                (
+                  <BCard
+                    slug={article.slug}
+                    section={data!.section}
+                    title={article.title}
+                    summary=""
+                    image={article.image_url || ""}
+                    tag={article.subsection}
+                    date={formatDate(article.date_published)} />
+                )))}
           </div>
         </div>
       </div>

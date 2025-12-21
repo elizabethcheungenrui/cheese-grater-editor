@@ -1,5 +1,5 @@
 .more-styling {
-  padding: 0 10rem;
+  padding: 2rem 10rem;
   display: grid;
   gap: 2rem;
 }
@@ -14,7 +14,7 @@
   font-family: "Libre Baskerville";
   color: var(--cg-font);
   font-size: 0.9rem;
-  line-height: 2rem;;
+  line-height: 2rem;
 }
 
 .more-styling h2, h3 {
@@ -44,6 +44,7 @@
   display: grid;
   gap: 1rem;
 }
+
 .whoweare-editors {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -53,6 +54,10 @@
 .honorary-columns {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+.awards-table {
+  overflow-x: auto;
 }
 
 .awards table {
@@ -71,10 +76,37 @@
   background: #ddd;
 }
 
+.more-styling iframe {
+  width: 80%;
+  height: 1000px;
+}
+
+@media (max-width: 768px) {
+  .whoweare-editors {
+    grid-template-columns: 1fr;
+  }
+  .awards table {
+    width: max-content;
+    table-layout: auto;
+    min-width: 100%;
+  }
+  .honorary-columns {
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+  }
+  .more-styling iframe {
+    height: 600px;
+  }
+}
+
 .awards td {
   padding: 10px 6px;
   border: 1px solid #c5c5c5;
   vertical-align: top;
+}
+
+.awards td.wrap {
+  white-space: normal;
 }
 
 .awards th:nth-child(1),

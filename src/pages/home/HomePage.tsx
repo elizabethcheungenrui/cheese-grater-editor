@@ -9,6 +9,7 @@ import Newsletter from "./Newsletter";
 import Footer from "../header-footer/Footer";
 
 import "./HomePage.css";
+import GraphicsCarousel from "./GraphicsCarousel";
 
 export default function HomePage() {
   const isMobile = useIsMobile();
@@ -22,8 +23,9 @@ export default function HomePage() {
       </div>
       <BestPub2025 />
       <ArticleList section="News" />
-      <ArticleList section="Humour" />
       <Newsletter />
+      <ArticleList section="Humour" />
+      <GraphicsCarousel />
       <ArticleList section="Voices" />
       <Footer />
     </div>

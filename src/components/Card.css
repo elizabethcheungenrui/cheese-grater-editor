@@ -95,6 +95,10 @@
   background: var(--cg-humour);
 }
 
+.card .tag-graphics {
+  background: var(--cg-humour);
+}
+
 .card .tag-news {
   background: var(--cg-news);
 }
@@ -144,7 +148,7 @@
 }
 
 /* ============================================
-   B-CARD
+   B-CARD + MB-CARD
 ============================================ */
 .card.b-card h3 {
   font-size: 1.2rem;
@@ -152,6 +156,10 @@
 
 .card.b-card p {
   font-size: 0.9rem;
+}
+
+.card .mbcard-title {
+  font-size: 1.4rem;
 }
 
 /* ============================================

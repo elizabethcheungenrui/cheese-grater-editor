@@ -50,7 +50,7 @@
       var(--cg-yellow-t) 0%,
       var(--cg-voices-t) 100%
     ),
-    url("/images/CG.png");
+    url("/images/logos/CG.png");
   
   animation: cg-drift-section 10s linear infinite;
 }

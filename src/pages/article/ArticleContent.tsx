@@ -6,6 +6,7 @@ import stringToJSX from "../../methods/stringToJSX";
 import { useHomepageSection } from "../../hooks/useHomepageSection";
 import CCard from "../../components/CCard";
 import { useIsMobile } from "../../hooks/useIsMobile";
+import MBCard from "../../components/MBCard";
 
 export default function ArticleContent({ article }: { article: Article }) {
   const { data, loading } = useHomepageSection(article.section, 9);
@@ -33,7 +34,7 @@ export default function ArticleContent({ article }: { article: Article }) {
             <div className="author-box">
               {/* TODO: author_image */}<p>IMAGE</p>
               <div className="author-text">
-                <span className="author">{article.author} (icon on the left wip)</span>
+                <span className="author">{article.author}</span>
                 <span className="role">{article.role}</span>
               </div>
             </div>
@@ -48,19 +49,28 @@ export default function ArticleContent({ article }: { article: Article }) {
         <div className="more-article">
           <span className="readmore">Read more</span>
           <div className="article-row">
-            {dataTop!.map(article => (
-              <CCard
-                slug={article.slug}
-                section={data!.section}
-                title={article.title}
-                image={article.image_url || ""}
-                tag={article.subsection}
-                date={formatDate(article.date_published)}
-                category="subpage"
-              />
-            ))} 
+            {!isMobile 
+              ? (dataTop!.map(article => (
+                  <CCard
+                    slug={article.slug}
+                    section={data!.section}
+                    title={article.title}
+                    image={article.image_url || ""}
+                    tag={article.subsection}
+                    date={formatDate(article.date_published)}
+                    category="subpage"
+                  />)))
+              : (dataTop!.map(article => (
+                  <MBCard
+                    slug={article.slug}
+                    section={data!.section}
+                    title={article.title}
+                    image={article.image_url || ""}
+                    tag={article.subsection}
+                    date={formatDate(article.date_published)}
+                  />)))} 
           </div>
-          {isMobile && (
+          {!isMobile && (
             <div className="article-row">
               {dataBottom.map(article => (
                 <CCard

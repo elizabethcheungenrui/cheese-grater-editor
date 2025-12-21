@@ -23,7 +23,7 @@ export default function Awards() {
           <p><b><i>Winner, winner, chicken dinner, baby.</i></b> <i>The Cheese Grater</i> is proud to have won the most awards of any UCL publication. Our journalists are some of the best in London, and we continue to be recognised locally, regionally, and nationally. Here’s some of what we’ve won in the past.</p>
         </div>
 
-        <div className="more-styling-text">
+        <div className="more-styling-text awards-table">
           <table>
             <thead>
               <tr>

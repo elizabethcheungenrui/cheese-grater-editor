@@ -44,8 +44,6 @@ export default function Training() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <iframe
             src="/pdfs/Cheese-Grater-Style-Guide-Nov-2024.pdf"
-            width="80%"
-            height="1000px"
           />
         </div>
       </div>

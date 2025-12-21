@@ -5,7 +5,7 @@ export default function BestPub2025() {
   return (
     <div>
       <div className="best-pub">
-        <img src="/images/CG_Issue93.png" alt="Issue 93 Cover" />
+        <img src="/images/logos/CG_Issue93.png" alt="Issue 93 Cover" />
 
         <div className="text">
           <h3 className="bestpub-header">Best Student Publication in London 2025</h3>

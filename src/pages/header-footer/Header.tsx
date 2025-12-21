@@ -33,7 +33,7 @@ export default function Header({ onMoreToggle }: HeaderProps) {
         <Link to="/voices" className="menu-item voices">Voices</Link>
         <Link to="/podcast" className="menu-item podcast">Podcast</Link>
 
-        <a href="https://womenswrongs.cheesegratermagazine.org" className="menu-item">Women's Wrongs</a>  
+        <a href="https://womenswrongs.cheesegratermagazine.org" target="_blank" className="menu-item">Women's Wrongs</a>  
 
         <button
           type="button"

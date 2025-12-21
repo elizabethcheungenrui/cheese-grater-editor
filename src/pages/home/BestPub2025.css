@@ -1,6 +1,4 @@
 .best-pub {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
   padding: 1.7rem 9.5rem 1.7rem 9.5rem;
   justify-content: space-around;
   align-items: center;
@@ -15,7 +13,7 @@
       rgba(226, 186, 0, 0.70) 0%,
       rgba(28, 52, 104, 0.55) 100%
     ),
-    url("/images/CG.png");
+    url("/images/logos/CG.png");
 
   background-repeat:
     no-repeat,

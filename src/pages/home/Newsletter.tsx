@@ -4,7 +4,7 @@ export default function Newsletter() {
   return (
     <div id="newsletter">
       <div className="newsletter">
-        <img src="/images/cheese-grater-digestive.png" alt="Cheese Grater Digestive" />
+        <img src="/images/logos/CG_Digestive.png" alt="Cheese Grater Digestive" />
 
         <div className="text">
           <h3 className="header">Newsletter: The Digestive</h3>
