@@ -4,7 +4,7 @@
 .home-grid-mobile {
   display: flex;
   align-items: stretch;
-  min-height: 100vh;
+  height: 180vh;
 }
 
 .home-grid-mobile > * {

@@ -5,6 +5,7 @@ export interface HomepageArticle {
   title: string;
   summary: string | null;
   author: string;
+  author_thumbnail: string;
   image_url: string | null;
   subsection: string;
   date_published: string;
@@ -18,7 +19,7 @@ export interface HomepageSection {
 export async function getHomepageSection(section: string, limit?: number): Promise<HomepageSection> {
   let query = supabase
     .from("articles")
-    .select("slug, title, summary, author, image_url, subsection, date_published")
+    .select("slug, title, summary, author, author_thumbnail, image_url, subsection, date_published")
     .eq("section", section)
     .order("date_published", { ascending: false })
 

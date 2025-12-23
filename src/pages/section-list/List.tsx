@@ -19,7 +19,7 @@ export default function List({ section }: { section:string }) {
             slug={article.slug}
             section={data.section}
             title={article.title}
-            image={article.image_url || ""}
+            image={article.image_url ?? article.author_thumbnail}
             tag={article.subsection}
             date={formatDate(article.date_published)}
             category="subpage"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getHomepageSubsection } from "../api/getHomepageSubsection";
-import type { HomepageSection } from "../api/getHomepageSubsection";
+import type { HomepageSection } from "../api/getHomepageSection";
 
 export function useHomepageSubsection(subsection: string, count?: number) {
   const [data, setData] = useState<HomepageSection | null>(null);

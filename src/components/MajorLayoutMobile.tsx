@@ -20,7 +20,7 @@ export default function MajorLayoutMobile({ data }: { data: HomepageSection }) {
         section={data.section}
         title={data.articles[0].title}
         summary={truncateWords(data.articles[0].summary!, 160) || ""}
-        image={data.articles[0].image_url || ""}
+        image={data.articles[0].image_url ?? data.articles[0].author_thumbnail}
         tag={data.articles[0].subsection}
         date={formatDate(data.articles[0].date_published)}
       />
@@ -29,7 +29,7 @@ export default function MajorLayoutMobile({ data }: { data: HomepageSection }) {
         slug={data.articles[1].slug}
         section={data.section}
         title={data.articles[1].title}
-        image={data.articles[1].image_url || ""}
+        image={data.articles[1].image_url ?? data.articles[1].author_thumbnail}
         tag={data.articles[1].subsection}
         date={formatDate(data.articles[1].date_published)}
       />
@@ -38,7 +38,7 @@ export default function MajorLayoutMobile({ data }: { data: HomepageSection }) {
         slug={data.articles[2].slug}
         section={data.section}
         title={data.articles[2].title}
-        image={data.articles[2].image_url || ""}
+        image={data.articles[2].image_url ?? data.articles[1].author_thumbnail}
         tag={data.articles[2].subsection}
         date={formatDate(data.articles[2].date_published)}
       /> 

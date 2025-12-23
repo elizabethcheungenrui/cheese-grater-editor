@@ -1,4 +1,4 @@
-.minor-layout {
+.minor-layout-mobile {
   backdrop-filter: blur(10px);
   background-repeat:
     no-repeat,
@@ -12,41 +12,39 @@
     center,
     center;
 
-  height: 100%;
+  height: 160vh;
+  margin: 2rem 0;
+  border-radius: 10px;
+    
+  box-shadow:
+      8px 0 8px rgba(0, 0, 0, 0.25),
+     -8px 0 8px rgba(0, 0, 0, 0.25);
+ 
 }
 
 .minor-layout-Voices {
   background-image: 
     linear-gradient(
-      in oklab,
-      rgba(196, 40, 115, 0.70) 0%,
-      rgba(196, 40, 115, 0.65) 35%,
-      rgba(180, 55, 120, 0.60) 60%,
-      rgba(150, 60, 110, 0.55) 100%
+      rgba(196, 40, 115, 0.70),
+      rgba(196, 40, 115, 0.70)
     ),
-    url("/images/CG.png");
+    url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
 }
 
 .minor-layout-News {
   background-image: 
     linear-gradient(
-      in oklab,
-      rgba(44, 89, 174, 0.70) 0%,
-      rgba(44, 89, 174, 0.65) 35%,
-      rgba(38, 72, 145, 0.60) 60%,
-      rgba(28, 52, 104, 0.55) 100%
+      rgba(44, 89, 174, 0.70),
+      rgba(44, 89, 174, 0.70)
     ),
-    url("/images/CG.png");
+    url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
 }
 
 .minor-layout-Humour {
-  background-image: 
+  background-image:
     linear-gradient(
-      in oklab,
-      rgba(0, 103, 75, 0.70) 0%,
-      rgba(0, 103, 75, 0.65) 35%,
-      rgba(0, 90, 65, 0.60) 60%,
-      rgba(0, 70, 50, 0.55) 100%
+      rgba(0, 103, 75, 0.70),
+      rgba(0, 103, 75, 0.70)
     ),
-    url("/images/CG.png");
+    url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
 }

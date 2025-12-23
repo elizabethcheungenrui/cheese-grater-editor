@@ -32,7 +32,11 @@ export default function ArticleContent({ article }: { article: Article }) {
             {article.summary && (<h2>{article.summary}</h2>)}
 
             <div className="author-box">
-              {/* TODO: author_image */}<p>IMAGE</p>
+              <img
+                className="author-image"
+                src={article.author_thumbnail ?? "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/cg_author.jpeg"}
+                alt={article.section}
+              />
               <div className="author-text">
                 <span className="author">{article.author}</span>
                 <span className="role">{article.role}</span>
@@ -55,7 +59,7 @@ export default function ArticleContent({ article }: { article: Article }) {
                     slug={article.slug}
                     section={data!.section}
                     title={article.title}
-                    image={article.image_url || ""}
+                    image={article.image_url ?? article.author_thumbnail}
                     tag={article.subsection}
                     date={formatDate(article.date_published)}
                     category="subpage"
@@ -65,7 +69,7 @@ export default function ArticleContent({ article }: { article: Article }) {
                     slug={article.slug}
                     section={data!.section}
                     title={article.title}
-                    image={article.image_url || ""}
+                    image={article.image_url ?? article.author_thumbnail}
                     tag={article.subsection}
                     date={formatDate(article.date_published)}
                   />)))} 
@@ -78,7 +82,7 @@ export default function ArticleContent({ article }: { article: Article }) {
                   slug={article.slug}
                   section={data.section}
                   title={article.title}
-                  image={article.image_url || ""}
+                  image={article.image_url ?? article.author_thumbnail}
                   tag={article.subsection}
                   date={formatDate(article.date_published)}
                   category="subpage"

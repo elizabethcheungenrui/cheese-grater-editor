@@ -1,24 +1,10 @@
 import { supabase } from "../lib/supabaseClient";
-
-export interface HomepageArticle {
-  slug: string;
-  title: string;
-  summary: string | null;
-  author: string;
-  image_url: string | null;
-  subsection: string;
-  date_published: string;
-}
-
-export interface HomepageSection {
-  section: string;
-  articles: HomepageArticle[];
-}
+import type { HomepageArticle, HomepageSection } from "./getHomepageSection";
 
 export async function getHomepageSubsection(subsection: string, limit?: number): Promise<HomepageSection> {
   let query = supabase
     .from("articles")
-    .select("slug, title, summary, author, image_url, subsection, date_published")
+    .select("slug, title, summary, author, author_thumbnail, image_url, subsection, date_published")
     .eq("subsection", subsection)
     .order("date_published", { ascending: false })
 

@@ -28,7 +28,7 @@
       var(--cg-yellow-t) 0%,
       #E2BA0066 100%
     ),
-    url("/images/logos/CG.png");
+    url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
   
   animation: cg-drift-section 10s linear infinite;
 

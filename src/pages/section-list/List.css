@@ -1,13 +1,13 @@
 .subpage-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 0rem 10rem;
+  padding: 2rem 10rem;
   gap: 2rem;
 }
 
 @media (max-width: 768px) {
   .subpage-list {
     grid-template-columns: 1fr 1fr;
-    padding: 0 1.5rem;
+    padding: 1.5rem;
   }
 }

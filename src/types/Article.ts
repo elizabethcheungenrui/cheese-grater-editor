@@ -8,6 +8,7 @@ export interface Article {
   title: string;
   summary: string | null;
   author: string | null;
+  author_thumbnail: string | null;
   role: string | null;
   image_url: string | null;
   image_caption: string | null;

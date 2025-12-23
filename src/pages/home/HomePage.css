@@ -12,6 +12,6 @@
   height: 180vh;
   min-height: 550px;
   max-height: 1800px;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
