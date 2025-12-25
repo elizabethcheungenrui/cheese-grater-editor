@@ -17,6 +17,10 @@ import Anonymous from "./more/Anonymous";
 
 import { Analytics } from "@vercel/analytics/react"
 
+import RequireEditor from "../auth/RequireEditor";
+import Editor from "./editor/Editor";
+import Login from "../auth/Login";
+
 export default function App() {
   return (
     <>
@@ -42,6 +46,9 @@ export default function App() {
         <Route path="/anonymous-form" element={<Anonymous />} />
         <Route path="/training-style" element={<Training />} />
         <Route path="/help-welfare" element={<HelpWelfare />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/editor" element={<RequireEditor> <Editor /> </RequireEditor>}/>
       </Routes>
       <Analytics />
     </>

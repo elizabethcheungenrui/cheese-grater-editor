@@ -92,11 +92,11 @@
 }
 
 .title.print {
-  background-image: 
+  background-image:  
     linear-gradient(
       to right,
       var(--cg-yellow-t) 0%,
-      #E2BA00AA 100%
+      #E2BA0066 100%
     ),
     url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
   
