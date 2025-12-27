@@ -13,6 +13,8 @@
     "@mdx-js/react": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
     "@supabase/supabase-js": "^2.89.0",
+    "@tiptap/react": "^3.14.0",
+    "@tiptap/starter-kit": "^3.14.0",
     "@vercel/analytics": "^1.6.1",
     "browser-image-compression": "^2.0.2",
     "cheerio": "^1.1.2",

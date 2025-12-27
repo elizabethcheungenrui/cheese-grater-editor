@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-export default function RequireEditor({ children }: { children: React.ReactNode }) {
+export default function RequireEditor() {
   const [checking, setChecking] = useState(true);
   const [allowed, setAllowed] = useState(false);
 
@@ -38,5 +38,5 @@ export default function RequireEditor({ children }: { children: React.ReactNode 
   if (checking) return null;
   if (!allowed) return <Navigate to="/login" replace />;
 
-  return <>{children}</>;
+  return <Outlet />;
 }

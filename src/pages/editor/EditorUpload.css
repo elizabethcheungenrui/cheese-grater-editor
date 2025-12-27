@@ -1,0 +1,121 @@
+.editor {
+  width: 100%;
+}
+
+.editor-wrapper {
+  border: 1px solid #ddd;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+
+  background: #fafafa;
+  border-bottom: 1px solid #ddd;
+}
+
+.editor-toolbar .group {
+  display: flex;
+  gap: 0.25rem;
+  padding-right: 0.75rem;
+  border-right: 1px solid #e0e0e0;
+}
+
+.editor-toolbar .group:last-child {
+  border-right: none;
+}
+
+.editor-toolbar button {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+.editor-toolbar button:hover {
+  background: #eaeaea;
+}
+
+.editor-toolbar button.active {
+  background: #e0e0e0;
+}
+
+.editor-content {
+  padding: 3rem 3.5rem 5rem 3.5rem;
+
+  font-family: "Libre Baskerville", serif;
+  font-size: 1rem;
+  line-height: 1.85rem;
+  color: var(--cg-font);
+}
+
+.editor-content:focus {
+  outline: none;
+}
+
+.editor-content h3 {
+  font-family: "Libre Baskerville";
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.85rem;
+  font-style: normal;
+  font-kerning: normal;
+  font-variant-ligatures: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 1rem;
+}
+
+.editor-content p {
+  font-style: normal;
+  font-kerning: normal;
+  font-variant-ligatures: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 1rem;
+}
+
+.editor-content ul,
+.editor-content ol {
+  padding-left: 1.5rem;
+}
+
+.editor-content blockquote {
+  margin-left: 0;
+  padding-left: 1rem;
+  border-left: 3px solid #ddd;
+  color: #666;
+}
+
+.editor-content img {
+  width: 80%;
+  display: block;
+  margin: 1rem 0;
+}
+
+.editor-content a {
+  text-decoration: none;
+  color: var(--cg-yellow);
+}
+
+.editor-content figure {
+  margin: 1.5rem 0;
+}
+
+.editor-content figcaption {
+  font-size: 0.8rem;
+  color: var(--cg-font);
+}
