@@ -92,7 +92,7 @@ export default function ArticlePreview() {
   }
 
   return (
-    <>
+    <div className="article-preview">
       <ArticleContent article={article} />
       {!validation.valid && (
         <div className="publish-warning">
@@ -112,6 +112,6 @@ export default function ArticlePreview() {
       >
         Publish Article
       </button>
-    </>
+    </div>
   );
 }

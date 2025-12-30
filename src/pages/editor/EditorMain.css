@@ -1,0 +1,22 @@
+.editor-main {
+  display: grid;
+  gap: 1rem;
+  padding: 3rem 10rem;
+  justify-items: start;
+}
+
+.editor-main .editor-button {
+  background-color: var(--cg-white);
+  border: none;
+  font-family: "Bitter";
+  color: var(--cg-font);
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.editor-main .editor-button:hover {
+  background-color: #eaeaea;
+}
