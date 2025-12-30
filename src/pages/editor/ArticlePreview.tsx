@@ -53,6 +53,57 @@ export default function ArticlePreview() {
 
   const validation = validateDraft(draft);
 
+  async function uploadImage(
+    file: File,
+    path: string
+  ): Promise<string> {
+    const { error } = await supabase.storage
+      .from("images")
+      .upload(path, file, {
+        upsert: true,
+        contentType: file.type,
+      })
+
+    if (error) throw error
+
+    const { data } = supabase.storage
+      .from("images")
+      .getPublicUrl(path)
+
+    return data.publicUrl
+  }
+
+  async function processContentImages(
+    html: string,
+    slug: string
+  ): Promise<string> {
+    const doc = new DOMParser().parseFromString(html, "text/html")
+    const images = Array.from(doc.querySelectorAll("img"))
+
+    let index = 1
+
+    for (const img of images) {
+      const src = img.getAttribute("src")
+      if (!src || !src.startsWith("blob:")) continue
+
+      const blob = await fetch(src).then(r => r.blob())
+      const file = new File([blob], `image_${index}.webp`, { type: blob.type })
+
+      const path = `article_images/${slug}/image_${index}.webp`
+      const publicUrl = await uploadImage(file, path)
+
+      img.setAttribute("src", publicUrl)
+      index++
+    }
+
+    return doc.body.innerHTML
+  }
+
+  async function blobUrlToFile(blobUrl: string, name: string) {
+    const blob = await fetch(blobUrl).then(r => r.blob())
+    return new File([blob], name, { type: blob.type })
+  }
+
   async function publishArticle() {
     if (!validation.valid) return
 
@@ -62,33 +113,61 @@ export default function ArticlePreview() {
     const datePrefix = date.toISOString().slice(0, 10)
     const slug = `${datePrefix}-${slugify(draft.title)}`
 
-    const articleRow = {
-      slug,
-      section: draft.section,
-      subsection: draft.subsection,
-      date_published: new Date().toISOString(),
-      title: draft.title,
-      summary: draft.summary || null,
-      author: draft.author,
-      author_thumbnail: draft.author_thumbnail,
-      role: draft.role || null,
-      image_url: draft.image,
-      image_caption: draft.image_caption || null,
-      content: draft.content,
-    }
+    try {
+      // 1. Upload author image (if overridden blob)
+      let authorThumbnailUrl = draft.author_thumbnail
 
-    const { error } = await supabase
-      .from("articles")
-      .insert(articleRow)
+      if (authorThumbnailUrl?.startsWith("blob:")) {
+        const file = await blobUrlToFile(authorThumbnailUrl, "author.webp")
+        authorThumbnailUrl = await uploadImage(
+          file,
+          `article_images/${slug}/author.webp`
+        )
+      }
+      // 2. Upload main image
+      let mainImageUrl: string | null = null
 
-    if (error) {
-      console.error(error)
+      if (draft.image?.startsWith("blob:")) {
+        const file = await blobUrlToFile(draft.image, "main.webp")
+        mainImageUrl = await uploadImage(
+          file,
+          `article_images/${slug}/main_image.webp`
+        )
+      }
+
+      // 3. Process editor content images
+      const processedContent = await processContentImages(
+        draft.content,
+        slug
+      )
+
+      const articleRow = {
+        slug,
+        section: draft.section,
+        subsection: draft.subsection,
+        date_published: new Date().toISOString(),
+        title: draft.title,
+        summary: draft.summary || null,
+        author: draft.author,
+        author_thumbnail: authorThumbnailUrl,
+        role: draft.role || null,
+        image_url: mainImageUrl,
+        image_caption: draft.image_caption || null,
+        content: processedContent,
+      }
+
+      const { error } = await supabase
+        .from("articles")
+        .insert(articleRow)
+
+      if (error) throw error
+
+      localStorage.removeItem("draft:article:new")
+      window.location.href = "/editor"
+    } catch (err) {
+      console.error(err)
       alert("Failed to publish article.")
-      return
     }
-
-    localStorage.removeItem("draft:article:new")
-    window.location.href = "/editor"
   }
 
   return (

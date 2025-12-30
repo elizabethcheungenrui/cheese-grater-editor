@@ -87,7 +87,7 @@ export default function Awards() {
 
               <tr>
                 <td>Best Creative Piece</td>
-                <td>Jasmine Yiu for Dear phantom flatmate</td>
+                <td>Jasmine Yiu for <Link to="/article/2024-10-31-dear-phantom-flatmate/">Dear phantom flatmate</Link></td>
                 <td>Nominated</td>
               </tr>
               

@@ -11,7 +11,7 @@ export default function WhoWeAre() {
   const isMobile = useIsMobile();
   
   return (
-    <div className={ isMobile ? "page-mobile" : "page-desktop" }>
+    <div className={ isMobile ? "page-mobile whoweare" : "page-desktop whoweare" }>
       {isMobile ? (<HeaderMobile />) : (<HeaderDesktop />)}
 
       <MoreTitle headings={[
@@ -19,14 +19,26 @@ export default function WhoWeAre() {
       ]} />
 
       <div className="more-styling">
+        <div class="more-styling-text">  
+          <h1><i>"The Cheese Grater is a diamond in a sea of shit"</i></h1>
+          <div className="author-box">
+            <img
+              className="author-image"
+              src="https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/gordon_thomson.jpg"/>
+            <div className="author-text">
+              <span className="author">Gordon Thomson</span>
+              <span className="role">Former Editor of <i>Time Out London</i></span>
+            </div>
+          </div>
+        </div>
         <div className="more-styling-text">
           <p><i>The Cheese Grater</i> is UCL’s student paper for campus news, investigations, and satire and the <b>Best Student Publication in London</b> (<a href="https://www.spajournalism.com/spa-2025-regional-award-winners/" target="_blank">SPAs 2025</a>).</p>
 
           <p>We’ve been annoying people across campus since 2004, producing award-winning journalism, illuminating important issues at the university, and holding the establishment to account.</p>
 
-          <p>We print three times a year and whenever else we feel like it because we’re cool and easy-going like that. During term time, we run a fortnightly newsletter, the <b><a href="https://us17.campaign-archive.com/home/?u=65bd5c7a770205040fd2e9e8a&id=9679db51c3" target="_blank">Digestive</a></b>, packed with the biggest campus headlines, our biting humour pieces, and fresh new graphics. Every Saturday noon, we’re on Rare FM for our weekly radio segment, <b>Grater Insight</b>. As “The Cheese Grater Magazine Society” at Students’ Union UCL, we also have a cool younger sister – our feminist zine <b><i>Women’s Wrongs</i></b> – and a problem child, our sketch group, <b>the Graters.</b></p>
+          <p>We print three times a year and whenever else we feel like it because we’re cool and easy-going like that. During term time, we run a fortnightly newsletter, the <b><a href="https://us17.campaign-archive.com/home/?u=65bd5c7a770205040fd2e9e8a&id=9679db51c3" target="_blank">Digestive</a></b>, packed with the biggest campus headlines, our biting humour pieces, and fresh new graphics. Every Saturday noon, we’re on Rare FM for our weekly radio segment, <Link to="/podcast"><b>Grater Insight</b></Link>. As “The Cheese Grater Magazine Society” at Students’ Union UCL, we also have a cool younger sister – our feminist zine <b><i>Women’s Wrongs</i></b> – and a problem child, our sketch group, <b>the Graters.</b></p>
 
-          <p><i>The Cheese Grater</i> has twice been named the Best Publication in London, most recently in 2025, when we were also named Best Digital and highly commended for Best Print Design. We’ve also won the title of UCL’s Best Publication 10 times since 2004, most recently in 2024.</p>
+          <p><i>The Cheese Grater</i> has twice been named the <Link to="/article/2025-01-16-the-cheese-grater-named-best-publication-in-london/">Best Publication in London</Link>, most recently in 2025, when we were also named Best Digital and highly commended for Best Print Design. We’ve also won the title of UCL’s Best Publication 10 times since 2004, most recently in 2024.</p>
 
           <p>We are proof that you can make it out of Ifor Evans Hall, where, in 2004, Classics student René Lavanchy established <i>The Cheese Grater</i> to offer an alternative to the Union mouthpiece, <i>Pi Magazine</i>. Today, we’re proud to be UCL’s largest publication by circulation and are far more relevant, successful, and funny than all our predecessors.</p>
 
