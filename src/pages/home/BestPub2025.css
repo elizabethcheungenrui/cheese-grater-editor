@@ -75,7 +75,7 @@
   color: var(--cg-white);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .best-pub {
     padding: 1.7rem 1.5rem;
     display: grid;

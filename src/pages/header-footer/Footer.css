@@ -78,7 +78,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .footer .contact {
     grid-template-columns: 1fr;
     gap: 1rem;

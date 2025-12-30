@@ -96,7 +96,7 @@
     linear-gradient(
       to right,
       var(--cg-yellow-t) 0%,
-      #E2BA0066 100%
+      #999999aa 100%
     ),
     url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
   
@@ -120,7 +120,7 @@
   color: var(--cg-white);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .title {
     padding: 1.5rem 1.2rem;
   }

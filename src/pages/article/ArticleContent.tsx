@@ -8,7 +8,7 @@ import CCard from "../../components/CCard";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import MBCard from "../../components/MBCard";
 
-export default function ArticleContent({ article }: { article: Article }) {
+export default function ArticleContent({ article, isEditor }: { article: Article, isEditor: boolean }) {
   const { data, loading } = useHomepageSection(article.section, 9);
   const isMobile = useIsMobile();
 
@@ -50,7 +50,7 @@ export default function ArticleContent({ article }: { article: Article }) {
             {article.content && (stringToJSX(article.content) || "")}
           </div>
         </div>
-        <div className="more-article">
+        { !isEditor && (<div className="more-article">
           <span className="readmore">Read more</span>
           <div className="article-row">
             {!isMobile 
@@ -90,18 +90,18 @@ export default function ArticleContent({ article }: { article: Article }) {
               ))}
             </div>
           )}
-        </div>
+        </div>)}
       </div>
 
       <div className="container-side">
-        <div className="contact-newsletter">
+        { !isEditor && (<div className="contact-newsletter">
           <span className="side-header">Got a story for us?</span>
           <p>If you have something you want to share with our journalists, send us a tip via our <a href="https://instagram.com/uclcheesegrater" target="blank">socials</a>, <Link to="/get-involved" target="_blank">email</Link>, or using our <Link to="/anonymous-form" target="_blank">anonymous webform.</Link></p>
           
           <span className="side-header">Join our fortnightly newsletter</span>
           <p>The Digestive is our fortnightly newsletter, covering the latest campus news, satire, and student discourse every other Monday during term time.</p>
           <a href="https://us17.campaign-archive.com/home/?u=65bd5c7a770205040fd2e9e8a&id=9679db51c3" target="_blank"><button><h3 className="button-h3">Subscribe</h3></button></a>
-        </div>
+        </div>)}
       </div>
     </div>
   );

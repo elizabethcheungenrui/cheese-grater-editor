@@ -172,7 +172,7 @@ export default function ArticlePreview() {
 
   return (
     <div className="article-preview">
-      <ArticleContent article={article} />
+      <ArticleContent article={article} isEditor={true} />
       {!validation.valid && (
         <div className="publish-warning">
           <p>Cannot publish. Missing:</p>

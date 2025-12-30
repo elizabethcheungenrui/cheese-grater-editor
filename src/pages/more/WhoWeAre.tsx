@@ -19,7 +19,7 @@ export default function WhoWeAre() {
       ]} />
 
       <div className="more-styling">
-        <div class="more-styling-text">  
+        <div className="more-styling-text">  
           <h1><i>"The Cheese Grater is a diamond in a sea of shit"</i></h1>
           <div className="author-box">
             <img

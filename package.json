@@ -12,6 +12,7 @@
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
     "@mdx-js/rollup": "^3.1.1",
+    "@react-three/fiber": "^9.5.0",
     "@supabase/supabase-js": "^2.89.0",
     "@tiptap/core": "^3.14.0",
     "@tiptap/extension-image": "^3.14.0",
@@ -32,6 +33,7 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
     "sharp": "^0.34.5",
+    "three": "^0.182.0",
     "ttf2woff2": "^8.0.0"
   },
   "devDependencies": {

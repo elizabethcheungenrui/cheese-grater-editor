@@ -71,7 +71,7 @@ export default function GraphicsCarousel() {
         <div className="titles">
           <h3 className="graphics-h3">Graphics</h3>
               
-          <Link to="/humour" className= "underline-link graphics-link">Funny text for link to graphics</Link>
+          <Link to="/humour" className= "underline-link graphics-link">See all of our drawings</Link>
         </div>
 
         <div className="carousel-viewport">

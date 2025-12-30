@@ -9,9 +9,5 @@
 }
 
 .home-wrapper {
-  height: 180vh;
-  min-height: 550px;
-  max-height: 1800px;
-  position: relative;
-  overflow: hidden;
+  margin-bottom: 2rem;
 }

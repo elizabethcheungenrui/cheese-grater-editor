@@ -64,7 +64,7 @@
   font-weight: 400;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .more-title {
     padding: 1.2rem;
   }

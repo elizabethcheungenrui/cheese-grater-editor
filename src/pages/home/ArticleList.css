@@ -117,7 +117,7 @@
   --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-humour-t));
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .article-list {
     padding: 2rem;
     padding-top: 4.5rem;

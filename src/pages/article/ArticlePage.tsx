@@ -41,7 +41,7 @@ export default function ArticlePage() {
   return ( 
     <div className={ isMobile ? "page-mobile" : "page-desktop" }>
       {isMobile ? (<HeaderMobile />) : (<HeaderDesktop />)}
-      <ArticleContent article={article} />
+      <ArticleContent article={article} isEditor={false} />
       <Footer />
     </div>
   );
