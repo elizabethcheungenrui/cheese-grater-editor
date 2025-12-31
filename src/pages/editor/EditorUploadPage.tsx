@@ -1,13 +1,16 @@
+import { supabase } from "../../lib/supabaseClient"
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import HeaderDesktop from "../header-footer/HeaderDesktop";
 import EditorUpload from "./EditorUpload";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { validateDraft } from "./validateDraft";
 
 import "./EditorUploadPage.css";
 
 type DraftArticle = {
+  id?: string
+  slug?: string
   section: string
   subsection: string
   title: string
@@ -18,6 +21,7 @@ type DraftArticle = {
   image: string | null
   image_caption: string
   content: string
+  publish_date: string
   updatedAt: number
 }
 
@@ -39,7 +43,9 @@ const DEFAULT_AUTHOR_THUMBNAIL =
 
 const DRAFT_KEY = "draft:article:new"
 
-export default function EditorUploadPage() {
+export default function EditorUploadPage({ mode }: { mode: string }) {
+  const { id } = useParams<{ id: string }>()
+  console.log(id);
   const [draft, setDraft] = useState<DraftArticle>(() => {
     const raw = localStorage.getItem(DRAFT_KEY)
     if (!raw) {
@@ -54,6 +60,7 @@ export default function EditorUploadPage() {
         image: null,
         image_caption: "",
         content: "",
+        publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
       }
     }
@@ -76,6 +83,42 @@ export default function EditorUploadPage() {
       }
     }
   })
+
+  useEffect(() => {
+    if (mode !== "edit" || !id) return
+
+    async function loadArticle() {
+      const { data, error } = await supabase
+        .from("articles")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+      if (error) {
+        alert("Failed to load article")
+        return
+      }
+
+      setDraft({
+        id: data.id,
+        slug: data.slug,
+        section: data.section,
+        subsection: data.subsection,
+        title: data.title,
+        summary: data.summary ?? "",
+        author: data.author,
+        author_thumbnail: data.author_thumbnail,
+        role: data.role ?? "",
+        image: data.image_url,
+        image_caption: data.image_caption ?? "",
+        content: data.content ?? "",
+        publish_date: data.date_published.slice(0, 10),
+        updatedAt: Date.now(),
+      })
+    }
+
+    loadArticle()
+  }, [mode, id])
 
   const [authorImagePreview, setAuthorImagePreview] = useState<string | null>(
     draft.author_thumbnail
@@ -145,7 +188,7 @@ export default function EditorUploadPage() {
       <HeaderDesktop />
       <div className="editor-upload">
         
-        <h1>Article Upload</h1>
+        <h1>{mode == "create" ? "Article Upload" : "Edit Article" }</h1>
 
         <div className="editor-upload-columns">
           <div className="editor-upload-left">
@@ -215,6 +258,33 @@ export default function EditorUploadPage() {
                   />
                 </div>
               )}
+            </div>
+
+            <div className="field">
+              <h2>Publish Date</h2>
+              <div className="date-fields">
+                <input
+                  type="date"
+                  value={draft.publish_date}
+                  onChange={(e) =>
+                    setDraft(d => ({ ...d, publish_date: e.target.value }))
+                  }
+                  className="date-field"
+                />
+
+                <button
+                  type="button"
+                  className="editor-button"
+                  onClick={() =>
+                    setDraft(d => ({
+                      ...d,
+                      publish_date: new Date().toISOString().slice(0, 10),
+                    }))
+                  }
+                >
+                  Today
+                </button>
+              </div>
             </div>
 
             <div className="field">

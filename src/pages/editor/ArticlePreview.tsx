@@ -33,6 +33,8 @@ export default function ArticlePreview() {
     return <p>No draft to preview.</p>
   }
 
+  const isEdit = Boolean(draft.id)
+
   // Build a fake Article object
   const article = {
     id: "draft",
@@ -48,7 +50,7 @@ export default function ArticlePreview() {
     image_url: draft.image,
     image_caption: draft.image_caption,
     content: draft.content,
-    date_published: new Date().toISOString(),
+    date_published: new Date(draft.publish_date).toISOString(),
   }
 
   const validation = validateDraft(draft);
@@ -111,7 +113,9 @@ export default function ArticlePreview() {
 
     const date = new Date()
     const datePrefix = date.toISOString().slice(0, 10)
-    const slug = `${datePrefix}-${slugify(draft.title)}`
+    const slug = isEdit
+      ? draft.slug
+      : `${datePrefix}-${slugify(draft.title)}`
 
     try {
       // 1. Upload author image (if overridden blob)
@@ -125,7 +129,7 @@ export default function ArticlePreview() {
         )
       }
       // 2. Upload main image
-      let mainImageUrl: string | null = null
+      let mainImageUrl: string | null = draft.image ?? null
 
       if (draft.image?.startsWith("blob:")) {
         const file = await blobUrlToFile(draft.image, "main.webp")
@@ -145,7 +149,7 @@ export default function ArticlePreview() {
         slug,
         section: draft.section,
         subsection: draft.subsection,
-        date_published: new Date().toISOString(),
+        date_published: new Date(draft.publish_date).toISOString(),
         title: draft.title,
         summary: draft.summary || null,
         author: draft.author,
@@ -156,9 +160,16 @@ export default function ArticlePreview() {
         content: processedContent,
       }
 
-      const { error } = await supabase
-        .from("articles")
-        .insert(articleRow)
+      const query = isEdit
+      ? supabase
+          .from("articles")
+          .update(articleRow)
+          .eq("id", draft.id)
+      : supabase
+          .from("articles")
+          .insert(articleRow)
+
+      const { error } = await query
 
       if (error) throw error
 

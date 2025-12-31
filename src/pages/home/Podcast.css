@@ -1,0 +1,107 @@
+.podcast-hero {
+  padding: 1.7rem 9.5rem;
+  gap: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+ 
+  background-image: 
+    linear-gradient(
+      to right,
+      var(--cg-yellow-t) 0%,
+      var(--cg-podcast-t) 100%
+    ),
+    url("https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg.png");
+
+  background-repeat:
+    no-repeat,
+    repeat;
+
+  background-size:
+    cover,
+    90px 90px;
+
+  background-position:
+    center,
+    center;
+
+  animation: cg-drift-newsletter 5s linear infinite;
+}
+
+@keyframes cg-drift-newsletter {
+  from {
+    background-position: center, 0 0;
+  }
+  to {
+    background-position: center, -180px -90px;
+  }
+}
+
+.podcast-hero button {
+  cursor: pointer;
+  padding: 10px 15px;
+  background: var(--cg-yellow-t);
+  box-shadow: none;
+  border: none;
+  border-radius: 30px;
+}
+
+.podcast-hero button:hover {
+  background: var(--cg-yellow);
+}
+
+.podcast-hero img {
+  width: 250px;
+  height: 170px;
+}
+
+.podcast-hero a {
+  color: var(--cg-font);
+}
+
+.podcast-hero .text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: start;
+  gap: 1rem;;
+}
+
+.podcast-hero .header {
+  font-family: "Bitter";
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: var(--cg-white);
+  padding: 0;
+  margin-bottom: 0;
+  border: 0;
+  align-content: space-around;
+}
+
+.button-h3 {
+  color: var(--cg-white);
+  font-size: 1.2rem;
+}
+
+.podcast-hero p {
+  font-family: "Libre Baskerville";
+  font-size: 0.9rem;
+  color: var(--cg-white);
+}
+
+@media (max-width: 1024px) {
+  .podcast-hero {
+    padding: 1.7rem 1.5rem;
+    display: grid;
+    gap: 0;
+    justify-items: center;
+  }
+  .podcast-hero .header {
+    text-align: center;
+    line-height: 3rem;
+  }
+  .text {
+    gap: 1rem;
+  }
+}

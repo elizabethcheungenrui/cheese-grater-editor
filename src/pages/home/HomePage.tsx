@@ -5,6 +5,7 @@ import Home from "./Home";
 import HomeMobile from "./HomeMobile";
 import BestPub2025 from "./BestPub2025";
 import ArticleList from "./ArticleList";
+import Podcast from "./Podcast"
 import Newsletter from "./Newsletter";
 import Footer from "../header-footer/Footer";
 
@@ -23,9 +24,10 @@ export default function HomePage() {
       </div>
       <BestPub2025 />
       <ArticleList section="News" />
-      <Newsletter />
+      <Podcast />
       <ArticleList section="Humour" />
       <GraphicsCarousel />
+      <Newsletter />
       <ArticleList section="Voices" />
       <Footer />
     </div>

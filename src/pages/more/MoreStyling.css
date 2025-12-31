@@ -40,6 +40,10 @@
   gap: 0.5rem;
 }
 
+.anonymous li {
+  margin: 0 1rem;
+}
+
 .whoweare-section {
   display: grid;
   gap: 1rem;
@@ -127,9 +131,12 @@
     grid-template-columns: 1fr;
   }
   .awards table {
-    width: max-content;
+    width: fit-content;
     table-layout: auto;
-    min-width: 100%;
+    font-size: 0.8rem;
+  }
+  .more-styling a {
+    font-size: 0.8rem;
   }
   .honorary-columns {
     grid-template-columns: 1fr;

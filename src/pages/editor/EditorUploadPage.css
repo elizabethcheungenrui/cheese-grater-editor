@@ -1,7 +1,7 @@
 .editor-upload {
   display: grid;
   gap: 1rem;
-  padding: 3rem 9rem;
+  padding: 3rem 10rem;
   justify-items: start;
 }
 
@@ -37,6 +37,20 @@
   padding: 0.6rem;
   border: 1px solid #ddd;
   background: white;
+}
+
+.editor-upload .date-field {
+  border: 1px solid #ddd;
+  padding: 0.6rem;
+  font-family: "Libre Baskerville";
+  font-size: 1rem;
+  color: var(--cg-font);
+}
+
+.editor-upload .date-fields {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .editor-upload .editor-title-textarea {

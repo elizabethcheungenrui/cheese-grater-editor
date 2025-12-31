@@ -18,9 +18,10 @@ import Anonymous from "./more/Anonymous";
 import { Analytics } from "@vercel/analytics/react"
 
 import RequireEditor from "../auth/RequireEditor";
-import EditorUploadPage from "./editor/EditorUploadPage";
 import Login from "../auth/Login";
 import EditorMain from "./editor/EditorMain";
+import EditorUploadPage from "./editor/EditorUploadPage";
+import EditorModify from "./editor/EditorModify";
 import ArticlePreview from "./editor/ArticlePreview";
 
 export default function App() {
@@ -52,7 +53,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route element={<RequireEditor />}>
           <Route path="/editor/" element={<EditorMain />} />
-          <Route path="/editor/upload-article" element={<EditorUploadPage />} />
+          <Route path="/editor/upload-article" element={<EditorUploadPage mode="create" />} />
+          <Route path="/editor/modify-article" element={<EditorModify />} />
+          <Route path="/editor/edit/:id" element={<EditorUploadPage mode="edit" />} />
           <Route path="/editor/preview" element={<ArticlePreview />} />
         </Route>
       </Routes>

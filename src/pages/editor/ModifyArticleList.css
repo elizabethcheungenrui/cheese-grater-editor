@@ -1,38 +1,38 @@
-.editor-main {
+.modify-article-list {
   display: grid;
   gap: 1rem;
   padding: 3rem 10rem;
   justify-items: start;
 }
 
-.editor-submain {
+.modify-article-list .modify-row {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
-.editor-main h1 {
+.modify-article-list h1 {
   color: var(--cg-font);
 }
 
-.editor-main h3 {
+.modify-article-list h3 {
   font-size: 1.4rem;;
 }
 
-.editor-main p {
+.modify-article-list p {
   font-family: "Libre Baskerville";
   color: var(--cg-font);
 }
 
-.editor-main .editor-button {
+.modify-article-list .editor-button {
   background-color: white;
   border: 1px solid #ddd;
   font-family: "Bitter";
   text-decoration: none;
-  font-size: 1rem;
-  padding: 0.6rem;
+  font-size: 0.9rem;
+  padding: 0.4rem;
   cursor: pointer;
 }
 
-.editor-main .editor-button:hover {
+.modify-article-list .editor-button:hover {
   background-color: #eaeaea;
 }
