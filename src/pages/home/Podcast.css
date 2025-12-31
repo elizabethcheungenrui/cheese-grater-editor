@@ -52,7 +52,7 @@
 }
 
 .podcast-hero img {
-  width: 250px;
+  width: auto;
   height: 170px;
 }
 
@@ -100,6 +100,10 @@
   .podcast-hero .header {
     text-align: center;
     line-height: 3rem;
+  }
+  .podcast-hero img {
+    width: auto;
+    height: 200px;
   }
   .text {
     gap: 1rem;

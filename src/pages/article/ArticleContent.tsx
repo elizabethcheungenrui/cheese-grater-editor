@@ -51,7 +51,7 @@ export default function ArticleContent({ article, isEditor }: { article: Article
           </div>
         </div>
         { !isEditor && (<div className="more-article">
-          <span className="readmore">Read more</span>
+          <span className="readmore">{data.section == "Podcast" ? "Listen to more" : "Read more"}</span>
           <div className="article-row">
             {!isMobile 
               ? (dataTop!.map(article => (

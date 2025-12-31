@@ -23,6 +23,22 @@ export default function EditorMain() {
             <p>Click Here</p>
           </button></Link>
         </div>
+
+        <div className="editor-submain">
+          <h3>Upload New Podcast</h3>
+          {/*<Link to="/editor/modify-article"><button className="editor-button">
+            <p>Click Here</p>
+          </button></Link>*/}
+          <p>WIP</p>
+        </div>
+        
+        <div className="editor-submain">
+          <h3>Upload New Print Edition</h3>
+          {/*<Link to="/editor/modify-article"><button className="editor-button">
+            <p>Click Here</p>
+          </button></Link>*/}
+          <p>WIP</p>
+        </div> 
         
         <div className="editor-submain">
           <h3>View/Modify Articles</h3>
@@ -32,8 +48,23 @@ export default function EditorMain() {
         </div>
         
         <div className="editor-submain">
+          <h3>Download <i>Cheese Grater</i> Archive</h3>
+          {/*<Link to="/editor/modify-article"><button className="editor-button">
+            <p>Click Here</p>
+          </button></Link>*/}
+          <p>WIP, but essentially will allow you to download every <i>CG</i> article currently on the website.</p>
+        </div> 
+         
+        <div className="editor-submain">
+          <h3>Lizzie's Message</h3>
+          <Link to="/editor/lizzies-message"><button className="editor-button">
+            <p>Click Here</p>
+          </button></Link>
+        </div>
+        
+        <div className="editor-submain">
           <h3>Sign Out</h3>
-        <button className="editor-button" onClick={logout}>
+          <button className="editor-button" onClick={logout}>
           <p>Sign out</p>
         </button>
         </div>
