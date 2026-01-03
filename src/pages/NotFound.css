@@ -1,0 +1,16 @@
+.not-found {
+  padding: 2rem 10rem;
+}
+
+.not-found h1 {
+  font-size: 4rem;
+  text-align: center;
+  color: var(--cg-font);
+}
+
+.not-found p {
+  font-family: "Libre Baskerville";
+  font-size: 1.3rem;
+  text-align: center;
+  color: var(--cg-font);
+}

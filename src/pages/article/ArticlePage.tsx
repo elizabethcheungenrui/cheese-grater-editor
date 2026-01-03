@@ -10,6 +10,7 @@ import { useIsMobile } from "../../hooks/useIsMobile.ts";
 import HeaderMobile from "../header-footer/HeaderMobile.tsx";
 import HeaderDesktop from "../header-footer/HeaderDesktop.tsx";
 
+
 export default function ArticlePage() {
   const { slug } = useParams();
   const [article, setArticle] = useState<Article | null>(null);

@@ -1,6 +1,5 @@
 .archive-scale{
   width: 100vw;
-  overflow-x: hidden;
 }
 
 .archive-page {
@@ -34,7 +33,7 @@
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
-  background-color: red;
+  background-color: #E50428;
   color: white;
   padding: 5px 30px;
 }
@@ -93,6 +92,7 @@
 
 .archive-page .body img {
   width: 120px;
+  height: 300px;
 }
 
 .archive-page .content {

@@ -15,7 +15,7 @@ export default function MoreMenu({ isOpen, onClose }: MoreMenuProps) {
         <div className="more-submenu">
           <h3>About Us!</h3>          
   
-          <Link to="/who-we-are" className="more-menu-text">Who We Are</Link>
+          <Link to="/about" className="more-menu-text">Who We Are</Link>
           <Link to="/get-involved" className="more-menu-text">Get Involved!</Link>
           <Link to="/awards" className="more-menu-text">Awards and Accolades</Link>
           <Link to="/past-editors" className="more-menu-text">Past Editors</Link>

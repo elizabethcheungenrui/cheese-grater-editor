@@ -41,7 +41,7 @@ export default function MoreMenu2({ isOpen }: MoreMenuProps) {
 
         {openSections.about && (
           <>
-            <Link to="/who-we-are" className="more-menu-text-sub">Who We Are</Link>
+            <Link to="/about" className="more-menu-text-sub">Who We Are</Link>
             <Link to="/get-involved" className="more-menu-text-sub">Get Involved!</Link>
             <Link to="/awards" className="more-menu-text-sub">Awards and Accolades</Link>
             <Link to="/past-editors" className="more-menu-text-sub">Past Editors</Link>
