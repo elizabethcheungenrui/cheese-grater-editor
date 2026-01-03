@@ -1,6 +1,9 @@
 export default function Archive() {
   return (
-    <table width="750" border="0" bgColor="000000" align="center">
+    <div>Hi</div>
+  );
+}
+/*(<table width="750" border="0" bgColor="000000" align="center">
       <tbody>
         <tr>
           <td
@@ -215,6 +218,4 @@ export default function Archive() {
           </td>
         </tr>
       </tbody>
-    </table>
-  );
-}
+    </table>) */
