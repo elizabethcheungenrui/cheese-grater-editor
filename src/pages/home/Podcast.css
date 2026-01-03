@@ -41,14 +41,14 @@
 .podcast-hero button {
   cursor: pointer;
   padding: 10px 15px;
-  background: var(--cg-yellow-t);
+  background: var(--cg-podcast-t);
   box-shadow: none;
   border: none;
   border-radius: 30px;
 }
 
 .podcast-hero button:hover {
-  background: var(--cg-yellow);
+  background: var(--cg-podcast);
 }
 
 .podcast-hero img {

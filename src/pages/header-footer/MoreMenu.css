@@ -12,7 +12,7 @@
 
 .menu-inner {
   display: grid;
-  grid-template-columns: repeat(4, max-content);
+  grid-template-columns: repeat(5, max-content);
   justify-content: center;
   gap: 2rem;
   padding: 1rem 10rem;
@@ -72,4 +72,10 @@
 
 .more-close:hover {
   opacity: 0.7;
+}
+
+.time-machine {
+  padding-left: 1rem;
+  font-size: 0.8rem;
+  color: #777;
 }

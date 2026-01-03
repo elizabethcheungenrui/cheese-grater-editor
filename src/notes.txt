@@ -1,6 +1,0 @@
-Text: LFT Etica Sheriff Condensed XBold, 
-Header: Grifa Slab Regular
-
-Voices: var(--cg-voices)
-Humour: var(--cg-humour)
-Investigations: var(--cg-news)

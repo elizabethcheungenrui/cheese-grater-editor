@@ -32,7 +32,7 @@ export default function ContactUs() {
           <h3>Editorial Complaints</h3>
           <p>The Cheese Grater is a publication of Students’ Union UCL. We take our reporting very seriously and do genuinely hold ourselves to the highest editorial standards outlined in the <a href="https://www.ipso.co.uk/editors-code-of-practice/" target="_blank">IPSO Editor’s Code of Practice</a>. If you spot a factual error in our reporting, get in touch with our editors at <a href="mailto:editor@cheesegratermagazine.org">editor@cheesegratermagazine.org.</a></p>
 
-          <p>If you wish to complain, you can do so <a href="https://studentsunionucl.org/webform/student-media-complaint" target="_blank">here</a>.</p>
+          <p>If you wish to make a complaint, you can do so <a href="https://studentsunionucl.org/webform/student-media-complaint" target="_blank">here</a>.</p>
         </div>
       </div>
       <Footer />

@@ -45,7 +45,7 @@ export default function Header({ onMoreToggle }: HeaderProps) {
           More
         </button>
 
-        <Link to="/print" className="menu-item print-edition">Print Edition</Link>
+        <Link to="/past-issues" className="menu-item print-edition">Print Edition</Link>
 
         <a href="https://us17.campaign-archive.com/home/?u=65bd5c7a770205040fd2e9e8a&id=9679db51c3" target="_blank" className="menu-item print-edition">The Digestive</a>
       </nav>

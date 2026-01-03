@@ -2,4 +2,33 @@
   padding: 2rem 10rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.print-edition-page img {
+  max-width: 200px;
+  box-shadow: 0 0 5px var(--cg-font);
+  cursor: pointer;
+}
+
+.print-edition-page .issue-card {
+  display: grid;
+  justify-items: center;
+}
+
+@media (max-width: 1024px) {
+  .print-edition-page {
+    padding: 2rem;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .print-edition-page {
+    padding: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+  .print-edition-page img {
+    max-width: 150px;
+  }
 }

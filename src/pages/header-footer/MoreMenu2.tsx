@@ -28,7 +28,7 @@ export default function MoreMenu2({ isOpen }: MoreMenuProps) {
         <Link to="/voices" className="more-menu-text">Voices</Link>
         <Link to="/podcast" className="more-menu-text">Podcast</Link>
         <a href="https://womenswrongs.cheesegratermagazine.org" target="_blank" className="more-menu-text">Women's Wrongs</a>  
-        <Link to="/print" className="more-menu-text yellow">Print Edition</Link>
+        <Link to="/past-issues" className="more-menu-text yellow">Print Edition</Link>
         <a href="https://us17.campaign-archive.com/home/?u=65bd5c7a770205040fd2e9e8a&id=9679db51c3" target="_blank" className="more-menu-text yellow">The Digestive</a>
 
         <button

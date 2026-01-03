@@ -33,7 +33,7 @@ export default function MoreMenu({ isOpen, onClose }: MoreMenuProps) {
           <Link to="/training-style" className="more-menu-text">Training and Style Guide</Link>
           <Link to="/help-welfare" className="more-menu-text">Help and Welfare</Link>
         </div>
-
+        
         <div className="more-submenu">
           <button
             className="more-close"
@@ -44,6 +44,9 @@ export default function MoreMenu({ isOpen, onClose }: MoreMenuProps) {
           </button>
         </div>
       </div>
+      <Link to="/archive" className="more-menu-text">
+        <span className="time-machine">The Time Machine</span>
+      </Link>
     </div>
   );
 }
