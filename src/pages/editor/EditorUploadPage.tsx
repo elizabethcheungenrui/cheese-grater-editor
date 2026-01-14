@@ -1,7 +1,7 @@
 import { supabase } from "../../lib/supabaseClient"
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
-import HeaderDesktop from "../header-footer/HeaderDesktop";
+import Header from "../header-footer/Header";
 import EditorUpload from "./EditorUpload";
 import { Link, useParams } from "react-router-dom";
 import { validateDraft } from "./validateDraft";
@@ -185,7 +185,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
 
   return (
     <div className="page-desktop">
-      <HeaderDesktop />
+      <Header />
       <div className="editor-upload">
         
         <h1>{mode == "create" ? "Article Upload" : "Edit Article" }</h1>
@@ -474,7 +474,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             <button
               className="preview-button"
               disabled={!canProceed}
-              onClick={() => window.open("/editor/preview", "_blank")}
+              onClick={() => window.open("/editor/preview")}
             >
               Preview Article
             </button>
@@ -485,7 +485,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             <button
               className="editor-button"
               disabled={!canProceed}
-              onClick={() => window.open("/editor/preview", "_blank")}
+              onClick={() => window.open("/editor/preview")}
             >
               Preview Article
             </button>

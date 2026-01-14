@@ -175,6 +175,9 @@ export default function ArticlePreview() {
 
       localStorage.removeItem("draft:article:new")
       window.location.href = "/editor"
+      await fetch(import.meta.env.VITE_REBUILD_HOOK!, {
+        method: 'POST',
+      });
     } catch (err) {
       console.error(err)
       alert("Failed to publish article.")
@@ -183,7 +186,7 @@ export default function ArticlePreview() {
 
   return (
     <div className="article-preview">
-      <ArticleContent article={article} isEditor={true} />
+      <ArticleContent article={article} />
       {!validation.valid && (
         <div className="publish-warning">
           <p>Cannot publish. Missing:</p>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
-import HeaderDesktop from "../pages/header-footer/HeaderDesktop";
-import Footer from "../pages/header-footer/Footer";
+import Header from "../pages/header-footer/Header";
 
 import "./Login.css";
 import { Navigate } from "react-router-dom";
@@ -60,7 +59,7 @@ export default function Login() {
 
   return (
     <div className="page-desktop">
-      <HeaderDesktop /> 
+      <Header /> 
       <div className="login">
         <form className="form" onSubmit={handleSubmit}>
           <h2>Editor Login</h2>
@@ -88,7 +87,6 @@ export default function Login() {
           {error && <p className="error">{error}</p>}
         </form>
       </div>
-      <Footer />
     </div>
   );
 }
