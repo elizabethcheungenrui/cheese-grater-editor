@@ -474,7 +474,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             <button
               className="preview-button"
               disabled={!canProceed}
-              onClick={() => window.open("/editor/preview", "_blank")}
+              onClick={() => window.open("/editor/preview")}
             >
               Preview Article
             </button>
@@ -485,7 +485,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             <button
               className="editor-button"
               disabled={!canProceed}
-              onClick={() => window.open("/editor/preview", "_blank")}
+              onClick={() => window.open("/editor/preview")}
             >
               Preview Article
             </button>

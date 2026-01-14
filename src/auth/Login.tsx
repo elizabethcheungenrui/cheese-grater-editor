@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import Header from "../pages/header-footer/Header";
-import Footer from "../pages/header-footer/Footer";
 
 import "./Login.css";
 import { Navigate } from "react-router-dom";
