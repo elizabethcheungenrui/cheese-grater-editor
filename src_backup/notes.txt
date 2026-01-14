@@ -1,6 +1,0 @@
-Text: LFT Etica Sheriff Condensed XBold, 
-Header: Grifa Slab Regular
-
-Voices: #C42873
-Humour: #00674B
-Investigations: #2C59AE

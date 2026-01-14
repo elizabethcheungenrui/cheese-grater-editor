@@ -1,18 +1,18 @@
 import { Link } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 import Footer from "../header-footer/Footer";
-import HeaderDesktop from "../header-footer/HeaderDesktop";
+import Header from "../header-footer/Header";
 import "./EditorMain.css";
 
 export default function EditorMain() { 
   async function logout() {
     await supabase.auth.signOut();
-    window.location.href = "/login";
+    window.location.href = "/";
   }
 
   return (
     <div className="page-desktop">
-      <HeaderDesktop />
+      <Header />
       
       <div className="editor-main">
         <h1>Editor Dashboard</h1>

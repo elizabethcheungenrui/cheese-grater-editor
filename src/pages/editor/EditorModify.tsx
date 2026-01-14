@@ -1,11 +1,11 @@
 import Footer from "../header-footer/Footer";
-import HeaderDesktop from "../header-footer/HeaderDesktop";
+import Header from "../header-footer/Header";
 import ModifyArticleList from "./ModifyArticleList";
 
 export default function EditorModify() {
   return (
     <div className="page-desktop">
-      <HeaderDesktop />
+      <Header />
       <ModifyArticleList />
       <Footer />
     </div>
