@@ -173,11 +173,12 @@ export default function ArticlePreview() {
 
       if (error) throw error
 
-      localStorage.removeItem("draft:article:new")
-      window.location.href = "/editor"
       await fetch(import.meta.env.VITE_REBUILD_HOOK!, {
         method: 'POST',
       });
+
+      localStorage.removeItem("draft:article:new")
+      window.location.href = "/editor"
     } catch (err) {
       console.error(err)
       alert("Failed to publish article.")
