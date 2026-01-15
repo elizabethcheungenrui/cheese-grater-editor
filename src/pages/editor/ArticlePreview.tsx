@@ -173,9 +173,24 @@ export default function ArticlePreview() {
 
       if (error) throw error
 
-      await fetch(import.meta.env.VITE_REBUILD_HOOK!, {
-        method: 'POST',
-      });
+      const pagesToRevalidate = [
+        `/article/${slug}`,
+        `/`,
+        `/news`,
+        `/humour`,
+        `/voices`,
+        `/podcast`,
+      ];
+
+      await Promise.all(
+        pagesToRevalidate.map((url) =>
+          fetch(`https://cheese-grater-new.vercel.app${url}`, {
+            headers: {
+              "x-prerender-revalidate": import.meta.env.VITE_ISR_BYPASS_TOKEN,
+            },
+          })
+        )
+      )
 
       localStorage.removeItem("draft:article:new")
       window.location.href = "/editor"
