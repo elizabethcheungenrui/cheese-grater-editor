@@ -7,7 +7,7 @@ export default function Header() {
     <header className="header">
       <div className="logo">
         <h3 className="the"> THE </h3>
-        <Link to="/" className="logo-link">
+        <a href="https://cheese-grater-new.vercel.app" className="logo-link">
           <h3 className="cheese-grater">
             <span className="cheese">CHEESE </span>
             <span className="grater"> 
@@ -16,7 +16,7 @@ export default function Header() {
               TER
             </span>
           </h3>
-        </Link>
+        </a>
       </div>
 
       <span className="best">SPA Best Publication in London 2025</span>
