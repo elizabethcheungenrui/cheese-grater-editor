@@ -35,6 +35,7 @@ const SECTION_OPTIONS = {
 const AUTHOR_THUMBNAILS: Record<string, string> = {
   News: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/news.jpg",
   Humour: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/humour.jpg",
+  Voices: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/voices_new.jpg",
   "Soc Bitch": "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/soc_bitch.jpg"
 }
 
