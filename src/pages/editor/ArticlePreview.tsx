@@ -2,6 +2,7 @@ import ArticleContent from "../article/ArticleContent"
 import { useEffect, useState } from "react"
 import { validateDraft } from "./validateDraft"
 import { supabase } from "../../lib/supabaseClient"
+import { triggerRedeploy } from "../../lib/triggerRedeploy"
 import "./ArticlePreview.css"
 
 const DRAFT_KEY = "draft:article:new"
@@ -173,9 +174,7 @@ export default function ArticlePreview() {
 
       if (error) throw error
 
-      await fetch(import.meta.env.VITE_REBUILD_HOOK!, {
-        method: "POST",
-      });
+      await triggerRedeploy();
 
       localStorage.removeItem("draft:article:new")
       window.location.href = "/editor"
