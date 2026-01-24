@@ -40,7 +40,7 @@ export default function EditorMain() {
         </div> 
         
         <div className="editor-submain">
-          <h3>View/Modify Articles</h3>
+          <h3>Modify/Delete Articles</h3>
           <Link to="/editor/modify-article"><button className="editor-button">
             <p>Click Here</p>
           </button></Link>
