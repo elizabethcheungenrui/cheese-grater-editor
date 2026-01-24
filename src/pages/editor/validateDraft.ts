@@ -13,6 +13,14 @@ export type DraftArticle = {
   updatedAt: number
 }
 
+export type PodcastDraftArticle = {
+  title: string
+  content: string
+  spotify_url: string
+  publish_date: string
+  updatedAt: number
+}
+
 export function validateDraft(draft: DraftArticle) {
   const missing: string[] = []
 
@@ -21,6 +29,19 @@ export function validateDraft(draft: DraftArticle) {
   if (!draft.title.trim()) missing.push("title")
   if (!draft.author.trim()) missing.push("author")
   if (!draft.publish_date) missing.push("publish date")
+
+  return {
+    valid: missing.length === 0,
+    missing,
+  }
+}
+
+export function validatePodcastDraft(draft: PodcastDraftArticle) {
+  const missing: string[] = []
+
+  if (!draft.title.trim()) missing.push("title")
+  if (!draft.publish_date) missing.push("publish date")
+  if (!draft.spotify_url) missing.push("spotify url")
 
   return {
     valid: missing.length === 0,

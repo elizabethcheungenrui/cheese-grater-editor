@@ -29,7 +29,6 @@ const SECTION_OPTIONS = {
   News: ["Analysis", "Awards", "Climate", "Club and Soc", "Halls", "Investigations", "News", "Palestine", "Provost", "UCL East", "Union", "University", "Varsity", "Workers"],
   Humour: ["Humour", "Graphics", "Satire", "Soc Bitch"],
   Voices: ["Editorial", "Reviews", "Voices"],
-  Podcast: [],
 } as const
 
 const AUTHOR_THUMBNAILS: Record<string, string> = {
