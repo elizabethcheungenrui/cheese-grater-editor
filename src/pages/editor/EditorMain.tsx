@@ -26,10 +26,9 @@ export default function EditorMain() {
 
         <div className="editor-submain">
           <h3>Upload New Podcast</h3>
-          {/*<Link to="/editor/modify-article"><button className="editor-button">
+          <Link to="/editor/upload-podcast"><button className="editor-button">
             <p>Click Here</p>
-          </button></Link>*/}
-          <p>WIP</p>
+          </button></Link>
         </div>
         
         <div className="editor-submain">

@@ -15,7 +15,8 @@
 }
 
 .editor-main h3 {
-  font-size: 1.4rem;;
+  font-size: 1.4rem;
+  color: var(--cg-font);
 }
 
 .editor-main p {

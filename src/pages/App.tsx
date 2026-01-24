@@ -7,8 +7,9 @@ import EditorMain from "./editor/EditorMain";
 import EditorUploadPage from "./editor/EditorUploadPage";
 import EditorModify from "./editor/EditorModify";
 import ArticlePreview from "./editor/ArticlePreview";
-import NotFound from "./NotFound";
 import EditorUploadPodcast from "./editor/EditorUploadPodcast";
+import PodcastPreview from "./editor/PodcastPreview";
+import NotFound from "./NotFound";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/editor/modify-article" element={<EditorModify />} />
           <Route path="/editor/edit/:id" element={<EditorUploadPage mode="edit" />} />
           <Route path="/editor/preview" element={<ArticlePreview />} />
+          <Route path="/editor/preview-podcast" element={<PodcastPreview />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

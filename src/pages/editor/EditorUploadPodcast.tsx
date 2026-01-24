@@ -224,7 +224,7 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
             <button
               className="preview-button"
               disabled={!canProceed}
-              onClick={() => window.open("/editor/preview")}
+              onClick={() => window.open("/editor/preview-podcast")}
             >
               Preview Article
             </button>
@@ -235,7 +235,7 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
             <button
               className="editor-button"
               disabled={!canProceed}
-              onClick={() => window.open("/editor/preview")}
+              onClick={() => window.open("/editor/preview-podcast")}
             >
               Preview Article
             </button>

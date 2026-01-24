@@ -56,10 +56,7 @@ export default function ArticlePreview() {
 
   const validation = validateDraft(draft);
 
-  async function uploadImage(
-    file: File,
-    path: string
-  ): Promise<string> {
+  async function uploadImage(file: File, path: string): Promise<string> {
     const { error } = await supabase.storage
       .from("images")
       .upload(path, file, {
@@ -76,11 +73,9 @@ export default function ArticlePreview() {
     return data.publicUrl
   }
 
-  async function processContentImages(
-    html: string,
-    slug: string
-  ): Promise<string> {
+  async function processContentImages(html: string, slug: string): Promise<string> {
     const doc = new DOMParser().parseFromString(html, "text/html")
+
     const images = Array.from(doc.querySelectorAll("img"))
 
     let index = 1
@@ -100,6 +95,31 @@ export default function ArticlePreview() {
     }
 
     return doc.body.innerHTML
+  }
+
+  async function getImageDimensions(file: File): Promise<{
+    width: number;
+    height: number;
+  }> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+
+      img.onload = () => {
+        resolve({
+          width: img.naturalWidth,
+          height: img.naturalHeight,
+        });
+        URL.revokeObjectURL(url);
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("Failed to load image"));
+      };
+
+      img.src = url;
+    });
   }
 
   async function blobUrlToFile(blobUrl: string, name: string) {
@@ -131,9 +151,16 @@ export default function ArticlePreview() {
       }
       // 2. Upload main image
       let mainImageUrl: string | null = draft.image ?? null
+      let imageWidth: number | null = null;
+      let imageHeight: number | null = null;
 
       if (draft.image?.startsWith("blob:")) {
         const file = await blobUrlToFile(draft.image, "main.webp")
+
+        const dims = await getImageDimensions(file);
+          imageWidth = dims.width;
+          imageHeight = dims.height;
+
         mainImageUrl = await uploadImage(
           file,
           `article_images/${slug}/main_image.webp`
@@ -157,6 +184,8 @@ export default function ArticlePreview() {
         author_thumbnail: authorThumbnailUrl,
         role: draft.role || null,
         image_url: mainImageUrl,
+        image_width: imageWidth,
+        image_height: imageHeight,
         image_caption: draft.image_caption || null,
         content: processedContent,
       }
@@ -171,7 +200,6 @@ export default function ArticlePreview() {
           .insert(articleRow)
 
       const { error } = await query
-
       if (error) throw error
 
       await triggerRedeploy();
