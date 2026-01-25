@@ -87,10 +87,11 @@
   color: var(--cg-font);
 }
 
-.article-container .main-content, .main-heading p {
+.article-container .main-content,
+.main-heading p {
   font-family: "Libre Baskerville", serif;
   font-size: 1rem;
-  color: var(--cg-font); 
+  color: var(--cg-font);
   line-height: 1.85rem;
   font-weight: 400;
   font-style: normal;
@@ -116,7 +117,8 @@
     font-size: 2.2rem;
     line-height: 2.5rem;
   }
-  .article-container .main-content, .main-heading p {
+  .article-container .main-content,
+  .main-heading p {
     font-size: 1rem;
     line-height: 1.85rem;
   }
@@ -125,7 +127,7 @@
 .container-side p {
   font-family: "Libre Baskerville", serif;
   font-size: 1rem;
-  color: var(--cg-font); 
+  color: var(--cg-font);
   line-height: 1.85;
   font-weight: 400;
   font-style: normal;
@@ -138,7 +140,7 @@
 .article-container .main-content h3 {
   font-family: "Libre Baskerville", serif;
   font-size: 1.2rem;
-  color: var(--cg-font); 
+  color: var(--cg-font);
   line-height: 1.85;
   font-weight: 700;
   font-style: normal;
@@ -151,7 +153,7 @@
 .article-container .main-content h4 {
   font-family: "Libre Baskerville", serif;
   font-size: 1.2rem;
-  color: var(--cg-font); 
+  color: var(--cg-font);
   line-height: 1.85;
   font-weight: 700;
   font-style: normal;
@@ -239,7 +241,7 @@
 
 .article-container .contact-newsletter {
   display: grid;
-  gap: 1.0rem;
+  gap: 1rem;
 }
 
 .article-container button {

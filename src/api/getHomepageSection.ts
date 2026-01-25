@@ -16,16 +16,21 @@ export interface HomepageSection {
   articles: HomepageArticle[];
 }
 
-export async function getHomepageSection(section: string, limit?: number): Promise<HomepageSection> {
+export async function getHomepageSection(
+  section: string,
+  limit?: number,
+): Promise<HomepageSection> {
   let query = supabase
     .from("articles")
-    .select("slug, title, summary, author, author_thumbnail, image_url, subsection, date_published")
+    .select(
+      "slug, title, summary, author, author_thumbnail, image_url, subsection, date_published",
+    )
     .eq("section", section)
-    .order("date_published", { ascending: false })
+    .order("date_published", { ascending: false });
 
   if (typeof limit === "number") {
     query = query.limit(limit);
-  }  
+  }
 
   const { data, error } = await query;
   if (error) throw error;
@@ -35,4 +40,3 @@ export async function getHomepageSection(section: string, limit?: number): Promi
     articles: data as HomepageArticle[],
   };
 }
-

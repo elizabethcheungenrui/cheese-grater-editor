@@ -21,16 +21,16 @@ export async function getAllArticles(limit?: number): Promise<AllArticle[]> {
   let query = supabase
     .from("articles")
     .select(
-      "id, slug, title, summary, author, author_thumbnail, image_url, section, subsection, date_published"
+      "id, slug, title, summary, author, author_thumbnail, image_url, section, subsection, date_published",
     )
-    .order("date_published", { ascending: false })
+    .order("date_published", { ascending: false });
 
   if (typeof limit === "number") {
-    query = query.limit(limit)
+    query = query.limit(limit);
   }
 
-  const { data, error } = await query
-  if (error) throw error
+  const { data, error } = await query;
+  if (error) throw error;
 
-  return data as AllArticle[]
+  return data as AllArticle[];
 }

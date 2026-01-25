@@ -59,7 +59,7 @@ export default function Login() {
 
   return (
     <div className="page-desktop">
-      <Header /> 
+      <Header />
       <div className="login">
         <form className="form" onSubmit={handleSubmit}>
           <h2>Editor Login</h2>
@@ -69,15 +69,15 @@ export default function Login() {
             required
             placeholder="Email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
-          type="password"
-          required
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
+            type="password"
+            required
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button disabled={loading}>

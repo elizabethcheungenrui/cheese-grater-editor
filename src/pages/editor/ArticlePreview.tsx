@@ -1,40 +1,40 @@
-import ArticleContent from "../article/ArticleContent"
-import { useEffect, useState } from "react"
-import { validateDraft } from "./validateDraft"
-import { supabase } from "../../lib/supabaseClient"
-import { triggerRedeploy } from "../../lib/triggerRedeploy"
-import "./ArticlePreview.css"
+import ArticleContent from "../article/ArticleContent";
+import { useEffect, useState } from "react";
+import { validateDraft } from "./validateDraft";
+import { supabase } from "../../lib/supabaseClient";
+import { triggerRedeploy } from "../../lib/triggerRedeploy";
+import "./ArticlePreview.css";
 
-const DRAFT_KEY = "draft:article:new"
+const DRAFT_KEY = "draft:article:new";
 
 export function slugify(text: string): string {
   return text
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, "")   // remove punctuation
-    .replace(/\s+/g, "-")       // spaces → hyphens
-    .replace(/-+/g, "-")        // collapse multiple hyphens
+    .replace(/[^\w\s-]/g, "") // remove punctuation
+    .replace(/\s+/g, "-") // spaces → hyphens
+    .replace(/-+/g, "-"); // collapse multiple hyphens
 }
 
 export default function ArticlePreview() {
-  const [draft, setDraft] = useState<any | null>(null)
+  const [draft, setDraft] = useState<any | null>(null);
 
   useEffect(() => {
-    const raw = localStorage.getItem(DRAFT_KEY)
-    if (!raw) return
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
 
     try {
-      setDraft(JSON.parse(raw))
+      setDraft(JSON.parse(raw));
     } catch {
-      setDraft(null)
+      setDraft(null);
     }
-  }, [])
+  }, []);
 
   if (!draft) {
-    return <p>No draft to preview.</p>
+    return <p>No draft to preview.</p>;
   }
 
-  const isEdit = Boolean(draft.id)
+  const isEdit = Boolean(draft.id);
 
   // Build a fake Article object
   const article = {
@@ -52,49 +52,48 @@ export default function ArticlePreview() {
     image_caption: draft.image_caption,
     content: draft.content,
     date_published: new Date(draft.publish_date).toISOString(),
-  }
+  };
 
   const validation = validateDraft(draft);
 
   async function uploadImage(file: File, path: string): Promise<string> {
-    const { error } = await supabase.storage
-      .from("images")
-      .upload(path, file, {
-        upsert: true,
-        contentType: file.type,
-      })
+    const { error } = await supabase.storage.from("images").upload(path, file, {
+      upsert: true,
+      contentType: file.type,
+    });
 
-    if (error) throw error
+    if (error) throw error;
 
-    const { data } = supabase.storage
-      .from("images")
-      .getPublicUrl(path)
+    const { data } = supabase.storage.from("images").getPublicUrl(path);
 
-    return data.publicUrl
+    return data.publicUrl;
   }
 
-  async function processContentImages(html: string, slug: string): Promise<string> {
-    const doc = new DOMParser().parseFromString(html, "text/html")
+  async function processContentImages(
+    html: string,
+    slug: string,
+  ): Promise<string> {
+    const doc = new DOMParser().parseFromString(html, "text/html");
 
-    const images = Array.from(doc.querySelectorAll("img"))
+    const images = Array.from(doc.querySelectorAll("img"));
 
-    let index = 1
+    let index = 1;
 
     for (const img of images) {
-      const src = img.getAttribute("src")
-      if (!src || !src.startsWith("blob:")) continue
+      const src = img.getAttribute("src");
+      if (!src || !src.startsWith("blob:")) continue;
 
-      const blob = await fetch(src).then(r => r.blob())
-      const file = new File([blob], `image_${index}.webp`, { type: blob.type })
+      const blob = await fetch(src).then((r) => r.blob());
+      const file = new File([blob], `image_${index}.webp`, { type: blob.type });
 
-      const path = `article_images/${slug}/image_${index}.webp`
-      const publicUrl = await uploadImage(file, path)
+      const path = `article_images/${slug}/image_${index}.webp`;
+      const publicUrl = await uploadImage(file, path);
 
-      img.setAttribute("src", publicUrl)
-      index++
+      img.setAttribute("src", publicUrl);
+      index++;
     }
 
-    return doc.body.innerHTML
+    return doc.body.innerHTML;
   }
 
   async function getImageDimensions(file: File): Promise<{
@@ -123,55 +122,50 @@ export default function ArticlePreview() {
   }
 
   async function blobUrlToFile(blobUrl: string, name: string) {
-    const blob = await fetch(blobUrl).then(r => r.blob())
-    return new File([blob], name, { type: blob.type })
+    const blob = await fetch(blobUrl).then((r) => r.blob());
+    return new File([blob], name, { type: blob.type });
   }
 
   async function publishArticle() {
-    if (!validation.valid) return
+    if (!validation.valid) return;
 
-    if (!window.confirm("Publish this article?")) return
+    if (!window.confirm("Publish this article?")) return;
 
-    const date = new Date()
-    const datePrefix = date.toISOString().slice(0, 10)
-    const slug = isEdit
-      ? draft.slug
-      : `${datePrefix}-${slugify(draft.title)}`
+    const date = new Date();
+    const datePrefix = date.toISOString().slice(0, 10);
+    const slug = isEdit ? draft.slug : `${datePrefix}-${slugify(draft.title)}`;
 
     try {
       // 1. Upload author image (if overridden blob)
-      let authorThumbnailUrl = draft.author_thumbnail
+      let authorThumbnailUrl = draft.author_thumbnail;
 
       if (authorThumbnailUrl?.startsWith("blob:")) {
-        const file = await blobUrlToFile(authorThumbnailUrl, "author.webp")
+        const file = await blobUrlToFile(authorThumbnailUrl, "author.webp");
         authorThumbnailUrl = await uploadImage(
           file,
-          `article_images/${slug}/author.webp`
-        )
+          `article_images/${slug}/author.webp`,
+        );
       }
       // 2. Upload main image
-      let mainImageUrl: string | null = draft.image ?? null
+      let mainImageUrl: string | null = draft.image ?? null;
       let imageWidth: number | null = null;
       let imageHeight: number | null = null;
 
       if (draft.image?.startsWith("blob:")) {
-        const file = await blobUrlToFile(draft.image, "main.webp")
+        const file = await blobUrlToFile(draft.image, "main.webp");
 
         const dims = await getImageDimensions(file);
-          imageWidth = dims.width;
-          imageHeight = dims.height;
+        imageWidth = dims.width;
+        imageHeight = dims.height;
 
         mainImageUrl = await uploadImage(
           file,
-          `article_images/${slug}/main_image.webp`
-        )
+          `article_images/${slug}/main_image.webp`,
+        );
       }
 
       // 3. Process editor content images
-      const processedContent = await processContentImages(
-        draft.content,
-        slug
-      )
+      const processedContent = await processContentImages(draft.content, slug);
 
       const articleRow = {
         slug,
@@ -188,27 +182,22 @@ export default function ArticlePreview() {
         image_height: imageHeight,
         image_caption: draft.image_caption || null,
         content: processedContent,
-      }
+      };
 
       const query = isEdit
-      ? supabase
-          .from("articles")
-          .update(articleRow)
-          .eq("id", draft.id)
-      : supabase
-          .from("articles")
-          .insert(articleRow)
+        ? supabase.from("articles").update(articleRow).eq("id", draft.id)
+        : supabase.from("articles").insert(articleRow);
 
-      const { error } = await query
-      if (error) throw error
+      const { error } = await query;
+      if (error) throw error;
 
       await triggerRedeploy();
 
-      localStorage.removeItem("draft:article:new")
-      window.location.href = "/editor"
+      localStorage.removeItem("draft:article:new");
+      window.location.href = "/editor";
     } catch (err) {
-      console.error(err)
-      alert("Failed to publish article.")
+      console.error(err);
+      alert("Failed to publish article.");
     }
   }
 
@@ -219,7 +208,7 @@ export default function ArticlePreview() {
         <div className="publish-warning">
           <p>Cannot publish. Missing:</p>
           <ul>
-            {validation.missing.map(field => (
+            {validation.missing.map((field) => (
               <li key={field}>{field}</li>
             ))}
           </ul>

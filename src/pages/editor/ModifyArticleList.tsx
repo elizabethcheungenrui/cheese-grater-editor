@@ -1,28 +1,28 @@
-import { useAllArticles } from "../../hooks/useAllArticles"
-import { formatDate } from "../../methods/formatting"
-import { Link } from "react-router-dom"
+import { useAllArticles } from "../../hooks/useAllArticles";
+import { formatDate } from "../../methods/formatting";
+import { Link } from "react-router-dom";
 import { supabase } from "../../lib/supabaseClient";
 import { useState, useEffect } from "react";
-import { triggerRedeploy } from "../../lib/triggerRedeploy"
-import "./ModifyArticleList.css"
+import { triggerRedeploy } from "../../lib/triggerRedeploy";
+import "./ModifyArticleList.css";
 
 export default function ModifyArticleList() {
-  const { data, loading } = useAllArticles()
+  const { data, loading } = useAllArticles();
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [articles, setArticles] = useState(data);
- 
+
   useEffect(() => {
     if (data) {
       setArticles(data);
     }
   }, [data]);
-  
-  if (loading) return <div>Loading…</div>
+
+  if (loading) return <div>Loading…</div>;
   if (!articles) return null;
 
   async function deleteArticle(id: string, title: string) {
     const ok = window.confirm(
-      `Are you sure you want to delete:\n\n"${title}"\n\nThis cannot be undone.`
+      `Are you sure you want to delete:\n\n"${title}"\n\nThis cannot be undone.`,
     );
 
     if (!ok) return;
@@ -30,16 +30,13 @@ export default function ModifyArticleList() {
     setDeletingId(id);
 
     try {
-      const { error } = await supabase
-        .from("articles")
-        .delete()
-        .eq("id", id);
+      const { error } = await supabase.from("articles").delete().eq("id", id);
 
       if (error) throw error;
 
       // Optimistically remove from UI
-      setArticles(prev => prev?.filter(a => a.id !== id) ?? []);
-      
+      setArticles((prev) => prev?.filter((a) => a.id !== id) ?? []);
+
       await triggerRedeploy();
     } catch (err) {
       console.error(err);
@@ -52,13 +49,15 @@ export default function ModifyArticleList() {
   return (
     <div className="modify-article-list">
       <h1>Modify/Delete Articles</h1>
-      {articles?.map(article => (
+      {articles?.map((article) => (
         <div className="modify-row" key={article.id}>
           <div>
             <h3>{article.title}</h3>
             <div className="meta">
-              <p>{article.section} / {article.subsection} ·{" "}
-              {formatDate(article.date_published)}</p>
+              <p>
+                {article.section} / {article.subsection} ·{" "}
+                {formatDate(article.date_published)}
+              </p>
             </div>
           </div>
 
@@ -80,5 +79,5 @@ export default function ModifyArticleList() {
         </div>
       ))}
     </div>
-  )
+  );
 }

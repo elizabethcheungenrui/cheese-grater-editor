@@ -4,7 +4,7 @@ export interface Article {
   slug: string;
   section: string;
   subsection: string;
-  date_published: string;          // ISO date string
+  date_published: string; // ISO date string
   title: string;
   summary: string | null;
   author: string | null;

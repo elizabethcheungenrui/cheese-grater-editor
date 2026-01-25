@@ -1,6 +1,6 @@
 .header {
   border-bottom: 2px solid #ddd;
-  
+
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -66,7 +66,7 @@
 }
 
 .best {
-  font-family:"Bitter";
+  font-family: "Bitter";
   font-size: 1.2rem;
   font-weight: 600;
 
@@ -88,16 +88,15 @@
   font-weight: 400;
   padding: 0.75rem 1.25rem;
   cursor: pointer;
-  
-  transition: 
+
+  transition:
     background-size 400ms,
     background-color 400ms ease;
 
-  background-image:
-    var(
-      --section-gradient,
-      linear-gradient(to right, var(--cg-yellow-t), var(--cg-yellow-t))
-    );
+  background-image: var(
+    --section-gradient,
+    linear-gradient(to right, var(--cg-yellow-t), var(--cg-yellow-t))
+  );
   background-size: 0 2px;
   background-position: 50% 90%;
   background-repeat: no-repeat;
@@ -121,17 +120,33 @@
 }
 
 .voices {
-  --section-gradient: linear-gradient(to right, var(--cg-yellow-t),var(--cg-voices-t));
+  --section-gradient: linear-gradient(
+    to right,
+    var(--cg-yellow-t),
+    var(--cg-voices-t)
+  );
 }
 
 .news {
-  --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-news-t));
+  --section-gradient: linear-gradient(
+    to right,
+    var(--cg-yellow-t),
+    var(--cg-news-t)
+  );
 }
 
 .humour {
-  --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-humour-t));
+  --section-gradient: linear-gradient(
+    to right,
+    var(--cg-yellow-t),
+    var(--cg-humour-t)
+  );
 }
 
 .podcast {
-  --section-gradient: linear-gradient(to right, var(--cg-yellow-t), var(--cg-podcast-t));
+  --section-gradient: linear-gradient(
+    to right,
+    var(--cg-yellow-t),
+    var(--cg-podcast-t)
+  );
 }

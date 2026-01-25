@@ -1,50 +1,50 @@
 export type DraftArticle = {
-  section: string
-  subsection: string
-  title: string
-  summary: string
-  author: string
-  author_thumbnail: string | null
-  role: string
-  image: string | null
-  image_caption: string
-  content: string
-  publish_date: string
-  updatedAt: number
-}
+  section: string;
+  subsection: string;
+  title: string;
+  summary: string;
+  author: string;
+  author_thumbnail: string | null;
+  role: string;
+  image: string | null;
+  image_caption: string;
+  content: string;
+  publish_date: string;
+  updatedAt: number;
+};
 
 export type PodcastDraftArticle = {
-  title: string
-  content: string
-  spotify_url: string
-  publish_date: string
-  updatedAt: number
-}
+  title: string;
+  content: string;
+  spotify_url: string;
+  publish_date: string;
+  updatedAt: number;
+};
 
 export function validateDraft(draft: DraftArticle) {
-  const missing: string[] = []
+  const missing: string[] = [];
 
-  if (!draft.section.trim()) missing.push("section")
-  if (!draft.subsection.trim()) missing.push("subsection")
-  if (!draft.title.trim()) missing.push("title")
-  if (!draft.author.trim()) missing.push("author")
-  if (!draft.publish_date) missing.push("publish date")
+  if (!draft.section.trim()) missing.push("section");
+  if (!draft.subsection.trim()) missing.push("subsection");
+  if (!draft.title.trim()) missing.push("title");
+  if (!draft.author.trim()) missing.push("author");
+  if (!draft.publish_date) missing.push("publish date");
 
   return {
     valid: missing.length === 0,
     missing,
-  }
+  };
 }
 
 export function validatePodcastDraft(draft: PodcastDraftArticle) {
-  const missing: string[] = []
+  const missing: string[] = [];
 
-  if (!draft.title.trim()) missing.push("title")
-  if (!draft.publish_date) missing.push("publish date")
-  if (!draft.spotify_url) missing.push("spotify url")
+  if (!draft.title.trim()) missing.push("title");
+  if (!draft.publish_date) missing.push("publish date");
+  if (!draft.spotify_url) missing.push("spotify url");
 
   return {
     valid: missing.length === 0,
     missing,
-  }
+  };
 }

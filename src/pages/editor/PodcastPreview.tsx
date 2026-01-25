@@ -7,7 +7,8 @@ import "./ArticlePreview.css";
 
 const DRAFT_KEY = "draft:podcast:new";
 
-const PODCAST_THUMBNAIL: string = "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg_podcast.jpeg";
+const PODCAST_THUMBNAIL: string =
+  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg_podcast.jpeg";
 
 function slugify(text: string): string {
   return text
@@ -42,8 +43,8 @@ export default function PodcastPreview() {
       try {
         const res = await fetch(
           `https://open.spotify.com/oembed?url=${encodeURIComponent(
-            draft.spotify_url
-          )}`
+            draft.spotify_url,
+          )}`,
         );
 
         if (!res.ok) return;
@@ -64,20 +65,17 @@ export default function PodcastPreview() {
       cancelled = true;
     };
   }, [draft?.spotify_url]);
-  
+
   if (!draft) {
     return <p>No podcast draft to preview.</p>;
   }
 
   const isEdit = Boolean(draft.id);
 
-  const combinedContent = [
-    draft.content,
-    spotifyEmbedHtml,
-  ]
+  const combinedContent = [draft.content, spotifyEmbedHtml]
     .filter(Boolean)
     .join("\n\n");
-  
+
   // Build a fake Article object
   const article = {
     id: "draft",
@@ -94,8 +92,8 @@ export default function PodcastPreview() {
     image_caption: null,
     content: combinedContent,
     date_published: new Date(draft.publish_date).toISOString(),
-  }
-  
+  };
+
   const validation = validatePodcastDraft(draft);
 
   async function publishPodcast() {
@@ -103,11 +101,9 @@ export default function PodcastPreview() {
 
     if (!window.confirm("Publish this podcast episode?")) return;
 
-    const date = new Date()
+    const date = new Date();
     const datePrefix = date.toISOString().slice(0, 10);
-    const slug = isEdit
-      ? draft.slug
-      : `${datePrefix}-${slugify(draft.title)}`;
+    const slug = isEdit ? draft.slug : `${datePrefix}-${slugify(draft.title)}`;
 
     try {
       const podcastRow = {
@@ -126,13 +122,8 @@ export default function PodcastPreview() {
       };
 
       const query = isEdit
-        ? supabase
-          .from("articles")
-          .update(podcastRow)
-          .eq("id", draft.id)
-        : supabase
-          .from("articles")
-          .insert(podcastRow);
+        ? supabase.from("articles").update(podcastRow).eq("id", draft.id)
+        : supabase.from("articles").insert(podcastRow);
 
       const { error } = await query;
       if (error) throw error;
@@ -154,7 +145,7 @@ export default function PodcastPreview() {
         <div className="publish-warning">
           <p>Cannot publish. Missing:</p>
           <ul>
-            {validation.missing.map(field => (
+            {validation.missing.map((field) => (
               <li key={field}>{field}</li>
             ))}
           </ul>

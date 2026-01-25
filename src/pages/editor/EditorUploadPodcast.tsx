@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabaseClient"
+import { supabase } from "../../lib/supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
@@ -9,27 +9,28 @@ import { validatePodcastDraft } from "./validateDraft";
 import "./EditorUploadPage.css";
 
 type PodcastDraftArticle = {
-  id?: string
-  slug?: string
-  title: string
-  author: string
-  author_thumbnail: string | null
-  content: string
+  id?: string;
+  slug?: string;
+  title: string;
+  author: string;
+  author_thumbnail: string | null;
+  content: string;
   spotify_url: string;
   spotify_embed_html?: string;
-  publish_date: string
-  updatedAt: number
-}
+  publish_date: string;
+  updatedAt: number;
+};
 
-const PODCAST_THUMBNAIL: string = "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg_podcast.jpeg";
+const PODCAST_THUMBNAIL: string =
+  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg_podcast.jpeg";
 
-const DRAFT_KEY = "draft:podcast:new"
+const DRAFT_KEY = "draft:podcast:new";
 
 export default function EditorUploadPodcast({ mode }: { mode: string }) {
   const { id } = useParams<{ id: string }>();
 
   const [draft, setDraft] = useState<PodcastDraftArticle>(() => {
-    const raw = localStorage.getItem(DRAFT_KEY)
+    const raw = localStorage.getItem(DRAFT_KEY);
     if (!raw) {
       return {
         title: "Episode",
@@ -39,11 +40,11 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
         spotify_url: "",
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
-      }
+      };
     }
 
     try {
-      return JSON.parse(raw)
+      return JSON.parse(raw);
     } catch {
       return {
         title: "Episode",
@@ -53,23 +54,23 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
         spotify_url: "",
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
-      }
+      };
     }
-  })
+  });
 
   useEffect(() => {
-    if (mode !== "edit" || !id) return
+    if (mode !== "edit" || !id) return;
 
     async function loadPodcast() {
       const { data, error } = await supabase
         .from("articles")
         .select("*")
         .eq("id", id)
-        .single()
+        .single();
 
       if (error) {
-        alert("Failed to load podcast")
-        return
+        alert("Failed to load podcast");
+        return;
       }
 
       setDraft({
@@ -83,17 +84,17 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
         spotify_embed_html: data.spotify_embed_html ?? undefined,
         publish_date: data.date_published.slice(0, 10),
         updatedAt: Date.now(),
-      })
+      });
     }
 
-    loadPodcast()
-  }, [mode, id])
+    loadPodcast();
+  }, [mode, id]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       localStorage.setItem(
         DRAFT_KEY,
-        JSON.stringify({ ...draft, updatedAt: Date.now() })
+        JSON.stringify({ ...draft, updatedAt: Date.now() }),
       );
     }, 500);
 
@@ -106,8 +107,8 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
       JSON.stringify({
         ...draft,
         updatedAt: Date.now(),
-      })
-    )
+      }),
+    );
   }
 
   useEffect(() => {
@@ -119,21 +120,21 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
       try {
         const res = await fetch(
           `https://open.spotify.com/oembed?url=${encodeURIComponent(
-            draft.spotify_url
-          )}`
+            draft.spotify_url,
+          )}`,
         );
 
         if (!res.ok) return;
         const data = await res.json();
 
         if (!cancelled) {
-          setDraft(d => ({
+          setDraft((d) => ({
             ...d,
             spotify_embed_html: data.html,
           }));
         }
-      } catch { 
-        // silently ignore 
+      } catch {
+        // silently ignore
       }
     }
 
@@ -143,16 +144,16 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
       cancelled = true;
     };
   }, [draft.spotify_url]);
-  
-  const validation = validatePodcastDraft(draft)
-  const canProceed = validation.valid
+
+  const validation = validatePodcastDraft(draft);
+  const canProceed = validation.valid;
 
   return (
     <div className="page-desktop">
       <Header />
 
-      <div className="editor-upload"> 
-        <h1>{mode == "create" ? "Podcast Upload" : "Edit Podcast" }</h1>
+      <div className="editor-upload">
+        <h1>{mode == "create" ? "Podcast Upload" : "Edit Podcast"}</h1>
 
         <div className="editor-upload-columns">
           <div className="editor-upload-left">
@@ -163,7 +164,7 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
                   type="date"
                   value={draft.publish_date}
                   onChange={(e) =>
-                    setDraft(d => ({ ...d, publish_date: e.target.value }))
+                    setDraft((d) => ({ ...d, publish_date: e.target.value }))
                   }
                   className="date-field"
                 />
@@ -172,7 +173,7 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
                   type="button"
                   className="editor-button"
                   onClick={() =>
-                    setDraft(d => ({
+                    setDraft((d) => ({
                       ...d,
                       publish_date: new Date().toISOString().slice(0, 10),
                     }))
@@ -187,8 +188,8 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
               <h2>Episode Title</h2>
               <textarea
                 value={draft.title}
-                onChange={(e) => 
-                  setDraft(d => ({ ...d, title: e.target.value }))
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, title: e.target.value }))
                 }
                 placeholder="Enter episode title"
                 className="editor-title-textarea"
@@ -196,14 +197,12 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
                 rows={3}
               />
             </div>
-              
+
             <div className="field">
               <h2>Podcast Content</h2>
-              <EditorUpload   
+              <EditorUpload
                 initialContent={draft.content}
-                onChange={(html) =>
-                  setDraft(d => ({ ...d, content: html }))
-                }
+                onChange={(html) => setDraft((d) => ({ ...d, content: html }))}
               />
             </div>
 
@@ -212,15 +211,15 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
               <input
                 type="url"
                 value={draft.spotify_url}
-                onChange={e =>
-                  setDraft(d => ({ ...d, spotify_url: e.target.value }))
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, spotify_url: e.target.value }))
                 }
                 placeholder="https://open.spotify.com/episode/…"
                 spellCheck={false}
                 className="custom-subsection"
               />
             </div>
-            
+
             <button
               className="preview-button"
               disabled={!canProceed}
@@ -231,7 +230,9 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
           </div>
 
           <div className="editor-upload-right">
-            <button className="editor-button" onClick={saveDraft}>Save</button>
+            <button className="editor-button" onClick={saveDraft}>
+              Save
+            </button>
             <button
               className="editor-button"
               disabled={!canProceed}
@@ -239,8 +240,10 @@ export default function EditorUploadPodcast({ mode }: { mode: string }) {
             >
               Preview Article
             </button>
-        
-            <Link to="/editor"><button className="editor-button">Back to Editor Menu</button></Link>
+
+            <Link to="/editor">
+              <button className="editor-button">Back to Editor Menu</button>
+            </Link>
           </div>
         </div>
       </div>

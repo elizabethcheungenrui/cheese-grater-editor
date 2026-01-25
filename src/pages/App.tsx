@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 import RequireEditor from "../auth/RequireEditor";
 import Login from "../auth/Login";
@@ -18,10 +18,19 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route element={<RequireEditor />}>
           <Route path="/editor/" element={<EditorMain />} />
-          <Route path="/editor/upload-article" element={<EditorUploadPage mode="create" />} />
-          <Route path="/editor/upload-podcast" element={<EditorUploadPodcast mode="create" />} />
+          <Route
+            path="/editor/upload-article"
+            element={<EditorUploadPage mode="create" />}
+          />
+          <Route
+            path="/editor/upload-podcast"
+            element={<EditorUploadPodcast mode="create" />}
+          />
           <Route path="/editor/modify-article" element={<EditorModify />} />
-          <Route path="/editor/edit/:id" element={<EditorUploadPage mode="edit" />} />
+          <Route
+            path="/editor/edit/:id"
+            element={<EditorUploadPage mode="edit" />}
+          />
           <Route path="/editor/preview" element={<ArticlePreview />} />
           <Route path="/editor/preview-podcast" element={<PodcastPreview />} />
         </Route>

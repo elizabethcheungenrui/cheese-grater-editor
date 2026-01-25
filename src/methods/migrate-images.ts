@@ -43,9 +43,7 @@ async function migrate() {
       if (uploadError) throw uploadError;
 
       // 4. Get public URL
-      const { data } = supabase.storage
-        .from("images")
-        .getPublicUrl(path);
+      const { data } = supabase.storage.from("images").getPublicUrl(path);
 
       // 5. Update DB
       const { error: updateError } = await supabase
@@ -63,4 +61,3 @@ async function migrate() {
 }
 
 migrate().catch(console.error);
-

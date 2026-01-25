@@ -5,11 +5,11 @@ export default function Header() {
     <header className="header">
       <div className="logo">
         <h3 className="the"> THE </h3>
-        <a href="https://new.cheesegratermagazine.org" className="logo-link">
+        <a href="https://cheesegratermagazine.org" className="logo-link">
           <h3 className="cheese-grater">
             <span className="cheese">CHEESE </span>
-            <span className="grater"> 
-              GR   
+            <span className="grater">
+              GR
               <span className="grater-icon" />
               TER
             </span>

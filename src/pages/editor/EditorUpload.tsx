@@ -1,7 +1,7 @@
-import { useEditor, EditorContent } from "@tiptap/react"
-import StarterKit from "@tiptap/starter-kit"
-import Link from "@tiptap/extension-link"
-import type { Editor as TiptapEditor } from "@tiptap/core"
+import { useEditor, EditorContent } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import Link from "@tiptap/extension-link";
+import type { Editor as TiptapEditor } from "@tiptap/core";
 
 import "./EditorUpload.css";
 import Image from "@tiptap/extension-image";
@@ -10,9 +10,9 @@ import { Figcaption } from "./nodes/Figcaption";
 import { useRef } from "react";
 
 type EditorProps = {
-  initialContent?: string
-  onChange?: (html: string) => void
-}
+  initialContent?: string;
+  onChange?: (html: string) => void;
+};
 
 Link.configure({
   openOnClick: false,
@@ -25,9 +25,9 @@ Link.configure({
 });
 
 function Toolbar({ editor }: { editor: TiptapEditor | null }) {
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  if (!editor) return null
+  if (!editor) return null;
 
   return (
     <div className="editor-toolbar">
@@ -37,14 +37,18 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
           onClick={() => editor.chain().focus().toggleBold().run()}
           className={editor.isActive("bold") ? "active" : ""}
         >
-          <p><b>B</b></p>
+          <p>
+            <b>B</b>
+          </p>
         </button>
 
         <button
           onClick={() => editor.chain().focus().toggleItalic().run()}
           className={editor.isActive("italic") ? "active" : ""}
         >
-          <p><i>I</i></p>
+          <p>
+            <i>I</i>
+          </p>
         </button>
       </div>
 
@@ -61,8 +65,13 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
           type="button"
           onMouseDown={(e) => {
             e.preventDefault(); // 👈 keeps the text selection intact
-            editor.chain().focus().unsetAllMarks().toggleHeading({ level: 3 }).run();
-  }}
+            editor
+              .chain()
+              .focus()
+              .unsetAllMarks()
+              .toggleHeading({ level: 3 })
+              .run();
+          }}
           className={editor.isActive("heading", { level: 3 }) ? "active" : ""}
         >
           Heading
@@ -95,12 +104,8 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
 
       {/* History */}
       <div className="group">
-        <button onClick={() => editor.chain().focus().undo().run()}>
-          ↶
-        </button>
-        <button onClick={() => editor.chain().focus().redo().run()}>
-          ↷
-        </button>
+        <button onClick={() => editor.chain().focus().undo().run()}>↶</button>
+        <button onClick={() => editor.chain().focus().redo().run()}>↷</button>
       </div>
 
       <div className="group">
@@ -110,14 +115,23 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
             const url = window.prompt("Enter URL");
             if (!url) return;
 
-            editor.chain().focus().extendMarkRange("link").setLink({ href: url }).run();}}>
+            editor
+              .chain()
+              .focus()
+              .extendMarkRange("link")
+              .setLink({ href: url })
+              .run();
+          }}
+        >
           &#x1f517;
         </button>
 
         <button
           onMouseDown={(e) => {
-          e.preventDefault();
-          editor.chain().focus().unsetLink().run();}}>
+            e.preventDefault();
+            editor.chain().focus().unsetLink().run();
+          }}
+        >
           <s>&#x1f517;</s>
         </button>
       </div>
@@ -125,8 +139,9 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
         <button
           onMouseDown={(e) => {
             e.preventDefault();
-            fileInputRef.current?.click()
-          }}>
+            fileInputRef.current?.click();
+          }}
+        >
           &#x1f5bc;
         </button>
 
@@ -136,13 +151,13 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={(e) => {
-            const file = e.target.files?.[0]
-            if (!file) return
+            const file = e.target.files?.[0];
+            if (!file) return;
 
-            const reader = new FileReader()
+            const reader = new FileReader();
 
             reader.onload = () => {
-              const src = reader.result as string
+              const src = reader.result as string;
               editor
                 .chain()
                 .focus()
@@ -159,17 +174,20 @@ function Toolbar({ editor }: { editor: TiptapEditor | null }) {
                     },
                   ],
                 })
-                .run()
-            }
-            reader.readAsDataURL(file)
+                .run();
+            };
+            reader.readAsDataURL(file);
           }}
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default function EditorUpload({ initialContent = "", onChange }: EditorProps) {
+export default function EditorUpload({
+  initialContent = "",
+  onChange,
+}: EditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -188,8 +206,8 @@ export default function EditorUpload({ initialContent = "", onChange }: EditorPr
         blockquote: {},
       }),
       Image.configure({
-      inline: false,
-      allowBase64: true,
+        inline: false,
+        allowBase64: true,
       }),
       Link.configure({
         openOnClick: false,
@@ -213,16 +231,21 @@ export default function EditorUpload({ initialContent = "", onChange }: EditorPr
     },
     content: initialContent,
     onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML())
+      onChange?.(editor.getHTML());
     },
-  })
+  });
 
   return (
     <div className="editor">
       <div className="editor-wrapper">
         <Toolbar editor={editor} />
-        <EditorContent editor={editor} className="editor-content" autoCorrect="off" lang="en-GB" />
+        <EditorContent
+          editor={editor}
+          className="editor-content"
+          autoCorrect="off"
+          lang="en-GB"
+        />
       </div>
     </div>
-  )
+  );
 }

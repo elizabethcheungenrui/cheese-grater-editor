@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabaseClient"
+import { supabase } from "../../lib/supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
@@ -9,45 +9,63 @@ import { validateDraft } from "./validateDraft";
 import "./EditorUploadPage.css";
 
 type DraftArticle = {
-  id?: string
-  slug?: string
-  section: string
-  subsection: string
-  title: string
-  summary: string
-  author: string
-  author_thumbnail: string | null
-  role: string
-  image: string | null
-  image_caption: string
-  content: string
-  publish_date: string
-  updatedAt: number
-}
+  id?: string;
+  slug?: string;
+  section: string;
+  subsection: string;
+  title: string;
+  summary: string;
+  author: string;
+  author_thumbnail: string | null;
+  role: string;
+  image: string | null;
+  image_caption: string;
+  content: string;
+  publish_date: string;
+  updatedAt: number;
+};
 
 const SECTION_OPTIONS = {
-  News: ["Analysis", "Awards", "Climate", "Club and Soc", "Halls", "Investigations", "News", "Palestine", "Provost", "UCL East", "Union", "University", "Varsity", "Workers"],
+  News: [
+    "Analysis",
+    "Awards",
+    "Climate",
+    "Club and Soc",
+    "Halls",
+    "Investigations",
+    "News",
+    "Palestine",
+    "Provost",
+    "UCL East",
+    "Union",
+    "University",
+    "Varsity",
+    "Workers",
+  ],
   Humour: ["Humour", "Graphics", "Satire", "Soc Bitch"],
   Voices: ["Editorial", "Reviews", "Voices"],
-} as const
+} as const;
 
 const AUTHOR_THUMBNAILS: Record<string, string> = {
   News: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/news.jpg",
-  Humour: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/humour.jpg",
-  Voices: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/voices_new.jpg",
-  "Soc Bitch": "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/soc_bitch.jpg"
-}
+  Humour:
+    "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/humour.jpg",
+  Voices:
+    "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/voices_new.jpg",
+  "Soc Bitch":
+    "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/soc_bitch.jpg",
+};
 
 const DEFAULT_AUTHOR_THUMBNAIL =
-  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/cg_author.jpeg"
+  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/cg_author.jpeg";
 
-const DRAFT_KEY = "draft:article:new"
+const DRAFT_KEY = "draft:article:new";
 
 export default function EditorUploadPage({ mode }: { mode: string }) {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>();
   console.log(id);
   const [draft, setDraft] = useState<DraftArticle>(() => {
-    const raw = localStorage.getItem(DRAFT_KEY)
+    const raw = localStorage.getItem(DRAFT_KEY);
     if (!raw) {
       return {
         section: "",
@@ -62,11 +80,11 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         content: "",
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
-      }
+      };
     }
 
     try {
-      return JSON.parse(raw)
+      return JSON.parse(raw);
     } catch {
       return {
         section: "",
@@ -80,23 +98,23 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         image_caption: "",
         content: "",
         updatedAt: Date.now(),
-      }
+      };
     }
-  })
+  });
 
   useEffect(() => {
-    if (mode !== "edit" || !id) return
+    if (mode !== "edit" || !id) return;
 
     async function loadArticle() {
       const { data, error } = await supabase
         .from("articles")
         .select("*")
         .eq("id", id)
-        .single()
+        .single();
 
       if (error) {
-        alert("Failed to load article")
-        return
+        alert("Failed to load article");
+        return;
       }
 
       setDraft({
@@ -114,20 +132,20 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         content: data.content ?? "",
         publish_date: data.date_published.slice(0, 10),
         updatedAt: Date.now(),
-      })
+      });
     }
 
-    loadArticle()
-  }, [mode, id])
+    loadArticle();
+  }, [mode, id]);
 
   const [authorImagePreview, setAuthorImagePreview] = useState<string | null>(
-    draft.author_thumbnail
-  )
-  const [authorImageOverridden, setAuthorImageOverridden] = useState(false)
+    draft.author_thumbnail,
+  );
+  const [authorImageOverridden, setAuthorImageOverridden] = useState(false);
   const [mainImagePreview, setMainImagePreview] = useState<string | null>(
-    draft.image
-  )
-  const [customSubsection, setCustomSubsection] = useState(false)
+    draft.image,
+  );
+  const [customSubsection, setCustomSubsection] = useState(false);
 
   function saveDraft() {
     localStorage.setItem(
@@ -135,60 +153,59 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
       JSON.stringify({
         ...draft,
         updatedAt: Date.now(),
-      })
-    )
+      }),
+    );
   }
-  
-  const validation = validateDraft(draft)
-  const canProceed = validation.valid
+
+  const validation = validateDraft(draft);
+  const canProceed = validation.valid;
 
   function removeMainImage() {
     if (mainImagePreview) {
-      URL.revokeObjectURL(mainImagePreview)
+      URL.revokeObjectURL(mainImagePreview);
     }
 
-    setMainImagePreview(null)
+    setMainImagePreview(null);
 
-    setDraft(d => ({
+    setDraft((d) => ({
       ...d,
       image: null,
       image_caption: "",
-    }))
+    }));
   }
 
   useEffect(() => {
     const id = setTimeout(() => {
       localStorage.setItem(
         DRAFT_KEY,
-        JSON.stringify({ ...draft, updatedAt: Date.now() })
-      )
-    }, 500)
+        JSON.stringify({ ...draft, updatedAt: Date.now() }),
+      );
+    }, 500);
 
-    return () => clearTimeout(id)
-  }, [draft])
+    return () => clearTimeout(id);
+  }, [draft]);
 
   useEffect(() => {
-    if (authorImageOverridden) return
+    if (authorImageOverridden) return;
 
     const autoImage =
-      AUTHOR_THUMBNAILS[draft.section] ?? 
+      AUTHOR_THUMBNAILS[draft.section] ??
       AUTHOR_THUMBNAILS[draft.subsection] ??
-      DEFAULT_AUTHOR_THUMBNAIL
+      DEFAULT_AUTHOR_THUMBNAIL;
 
-    setDraft(d => ({
+    setDraft((d) => ({
       ...d,
       author_thumbnail: autoImage,
-    }))
+    }));
 
-    setAuthorImagePreview(autoImage)
-  }, [draft.section])
+    setAuthorImagePreview(autoImage);
+  }, [draft.section]);
 
   return (
     <div className="page-desktop">
       <Header />
       <div className="editor-upload">
-        
-        <h1>{mode == "create" ? "Article Upload" : "Edit Article" }</h1>
+        <h1>{mode == "create" ? "Article Upload" : "Edit Article"}</h1>
 
         <div className="editor-upload-columns">
           <div className="editor-upload-left">
@@ -197,7 +214,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               <select
                 value={draft.section}
                 onChange={(e) =>
-                  setDraft(d => ({
+                  setDraft((d) => ({
                     ...d,
                     section: e.target.value,
                     subsection: "", // reset subsection when section changes
@@ -205,7 +222,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 }
               >
                 <option value="">Select section</option>
-                {Object.keys(SECTION_OPTIONS).map(section => (
+                {Object.keys(SECTION_OPTIONS).map((section) => (
                   <option key={section} value={section}>
                     {section}
                   </option>
@@ -219,14 +236,14 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 value={customSubsection ? "__custom__" : draft.subsection}
                 disabled={!draft.section}
                 onChange={(e) => {
-                  const value = e.target.value
+                  const value = e.target.value;
 
                   if (value === "__custom__") {
-                    setCustomSubsection(true)
-                    setDraft(d => ({ ...d, subsection: "" }))
+                    setCustomSubsection(true);
+                    setDraft((d) => ({ ...d, subsection: "" }));
                   } else {
-                    setCustomSubsection(false)
-                    setDraft(d => ({ ...d, subsection: value }))
+                    setCustomSubsection(false);
+                    setDraft((d) => ({ ...d, subsection: value }));
                   }
                 }}
               >
@@ -235,7 +252,9 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 </option>
 
                 {draft.section &&
-                  SECTION_OPTIONS[draft.section as keyof typeof SECTION_OPTIONS]?.map(sub => (
+                  SECTION_OPTIONS[
+                    draft.section as keyof typeof SECTION_OPTIONS
+                  ]?.map((sub) => (
                     <option key={sub} value={sub}>
                       {sub}
                     </option>
@@ -250,7 +269,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                     type="text"
                     value={draft.subsection}
                     onChange={(e) =>
-                      setDraft(d => ({ ...d, subsection: e.target.value }))
+                      setDraft((d) => ({ ...d, subsection: e.target.value }))
                     }
                     placeholder="Enter custom subsection"
                     className="custom-subsection"
@@ -267,7 +286,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   type="date"
                   value={draft.publish_date}
                   onChange={(e) =>
-                    setDraft(d => ({ ...d, publish_date: e.target.value }))
+                    setDraft((d) => ({ ...d, publish_date: e.target.value }))
                   }
                   className="date-field"
                 />
@@ -276,7 +295,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   type="button"
                   className="editor-button"
                   onClick={() =>
-                    setDraft(d => ({
+                    setDraft((d) => ({
                       ...d,
                       publish_date: new Date().toISOString().slice(0, 10),
                     }))
@@ -289,11 +308,15 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
 
             <div className="field">
               <h2>Article Title + Summary</h2>
-              <p>Summary optional. If you want to add Italics in the summary, please enclose the selected text like so: <br/><i>&lt;i&gt;The Cheese Grater&lt;/i&gt;</i>.</p>
+              <p>
+                Summary optional. If you want to add Italics in the summary,
+                please enclose the selected text like so: <br />
+                <i>&lt;i&gt;The Cheese Grater&lt;/i&gt;</i>.
+              </p>
               <textarea
                 value={draft.title}
-                onChange={(e) => 
-                  setDraft(d => ({ ...d, title: e.target.value }))
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, title: e.target.value }))
                 }
                 placeholder="Enter article title"
                 className="editor-title-textarea"
@@ -302,24 +325,31 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               />
               <textarea
                 value={draft.summary}
-                onChange={(e) => 
-                  setDraft(d => ({ ...d, summary: e.target.value }))
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, summary: e.target.value }))
                 }
                 placeholder="Optional summary shown below the title"
                 className="editor-summary-textarea"
-                spellCheck = "false"
+                spellCheck="false"
                 rows={3}
               />
             </div>
-            
+
             <div className="field">
               <h2>Author Details</h2>
-              <p>1. Author Image - Optional (will use defaults if none given) <br />2. Author <br />3. Author Role - Optional</p>
+              <p>
+                1. Author Image - Optional (will use defaults if none given){" "}
+                <br />
+                2. Author <br />
+                3. Author Role - Optional
+              </p>
 
               <div className="author-box">
                 <div
                   className="author-image"
-                  onClick={() => document.getElementById("author-image-input")?.click()}
+                  onClick={() =>
+                    document.getElementById("author-image-input")?.click()
+                  }
                   style={{
                     backgroundImage: authorImagePreview
                       ? `url(${authorImagePreview})`
@@ -338,18 +368,18 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   accept="image/*"
                   hidden
                   onChange={(e) => {
-                    const file = e.target.files?.[0]
-                      if (!file) return
+                    const file = e.target.files?.[0];
+                    if (!file) return;
 
-                      const preview = URL.createObjectURL(file)
+                    const preview = URL.createObjectURL(file);
 
-                      setAuthorImagePreview(preview)
-                      setAuthorImageOverridden(true)
+                    setAuthorImagePreview(preview);
+                    setAuthorImageOverridden(true);
 
-                      setDraft(d => ({
-                        ...d,
-                        author_thumbnail: preview,
-                      }))
+                    setDraft((d) => ({
+                      ...d,
+                      author_thumbnail: preview,
+                    }));
                   }}
                 />
 
@@ -357,8 +387,8 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   <input
                     type="text"
                     value={draft.author}
-                    onChange={e =>
-                      setDraft(d => ({ ...d, author: e.target.value }))
+                    onChange={(e) =>
+                      setDraft((d) => ({ ...d, author: e.target.value }))
                     }
                     placeholder="Author"
                     className="author"
@@ -368,8 +398,8 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   <input
                     type="text"
                     value={draft.role}
-                    onChange={e =>
-                      setDraft(d => ({ ...d, role: e.target.value }))
+                    onChange={(e) =>
+                      setDraft((d) => ({ ...d, role: e.target.value }))
                     }
                     placeholder="Role"
                     className="role"
@@ -380,29 +410,31 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               <button
                 type="button"
                 onClick={() => {
-                  setAuthorImageOverridden(false)
+                  setAuthorImageOverridden(false);
 
                   const auto =
-                    AUTHOR_THUMBNAILS[draft.section] ?? 
+                    AUTHOR_THUMBNAILS[draft.section] ??
                     AUTHOR_THUMBNAILS[draft.subsection] ??
-                    DEFAULT_AUTHOR_THUMBNAIL
+                    DEFAULT_AUTHOR_THUMBNAIL;
 
-                  setAuthorImagePreview(auto)
-                  setDraft(d => ({ ...d, author_thumbnail: auto }))
+                  setAuthorImagePreview(auto);
+                  setDraft((d) => ({ ...d, author_thumbnail: auto }));
                 }}
                 className="editor-button"
               >
                 Reset to default
               </button>
             </div>
-            
+
             <div className="field">
               <h2>Main Image</h2>
               <p>Optional (will use Author Image if none given)</p>
               <div className="main-image-wrapper">
                 <div
                   className="main-image"
-                  onClick={() => document.getElementById("main-image-input")?.click()}
+                  onClick={() =>
+                    document.getElementById("main-image-input")?.click()
+                  }
                   style={{
                     backgroundImage: mainImagePreview
                       ? `url(${mainImagePreview})`
@@ -420,16 +452,16 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   accept="image/*"
                   hidden
                   onChange={(e) => {
-                    const file = e.target.files?.[0]
-                    if (!file) return
+                    const file = e.target.files?.[0];
+                    if (!file) return;
 
-                    const preview = URL.createObjectURL(file)
+                    const preview = URL.createObjectURL(file);
 
-                    setMainImagePreview(preview)
-                    setDraft(d => ({
+                    setMainImagePreview(preview);
+                    setDraft((d) => ({
                       ...d,
                       image: preview, // TEMP preview only
-                    }))
+                    }));
                   }}
                 />
 
@@ -445,30 +477,28 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
 
                 <textarea
                   value={draft.image_caption}
-                  onChange={(e) => 
-                    setDraft(d => ({ ...d, image_caption: e.target.value }))
+                  onChange={(e) =>
+                    setDraft((d) => ({ ...d, image_caption: e.target.value }))
                   }
                   placeholder={
                     mainImagePreview
-                    ? "Main Image Caption"
-                    : "Add a main image to enable caption"
+                      ? "Main Image Caption"
+                      : "Add a main image to enable caption"
                   }
                   className="editor-image-caption-textarea"
-                  spellCheck = "false"
+                  spellCheck="false"
                   rows={2}
                   disabled={!mainImagePreview}
                 />
               </div>
             </div>
-            
+
             <div>
               <h2>Article Content</h2>
               <p>Optional (for Graphics etc.)</p>
-              <EditorUpload   
+              <EditorUpload
                 initialContent={draft.content}
-                onChange={(html) =>
-                  setDraft(d => ({ ...d, content: html }))
-                }
+                onChange={(html) => setDraft((d) => ({ ...d, content: html }))}
               />
             </div>
             <button
@@ -481,7 +511,9 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
           </div>
 
           <div className="editor-upload-right">
-            <button className="editor-button" onClick={saveDraft}>Save</button>
+            <button className="editor-button" onClick={saveDraft}>
+              Save
+            </button>
             <button
               className="editor-button"
               disabled={!canProceed}
@@ -489,8 +521,10 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             >
               Preview Article
             </button>
-        
-            <Link to="/editor"><button className="editor-button">Back to Editor Menu</button></Link>
+
+            <Link to="/editor">
+              <button className="editor-button">Back to Editor Menu</button>
+            </Link>
           </div>
         </div>
       </div>
