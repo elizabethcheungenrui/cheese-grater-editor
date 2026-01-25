@@ -41,6 +41,16 @@
   font-display: swap;
 }
 
+/* BIITER ITALIC (400) */
+@font-face {
+  font-family: "Bitter";
+  src: url("/src/assets/fonts/Bitter/static/Bitter-Italic.woff2") format("woff2"),
+       url("/src/assets/fonts/Bitter/static/Bitter-Italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* BITTER BOLD (700) */
 @font-face {
   font-family: "Bitter";

@@ -29,6 +29,11 @@
   justify-items: start;
 }
 
+.editor-upload .field p {
+  color: var(--cg-font);
+  font-style: normal;
+}
+
 .editor-upload select,
 .editor-upload .custom-subsection {
   font-family: "Libre Baskerville", serif;

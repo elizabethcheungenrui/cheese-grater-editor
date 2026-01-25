@@ -289,7 +289,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
 
             <div className="field">
               <h2>Article Title + Summary</h2>
-              <p>Summary optional</p>
+              <p>Summary optional. If you want to add Italics in the summary, please enclose the selected text like so: <br/><i>&lt;i&gt;The Cheese Grater&lt;/i&gt;</i>.</p>
               <textarea
                 value={draft.title}
                 onChange={(e) => 

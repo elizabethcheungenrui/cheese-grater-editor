@@ -15,7 +15,13 @@ export default function ArticleContent({ article }: { article: Article }) {
           </div>
           
           <div className="main-content">
-            {article.summary && (<h2>{article.summary}</h2>)}
+            {article.summary && (
+              <p
+                className="article-summary"
+                dangerouslySetInnerHTML={{
+                  __html: (article.summary)}}
+              />
+            )}
 
             <div className="author-box">
               <img
