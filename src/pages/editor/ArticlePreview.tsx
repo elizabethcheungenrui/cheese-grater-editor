@@ -122,9 +122,10 @@ export default function ArticlePreview() {
 
     for (const img of images) {
       const src = img.getAttribute("src");
-      if (!src || !src.startsWith("blob:")) continue;
+      if (!src || !(src.startsWith("blob:") || src.startsWith("data:"))) continue;
 
-      const blob = await fetch(src).then((r) => r.blob());
+      const response = await fetch(src);
+      const blob = await response.blob();
       const ext = blob.type.split("/")[1] ?? "bin";
       const file = new File([blob], `image_${index}.${ext}`, {
         type: blob.type,
