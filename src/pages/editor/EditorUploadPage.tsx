@@ -47,17 +47,17 @@ const SECTION_OPTIONS = {
 } as const;
 
 const AUTHOR_THUMBNAILS: Record<string, string> = {
-  News: "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/news.jpg",
+  News: "https://images.cheesegratermagazine.org/author_thumbnails/news.jpg",
   Humour:
-    "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/humour.jpg",
+    "https://images.cheesegratermagazine.org/author_thumbnails/humour.jpg",
   Voices:
-    "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/voices_new.jpg",
+    "https://images.cheesegratermagazine.org/author_thumbnails/voices_new.jpg",
   "Soc Bitch":
-    "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/soc_bitch.jpg",
+    "https://images.cheesegratermagazine.org/author_thumbnails/soc_bitch.jpg",
 };
 
 const DEFAULT_AUTHOR_THUMBNAIL =
-  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/cg_author.jpeg";
+  "https://images.cheesegratermagazine.org/author_thumbnails/cg_author.jpeg";
 
 const DRAFT_KEY = "draft:article:new";
 

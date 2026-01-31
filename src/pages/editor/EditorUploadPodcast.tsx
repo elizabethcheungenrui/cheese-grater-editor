@@ -22,7 +22,7 @@ type PodcastDraftArticle = {
 };
 
 const PODCAST_THUMBNAIL: string =
-  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg_podcast.jpeg";
+  "https://images.cheesegratermagazine.org/logos/cg_podcast.jpeg";
 
 const DRAFT_KEY = "draft:podcast:new";
 

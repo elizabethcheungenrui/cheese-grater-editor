@@ -8,7 +8,7 @@ import "./ArticlePreview.css";
 const DRAFT_KEY = "draft:podcast:new";
 
 const PODCAST_THUMBNAIL: string =
-  "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/logos/cg_podcast.jpeg";
+  "https://images.cheesegratermagazine.org/logos/cg_podcast.jpeg";
 
 function slugify(text: string): string {
   return text
