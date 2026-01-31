@@ -56,17 +56,24 @@ export default function ArticlePreview() {
 
   const validation = validateDraft(draft);
 
-  async function uploadImage(file: File, path: string): Promise<string> {
-    const { error } = await supabase.storage.from("images").upload(path, file, {
-      upsert: true,
-      contentType: file.type,
+  async function uploadImage(
+    file: File,
+    path: string,
+  ): Promise<{ url: string; width: number; height: number }> {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("path", path);
+
+    const res = await fetch("/api/uploadImage", {
+      method: "POST",
+      body: formData,
     });
 
-    if (error) throw error;
+    if (!res.ok) {
+      throw new Error("Upload failed");
+    }
 
-    const { data } = supabase.storage.from("images").getPublicUrl(path);
-
-    return data.publicUrl;
+    return res.json();
   }
 
   async function processContentImages(
@@ -84,41 +91,18 @@ export default function ArticlePreview() {
       if (!src || !src.startsWith("blob:")) continue;
 
       const blob = await fetch(src).then((r) => r.blob());
-      const file = new File([blob], `image_${index}.webp`, { type: blob.type });
+      const ext = blob.type.split("/")[1] ?? "bin";
+      const file = new File([blob], `image_${index}.${ext}`, {
+        type: blob.type,
+      });
 
       const path = `article_images/${slug}/image_${index}.webp`;
-      const publicUrl = await uploadImage(file, path);
-
-      img.setAttribute("src", publicUrl);
+      const { url } = await uploadImage(file, path);
+      img.setAttribute("src", url);
       index++;
     }
 
     return doc.body.innerHTML;
-  }
-
-  async function getImageDimensions(file: File): Promise<{
-    width: number;
-    height: number;
-  }> {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      const url = URL.createObjectURL(file);
-
-      img.onload = () => {
-        resolve({
-          width: img.naturalWidth,
-          height: img.naturalHeight,
-        });
-        URL.revokeObjectURL(url);
-      };
-
-      img.onerror = () => {
-        URL.revokeObjectURL(url);
-        reject(new Error("Failed to load image"));
-      };
-
-      img.src = url;
-    });
   }
 
   async function blobUrlToFile(blobUrl: string, name: string) {
@@ -141,10 +125,11 @@ export default function ArticlePreview() {
 
       if (authorThumbnailUrl?.startsWith("blob:")) {
         const file = await blobUrlToFile(authorThumbnailUrl, "author.webp");
-        authorThumbnailUrl = await uploadImage(
+        const { url } = await uploadImage(
           file,
           `article_images/${slug}/author.webp`,
         );
+        authorThumbnailUrl = url;
       }
       // 2. Upload main image
       let mainImageUrl: string | null = draft.image ?? null;
@@ -153,15 +138,14 @@ export default function ArticlePreview() {
 
       if (draft.image?.startsWith("blob:")) {
         const file = await blobUrlToFile(draft.image, "main.webp");
-
-        const dims = await getImageDimensions(file);
-        imageWidth = dims.width;
-        imageHeight = dims.height;
-
-        mainImageUrl = await uploadImage(
+        const { url, width, height } = await uploadImage(
           file,
           `article_images/${slug}/main_image.webp`,
         );
+
+        mainImageUrl = url;
+        imageWidth = width;
+        imageHeight = height;
       }
 
       // 3. Process editor content images
