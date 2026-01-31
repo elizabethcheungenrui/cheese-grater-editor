@@ -23,6 +23,7 @@ type DraftArticle = {
   content: string;
   publish_date: string;
   updatedAt: number;
+  link: string;
 };
 
 const SECTION_OPTIONS = {
@@ -80,6 +81,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         content: "",
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
+        link: "",
       };
     }
 
@@ -98,6 +100,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         image_caption: "",
         content: "",
         updatedAt: Date.now(),
+        link:"",
       };
     }
   });
@@ -132,6 +135,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         content: data.content ?? "",
         publish_date: data.date_published.slice(0, 10),
         updatedAt: Date.now(),
+        link: data.link,
       });
     }
 
@@ -500,6 +504,22 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 initialContent={draft.content}
                 onChange={(html) => setDraft((d) => ({ ...d, content: html }))}
               />
+            </div>
+            <div>
+              <h2>Old Wordpress Link</h2>
+              <p>ONLY USED FOR ARCHIVAL.</p> <p>Fill this in if transferring an old WP article to the new site, leave blank if this is a new article.</p>
+              <div className="field">
+                <input
+                  type="text"
+                  value={draft.link}
+                  onChange={(e) =>
+                    setDraft((d) => ({ ...d, link: e.target.value }))
+                  }
+                  placeholder="https://old.cheesegratermagazine.org/..."
+                  className="custom-subsection"
+                  spellCheck="false"
+                />
+              </div>
             </div>
             <button
               className="preview-button"

@@ -16,6 +16,40 @@ export function slugify(text: string): string {
     .replace(/-+/g, "-"); // collapse multiple hyphens
 }
 
+export function wpLinkToSlug(link: string): string | null {
+  try {
+    // Handle full URLs and paths uniformly
+    const url = link.startsWith("http")
+      ? new URL(link)
+      : new URL(link, "https://old.cheesegratermagazine.org");
+
+    const path = url.pathname.replace(/\/+$/, "");
+
+    const match = path.match(
+      /^\/([0-9]{4})\/([0-9]{2})\/([0-9]{2})\/([^/]+)$/
+    );
+
+    if (!match) return null;
+
+    const [, year, month, day, slug] = match;
+    return `${year}-${month}-${day}-${slug}`;
+  } catch {
+    return null;
+  }
+}
+
+export function normaliseWpLink(link: string): string | null {
+  try {
+    const url = link.startsWith("http")
+      ? new URL(link)
+      : new URL(link, "https://old.cheesegratermagazine.org");
+
+    return url.pathname.replace(/\/?$/, "/");
+  } catch {
+    return null;
+  }
+}
+
 export default function ArticlePreview() {
   const [draft, setDraft] = useState<any | null>(null);
 
@@ -39,7 +73,6 @@ export default function ArticlePreview() {
   // Build a fake Article object
   const article = {
     id: "draft",
-    link: "preview",
     slug: "preview",
     section: draft.section,
     subsection: draft.subsection,
@@ -52,6 +85,7 @@ export default function ArticlePreview() {
     image_caption: draft.image_caption,
     content: draft.content,
     date_published: new Date(draft.publish_date).toISOString(),
+    link: draft.link,
   };
 
   const validation = validateDraft(draft);
@@ -117,8 +151,16 @@ export default function ArticlePreview() {
 
     const date = new Date();
     const datePrefix = date.toISOString().slice(0, 10);
-    const slug = isEdit ? draft.slug : `${datePrefix}-${slugify(draft.title)}`;
 
+    const derivedFromWp = draft.link ? wpLinkToSlug(draft.link) : null;
+
+    const slug =
+      derivedFromWp ??
+      (isEdit
+        ? draft.slug
+        : `${datePrefix}-${slugify(draft.title)}`
+      );
+    
     try {
       // 1. Upload author image (if overridden blob)
       let authorThumbnailUrl = draft.author_thumbnail;
@@ -151,8 +193,11 @@ export default function ArticlePreview() {
       // 3. Process editor content images
       const processedContent = await processContentImages(draft.content, slug);
 
+      const normalisedLink = draft.link ? normaliseWpLink(draft.link) : null;
+
       const articleRow = {
         slug,
+        link: normalisedLink,
         section: draft.section,
         subsection: draft.subsection,
         date_published: new Date(draft.publish_date).toISOString(),
