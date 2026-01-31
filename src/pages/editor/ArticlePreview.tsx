@@ -110,7 +110,7 @@ export default function ArticlePreview() {
     return new File([blob], name, { type: blob.type });
   }
 
-  async function publishArticle() {
+  async function publishArticle(forArchive: boolean) {
     if (!validation.valid) return;
 
     if (!window.confirm("Publish this article?")) return;
@@ -175,7 +175,7 @@ export default function ArticlePreview() {
       const { error } = await query;
       if (error) throw error;
 
-      await triggerRedeploy();
+      if (forArchive) await triggerRedeploy();
 
       localStorage.removeItem("draft:article:new");
       window.location.href = "/editor";
@@ -199,13 +199,22 @@ export default function ArticlePreview() {
         </div>
       )}
 
-      <button
-        className="editor-button"
-        disabled={!validation.valid}
-        onClick={publishArticle}
-      >
-        Publish Article
-      </button>
+      <div className="editor-buttons">
+        <button
+          className="editor-button"
+          disabled={!validation.valid}
+          onClick={() => publishArticle(false)}
+        >
+          Publish Article
+        </button>
+        <button
+          className="editor-button preview"
+          disabled={!validation.valid}
+          onClick={() => publishArticle(true)}
+        >
+          Publish Article (for archival)
+        </button>
+      </div>
     </div>
   );
 }
