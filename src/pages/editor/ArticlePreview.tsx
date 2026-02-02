@@ -221,7 +221,7 @@ export default function ArticlePreview() {
       const { error } = await query;
       if (error) throw error;
 
-      if (forArchive) await triggerRedeploy();
+      if (!forArchive) await triggerRedeploy();
 
       localStorage.removeItem("draft:article:new");
       window.location.href = "/editor";
