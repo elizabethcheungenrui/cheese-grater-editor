@@ -150,7 +150,7 @@ export default function ArticlePreview() {
 
     if (!window.confirm("Publish this article?")) return;
 
-    const date = new Date();
+    const date = new Date(draft.publish_date);
     const datePrefix = date.toISOString().slice(0, 10);
 
     const derivedFromWp = draft.link ? wpLinkToSlug(draft.link) : null;
