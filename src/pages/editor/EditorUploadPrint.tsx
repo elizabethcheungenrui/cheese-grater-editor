@@ -147,7 +147,7 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
 
       // 3. Insert / update database row
       const row = {
-        name: draft.name,
+        name: `Issue ${draft.name}`,
         slug,
       };
 
