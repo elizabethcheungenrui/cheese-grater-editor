@@ -267,7 +267,7 @@ export default function ArticlePreview() {
 
       <div className="right">
         <div className="ig-heading-text">
-          <h1>IG Cards</h1>
+          <h1>IG Cards ( WIP :) )</h1>
           <p>Screenshot and crop for posting</p>
         </div>
         <IGCover article={article} />
