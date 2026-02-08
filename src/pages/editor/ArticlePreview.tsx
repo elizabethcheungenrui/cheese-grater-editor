@@ -1,4 +1,5 @@
 import ArticleContent from "../article/ArticleContent";
+import IGCover from "../ig/IGCover";
 import { useEffect, useState } from "react";
 import { validateDraft } from "./validateDraft";
 import { supabase } from "../../lib/supabaseClient";
@@ -233,33 +234,43 @@ export default function ArticlePreview() {
 
   return (
     <div className="article-preview">
-      <ArticleContent article={article} />
-      {!validation.valid && (
-        <div className="publish-warning">
-          <p>Cannot publish. Missing:</p>
-          <ul>
-            {validation.missing.map((field) => (
-              <li key={field}>{field}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className="left">
+        <ArticleContent article={article} />
+        {!validation.valid && (
+          <div className="publish-warning">
+            <p>Cannot publish. Missing:</p>
+            <ul>
+              {validation.missing.map((field) => (
+                <li key={field}>{field}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-      <div className="editor-buttons">
-        <button
-          className="editor-button"
-          disabled={!validation.valid}
-          onClick={() => publishArticle(false)}
-        >
-          Publish Article
-        </button>
-        <button
-          className="editor-button preview"
-          disabled={!validation.valid}
-          onClick={() => publishArticle(true)}
-        >
-          Publish Article (for archival)
-        </button>
+        <div className="editor-buttons">
+          <button
+            className="editor-button"
+            disabled={!validation.valid}
+            onClick={() => publishArticle(false)}
+          >
+            Publish Article
+          </button>
+          <button
+            className="editor-button preview"
+            disabled={!validation.valid}
+            onClick={() => publishArticle(true)}
+          >
+            Publish Article (for archival)
+          </button>
+        </div>
+      </div>
+
+      <div className="right">
+        <div className="ig-heading-text">
+          <h1>IG Cards</h1>
+          <p>Screenshot and crop for posting</p>
+        </div>
+        <IGCover article={article} />
       </div>
     </div>
   );

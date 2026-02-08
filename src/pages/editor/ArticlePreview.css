@@ -1,3 +1,10 @@
+.article-preview {
+  display: grid;
+  grid-template-columns: 7.2fr 3.8fr;
+  gap: 3rem;
+  margin: 3rem 6rem 3rem 9rem;
+}
+
 .article-preview .editor-buttons {
   margin: 1rem 8rem 5rem 8rem;
 }
@@ -20,4 +27,15 @@
 
 .article-preview .editor-button:hover {
   background-color: #eaeaea;
+}
+
+.article-preview .right {
+  display: grid;
+  align-content: start;
+  gap: 2rem;
+  padding-top: 5rem;
+}
+
+.article-preview .ig-heading-text {
+  color: var(--cg-font);
 }

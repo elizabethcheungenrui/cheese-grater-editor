@@ -1,0 +1,86 @@
+.ig-container {
+  display: grid;
+  background-color: black;
+  width: 400px;
+  height: 500px;
+  padding: 18px;
+  gap: 15px;
+  align-content: start;
+}
+
+.ig-container.news {
+  background-color: #2c59ac;
+}
+
+.ig-container.humour {
+  background-color: #007036;
+}
+
+.ig-container.voices {
+  background-color: #c42872;
+}
+
+.ig-container .main-heading {
+  display: grid;
+  align-content: space-between;
+  height: 95px;
+}
+
+.ig-container .ig-section {
+  font-family: "Bitter";
+  font-weight: 700;
+  font-size: 13px;
+  color: white;
+}
+
+.ig-container .ig-title-box {
+  height: 75px;
+  overflow: hidden;
+}
+
+.ig-container .ig-title {
+  font-weight: 800;
+  line-height: 1.5;
+  color: white;
+}
+
+.ig-container .main-content {
+  background-color: white;
+  display: grid;
+  gap: 3px;
+  padding: 2.5px;
+  border-radius: 3px;
+  color: var(--cg-font);
+}
+
+.ig-container .yellow-box {
+  height: 80px;
+  display: grid;
+  gap: 3px;
+  background-color: #ffda4d;
+  padding: 7px;
+  border-radius: 3px;
+}
+
+.ig-container .ig-author {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.ig-container .summary-box {
+  height: 55px;
+  overflow: hidden;
+}
+
+.ig-container .article-summary {
+  font-family: "Bitter";
+  font-weight: 700;
+  font-style: italic;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.ig-container .ig-image {
+  width: 100%;
+  height: 250px;
+}

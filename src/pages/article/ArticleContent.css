@@ -1,15 +1,8 @@
 .article-container {
   display: grid;
   width: 100%;
-  grid-template-columns: 7.3fr 2.8fr;
-  padding: 3rem 9rem;
   gap: 3rem;
   zoom: 0.9375;
-}
-
-.article-container .container-main {
-  display: grid;
-  gap: 3rem;
 }
 
 .article-container .main-article {
