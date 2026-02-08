@@ -1,5 +1,5 @@
 import { ImageResponse } from "@vercel/og";
-import { TextSlide } from "../../../lib/og/TextSlide";
+import { TextSlide } from "../src/lib/og/TextSlide";
 
 export const runtime = "edge";
 
