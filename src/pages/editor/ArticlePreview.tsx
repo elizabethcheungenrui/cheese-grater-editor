@@ -197,12 +197,22 @@ export default function ArticlePreview() {
 
       const normalisedLink = draft.link ? normaliseWpLink(draft.link) : null;
 
+      const date = new Date(draft.publish_date);
+      const now = new Date();
+
+      date.setHours(
+        now.getHours(),
+        now.getMinutes(),
+        now.getSeconds(),
+        now.getMilliseconds()
+      );
+
       const articleRow = {
         slug,
         link: normalisedLink,
         section: draft.section,
         subsection: draft.subsection,
-        date_published: new Date(draft.publish_date).toISOString(),
+        date_published: date.toISOString(),
         title: draft.title,
         summary: draft.summary || null,
         author: draft.author,
