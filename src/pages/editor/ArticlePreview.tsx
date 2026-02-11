@@ -53,6 +53,11 @@ export function normaliseWpLink(link: string): string | null {
 
 export default function ArticlePreview() {
   const [draft, setDraft] = useState<any | null>(null);
+  
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
+  const isEdit = mode === "edit";
+  console.log(isEdit);
 
   useEffect(() => {
     const raw = localStorage.getItem(DRAFT_KEY);
@@ -68,8 +73,6 @@ export default function ArticlePreview() {
   if (!draft) {
     return <p>No draft to preview.</p>;
   }
-
-  const isEdit = Boolean(draft.id);
 
   // Build a fake Article object
   const article = {
