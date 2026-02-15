@@ -44,7 +44,7 @@ const SECTION_OPTIONS = {
     "Varsity",
     "Workers",
   ],
-  Humour: ["Humour", "Graphics", "Satire", "Soc Bitch"],
+  Humour: ["Humour", "Graphics", "Pie Media", "Satire", "Soc Bitch"],
   Voices: ["Editorial", "Reviews", "Voices"],
 } as const;
 
