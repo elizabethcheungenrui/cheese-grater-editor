@@ -58,7 +58,20 @@ export default function IGCover({ article }: { article: Article }) {
 
       <div className="main-content">
         <div className="yellow-box">
-          <p className="ig-author">By {article.author} {article.role && <i>[{article.role}]</i>}</p>  
+          <p className="ig-author">By{" "}  
+            {article.authors?.length
+              ? article.authors.map(({ name }, i) => {
+                const total = article.authors.length;
+
+                return (
+                  <>
+                    {name}
+                    {total > 1 && i < total - 2 && ', '}
+                    {total > 1 && i === total - 2 && ' & '}
+                  </>
+                  )})
+              : "Unable to retrieve"
+            } {article.role && <i>[{article.role}]</i>}</p>  
 
           {article.summary && (
             <div className="summary-box">
