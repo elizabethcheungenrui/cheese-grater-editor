@@ -2,20 +2,21 @@ import { supabase } from "../../lib/supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
+import AuthorSelector from "./AuthorSelector";
 import EditorUpload from "./EditorUpload";
 import { Link, useParams } from "react-router-dom";
 import { validateDraft } from "./validateDraft";
 
 import "./EditorUploadPage.css";
 
-type DraftArticle = {
+export type DraftArticle = {
   id?: string;
   slug?: string;
   section: string;
   subsection: string;
   title: string;
   summary: string;
-  author: string;
+  authors: { id: string; name: string }[];
   author_thumbnail: string | null;
   role: string;
   image: string | null;
@@ -73,7 +74,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         subsection: "",
         title: "",
         summary: "",
-        author: "",
+        authors: [],
         author_thumbnail: null,
         role: "",
         image: null,
@@ -93,7 +94,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         subsection: "",
         title: "",
         summary: "",
-        author: "",
+        authors: [],
         author_thumbnail: null,
         role: "",
         image: null,
@@ -111,7 +112,14 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     async function loadArticle() {
       const { data, error } = await supabase
         .from("articles")
-        .select("*")
+        .select(`*,
+          article_authors (
+            authors (
+              id,
+              name
+            )
+          )`
+        )
         .eq("id", id)
         .single();
 
@@ -127,7 +135,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         subsection: data.subsection,
         title: data.title,
         summary: data.summary ?? "",
-        author: data.author,
+        authors: data.article_authors.map((x: any) => x.authors),
         author_thumbnail: data.author_thumbnail,
         role: data.role ?? "",
         image: data.image_url,
@@ -388,15 +396,11 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 />
 
                 <div className="author-text">
-                  <input
-                    type="text"
-                    value={draft.author}
-                    onChange={(e) =>
-                      setDraft((d) => ({ ...d, author: e.target.value }))
+                  <AuthorSelector
+                    authors={draft.authors}
+                    setAuthors={(authors) =>
+                      setDraft((d) => ({ ...d, authors }))
                     }
-                    placeholder="Author"
-                    className="author"
-                    spellCheck="false"
                   />
 
                   <input

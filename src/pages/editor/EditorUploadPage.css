@@ -113,15 +113,6 @@
   color: #aaa;
 }
 
-.editor-upload .author {
-  font-family: "Libre Baskerville";
-  color: var(--cg-font);
-  font-weight: 700;
-  font-size: 1rem;
-  line-height: 1.1rem;
-  border: none;
-}
-
 .editor-upload .role {
   font-family: "Libre Baskerville";
   color: var(--cg-font);

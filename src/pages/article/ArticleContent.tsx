@@ -35,7 +35,21 @@ export default function ArticleContent({ article }: { article: Article }) {
               alt={article.section}
             />
             <div className="author-text">
-              <span className="author">{article.author}</span>
+              <span className="author">               
+                {article.authors?.length
+                  ? article.authors.map(({ name }, i) => {
+                    const total = article.authors.length;
+
+                    return (
+                      <>
+                        {name}
+                        {total > 1 && i < total - 2 && ', '}
+                        {total > 1 && i === total - 2 && ' & '}
+                      </>
+                      )})
+                  : "Unable to retrieve"
+                }
+              </span>
               <span className="role">{article.role}</span>
             </div>
           </div>

@@ -1,0 +1,51 @@
+.author-selector {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.author-selector .author-text {
+  font-family: "Libre Baskerville";
+  color: var(--cg-font);
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.1rem;
+  border: none;
+}
+
+.author-selector .option-text {
+  font-family: "Libre Baskerville";
+  color: #eee;
+  font-weight: 700;
+  font-size: 0.9rem;
+  line-height: 1.3rem;
+  border: none;
+  cursor: pointer;
+}
+
+.author-selector .option-text:hover {
+  background-color: #ddd;
+}
+
+.author-selector .author {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.author-selector .author-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.author-selector .x-button {
+  padding: 0 0.5rem;
+  background: none;
+  border: none;
+  color: var(--cg-font);
+  font-family: "Libre Baskerville";
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.author-selector .x-button:hover {
+  background-color: #ddd;
+}

@@ -7,7 +7,7 @@ export interface Article {
   date_published: string; // ISO date string
   title: string;
   summary: string | null;
-  author: string | null;
+  authors: { id: string; name: string }[];
   author_thumbnail: string | null;
   role: string | null;
   image_url: string | null;

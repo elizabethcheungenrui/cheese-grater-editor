@@ -3,7 +3,7 @@ export type DraftArticle = {
   subsection: string;
   title: string;
   summary: string;
-  author: string;
+  authors: { id: string; name: string }[];
   author_thumbnail: string | null;
   role: string;
   image: string | null;
@@ -27,7 +27,9 @@ export function validateDraft(draft: DraftArticle) {
   if (!draft.section.trim()) missing.push("section");
   if (!draft.subsection.trim()) missing.push("subsection");
   if (!draft.title.trim()) missing.push("title");
-  if (!draft.author.trim()) missing.push("author");
+  if (!draft.authors 
+    || draft.authors.length === 0
+    || draft.authors.some(a => !a.id)) missing.push("author");
   if (!draft.publish_date) missing.push("publish date");
 
   return {

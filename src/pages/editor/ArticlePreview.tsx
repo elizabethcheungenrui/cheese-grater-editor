@@ -8,6 +8,8 @@ import "./ArticlePreview.css";
 
 const DRAFT_KEY = "draft:article:new";
 
+// Turns article titles into slugs. Is not applied if an old Wordpress version
+// of the article exists.
 export function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -82,7 +84,7 @@ export default function ArticlePreview() {
     subsection: draft.subsection,
     title: draft.title || "Untitled",
     summary: draft.summary || "",
-    author: draft.author || "Unknown",
+    authors: draft.authors ?? [],
     role: draft.role || "",
     author_thumbnail: draft.author_thumbnail,
     image_url: draft.image,
@@ -210,6 +212,9 @@ export default function ArticlePreview() {
         now.getMilliseconds()
       );
 
+      const authorString =
+        draft.authors?.map((a: { id: string; name: string }) => a.name).join(", ") ?? null;
+
       const articleRow = {
         slug,
         link: normalisedLink,
@@ -218,7 +223,7 @@ export default function ArticlePreview() {
         date_published: date.toISOString(),
         title: draft.title,
         summary: draft.summary || null,
-        author: draft.author,
+        author: authorString,
         author_thumbnail: authorThumbnailUrl,
         role: draft.role || null,
         image_url: mainImageUrl,
@@ -232,8 +237,25 @@ export default function ArticlePreview() {
         ? supabase.from("articles").update(articleRow).eq("id", draft.id)
         : supabase.from("articles").insert(articleRow);
 
-      const { error } = await query;
+      const { data: articleData, error } = await query.select("id").single();
       if (error) throw error;
+
+      const articleId = isEdit ? draft.id : articleData.id;
+
+
+      if (isEdit) {
+        await supabase
+          .from("article_authors")
+          .delete()
+          .eq("article_id", articleId);
+      }
+
+      for (const author of draft.authors) {
+        await supabase.from("article_authors").insert({
+          article_id: articleId,
+          author_id: author.id,
+        });
+      }
 
       if (!forArchive) await triggerRedeploy();
 
