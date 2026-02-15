@@ -10,6 +10,12 @@ const DRAFT_KEY = "draft:podcast:new";
 const PODCAST_THUMBNAIL: string =
   "https://images.cheesegratermagazine.org/logos/cg_podcast.jpeg";
 
+const PODCAST_AUTHOR = {
+  id: "grater-insight", // temporary preview id
+  name: "Grater Insight",
+  slug: "grater-insight",
+};
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -85,7 +91,7 @@ export default function PodcastPreview() {
     subsection: "Podcast",
     title: draft.title || "Untitled",
     summary: null,
-    author: "Grater Insight",
+    authors: [PODCAST_AUTHOR],
     role: null,
     author_thumbnail: PODCAST_THUMBNAIL,
     image_url: null,
@@ -125,8 +131,27 @@ export default function PodcastPreview() {
         ? supabase.from("articles").update(podcastRow).eq("id", draft.id)
         : supabase.from("articles").insert(podcastRow);
 
-      const { error } = await query;
-      if (error) throw error;
+      const { data: articleData, error } = await query.select("id").single();
+      if (error) throw error; 
+
+      const articleId = isEdit ? draft.id : articleData.id;
+          
+      const { data: authorRow, error: authorError } =   await supabase
+        .from("authors")
+        .select("id")
+        .eq("name_normalized", "grater insight")
+        .single();
+
+      if (authorError) throw authorError;
+
+      const { error: linkError } = await supabase
+        .from("article_authors")
+        .insert({
+          article_id: articleId,
+          author_id: authorRow.id,
+        });
+
+      if (linkError) throw linkError;
 
       await triggerRedeploy();
 
@@ -140,25 +165,27 @@ export default function PodcastPreview() {
 
   return (
     <div className="article-preview">
-      <ArticleContent article={article} />
-      {!validation.valid && (
-        <div className="publish-warning">
-          <p>Cannot publish. Missing:</p>
-          <ul>
-            {validation.missing.map((field) => (
-              <li key={field}>{field}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div>
+        <ArticleContent article={article} />
+        {!validation.valid && (
+          <div className="publish-warning">
+            <p>Cannot publish. Missing:</p>
+            <ul>
+              {validation.missing.map((field) => (
+                <li key={field}>{field}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-      <button
-        className="editor-button"
-        disabled={!validation.valid}
-        onClick={publishPodcast}
-      >
-        Publish Podcast
-      </button>
+        <button
+          className="editor-button"
+          disabled={!validation.valid}
+          onClick={publishPodcast}
+        >
+          Publish Podcast
+        </button>
+      </div>
     </div>
   );
 }
