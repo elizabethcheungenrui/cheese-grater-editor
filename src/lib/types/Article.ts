@@ -1,7 +1,8 @@
 export type AuthorRef = {
-  id: string;
+  id?: string;
   name: string;
   slug?: string;
+  isNew?: boolean;
 };
 
 export type ArticleAuthorJoin = {

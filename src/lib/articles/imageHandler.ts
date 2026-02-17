@@ -9,13 +9,20 @@ export async function uploadImage(
   const res = await fetch("/api/uploadImage", {
     method: "POST",
     body: formData,
-  });
+  });  
 
-  if (!res.ok) {
-    throw new Error("Upload failed");
+  const text = await res.text();
+
+  if (!res.ok) {    
+    console.error("Upload error response:", text);
+    throw new Error(`Upload failed: ${res.status} ${text}`);
   }
 
-  return res.json();
+  try {
+    return JSON.parse(text);
+  } catch {
+    throw new Error(`Upload failed: Invalid JSON response → ${text}`);
+  }
 }
 
 export async function processContentImages(

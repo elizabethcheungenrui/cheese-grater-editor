@@ -1,11 +1,7 @@
 import { supabase } from "../../lib/supabase/supabaseClient";
 import { triggerRedeploy } from "../../lib/vercel/triggerRedeploy";
-import { slugify, wpLinkToSlug, normaliseWpLink } from "./slugs";
-import {
-  uploadImage,
-  processContentImages,
-  blobUrlToFile,
-} from "./imageHandler";
+import { slugify, normaliseAuthorName, wpLinkToSlug, normaliseWpLink } from "./slugs";
+import { uploadImage, processContentImages, blobUrlToFile } from "./imageHandler";
 import type { DraftArticle } from "../types/Article";
 
 export async function publishArticle(
@@ -108,21 +104,50 @@ export async function publishArticle(
         .eq("article_id", articleId);
     }
 
+    // Ensure all authors exist in DB
+    const resolvedAuthors = [];
+
+    for (const author of draft.authors) {
+      if (author.id) {
+        resolvedAuthors.push(author);
+        continue;
+      }
+
+      // New author -> insert
+      const normalisedName = normaliseAuthorName(author.name);
+      const slug = slugify(normalisedName);
+
+      const { data, error } = await supabase
+        .from("authors")
+        .insert({
+          name: author.name,
+          name_normalized: normalisedName,
+          slug,
+        })
+        .select("id, name, slug")
+        .single();
+
+      if (error) throw error;
+
+      resolvedAuthors.push(data);
+    }
+
+    // Insert joins
     await Promise.all(
-      draft.authors.map((author) =>
+      resolvedAuthors.map(author =>
         supabase.from("article_authors").insert({
           article_id: articleId,
           author_id: author.id,
-        }),
-      ),
+        })
+      )
     );
 
     if (!forArchive) await triggerRedeploy();
 
     localStorage.removeItem("draft:article:new");
     window.location.href = "/editor";
-  } catch (err) {
-    console.error(err);
-    alert("Failed to publish article.");
+  } catch (err: any) {
+    console.error("Publish error:", err);
+    alert(err?.message?? "Failed to publish article.");
   }
 }

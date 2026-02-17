@@ -9,6 +9,15 @@ export function slugify(text: string): string {
     .replace(/-+/g, "-"); // collapse multiple hyphens
 }
 
+export function normaliseAuthorName(name: string): string {
+  return name
+    .trim()
+    .toLowerCase()
+    .normalize("NFKD")                 // split accents
+    .replace(/[\u0300-\u036f]/g, "")   // remove accents
+    .replace(/\s+/g, " ")              // collapse spaces
+}
+
 export function wpLinkToSlug(link: string): string | null {
   try {
     // Handle full URLs and paths uniformly

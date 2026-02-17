@@ -9,7 +9,7 @@ export function validateDraft(draft: DraftArticle) {
   if (
     !draft.authors ||
     draft.authors.length === 0 ||
-    draft.authors.some((a) => !a.id)
+    draft.authors.some((a) => !a.name?.trim())
   )
     missing.push("author");
   if (!draft.publish_date) missing.push("publish date");
