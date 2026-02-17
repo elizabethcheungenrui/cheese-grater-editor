@@ -1,4 +1,4 @@
-import type { DraftArticle, PodcastDraftArticle } from "../../types/Article";
+import type { DraftArticle, PodcastDraftArticle } from "../types/Article";
 
 export function validateDraft(draft: DraftArticle) {
   const missing: string[] = [];

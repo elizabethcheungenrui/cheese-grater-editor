@@ -1,5 +1,5 @@
 import "./IGCover.css";
-import type { Article } from "../../types/Article";
+import type { Article } from "../../lib/types/Article";
 import { useLayoutEffect, useRef } from "react";
 
 function fitTextToContainer(el: HTMLElement, minPx: number, maxPx: number) {
