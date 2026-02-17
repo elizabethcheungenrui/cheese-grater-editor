@@ -38,6 +38,8 @@ const AUTHOR_THUMBNAILS: Record<string, string> = {
     "https://images.cheesegratermagazine.org/author_thumbnails/voices_new.jpg",
   "Soc Bitch":
     "https://images.cheesegratermagazine.org/author_thumbnails/soc_bitch.jpg",
+  "Pie Media":
+    "https://images.cheesegratermagazine.org/author_thumbnails/pie_media.webp",
 };
 
 const DEFAULT_AUTHOR_THUMBNAIL =
@@ -186,8 +188,8 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     if (authorImageOverridden) return;
 
     const autoImage =
-      AUTHOR_THUMBNAILS[draft.section] ??
       AUTHOR_THUMBNAILS[draft.subsection] ??
+      AUTHOR_THUMBNAILS[draft.section] ??
       DEFAULT_AUTHOR_THUMBNAIL;
 
     setDraft((d) => ({
@@ -196,7 +198,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     }));
 
     setAuthorImagePreview(autoImage);
-  }, [draft.section]);
+  }, [draft.section, draft.subsection]);
 
   return (
     <div className="page-desktop">
