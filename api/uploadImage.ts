@@ -19,10 +19,7 @@ const S3 = new S3Client({
   },
 });
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse,
-) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).end();
   }

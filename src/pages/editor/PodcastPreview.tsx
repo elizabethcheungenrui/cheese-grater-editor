@@ -1,8 +1,8 @@
 import ArticleContent from "../article/ArticleContent";
 import { useEffect, useState } from "react";
-import { validatePodcastDraft } from "./validateDraft";
-import { supabase } from "../../lib/supabaseClient";
-import { triggerRedeploy } from "../../lib/triggerRedeploy";
+import { validatePodcastDraft } from "../../lib/methods/validateDraft";
+import { supabase } from "../../lib/supabase/supabaseClient";
+import { triggerRedeploy } from "../../lib/vercel/triggerRedeploy";
 import "./ArticlePreview.css";
 
 const DRAFT_KEY = "draft:podcast:new";
@@ -132,11 +132,11 @@ export default function PodcastPreview() {
         : supabase.from("articles").insert(podcastRow);
 
       const { data: articleData, error } = await query.select("id").single();
-      if (error) throw error; 
+      if (error) throw error;
 
       const articleId = isEdit ? draft.id : articleData.id;
-          
-      const { data: authorRow, error: authorError } =   await supabase
+
+      const { data: authorRow, error: authorError } = await supabase
         .from("authors")
         .select("id")
         .eq("name_normalized", "grater insight")

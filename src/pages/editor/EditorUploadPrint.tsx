@@ -1,4 +1,4 @@
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
@@ -14,12 +14,12 @@ type DraftPrint = {
   pdf_file: File | null;
   pdf_cover: string | null;
 };
-  
+
 async function blobUrlToFile(blobUrl: string, name: string) {
   const blob = await fetch(blobUrl).then((r) => r.blob());
   return new File([blob], name, { type: blob.type });
 }
-  
+
 export default function EditorUploadPrint({ mode }: { mode: string }) {
   const { id } = useParams<{ id: string }>();
   console.log(id);
@@ -104,14 +104,17 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
 
     const isEdit = mode === "edit";
 
-    if (!window.confirm(isEdit ? "Update this print edition?" : "Publish this print edition?")) {
+    if (
+      !window.confirm(
+        isEdit ? "Update this print edition?" : "Publish this print edition?",
+      )
+    ) {
       return;
     }
 
     // derive slug
-    const slug = isEdit && draft.slug
-      ? draft.slug
-      : draft.pdf_file?.name.split(".")[0];
+    const slug =
+      isEdit && draft.slug ? draft.slug : draft.pdf_file?.name.split(".")[0];
 
     if (!slug) {
       throw new Error("Unable to derive slug");
@@ -152,13 +155,8 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
       };
 
       const query = isEdit
-        ? supabase
-            .from("past-issues")
-            .update(row)
-            .eq("id", draft.id)
-        : supabase
-            .from("past-issues")
-            .insert(row);
+        ? supabase.from("past-issues").update(row).eq("id", draft.id)
+        : supabase.from("past-issues").insert(row);
 
       const { error } = await query;
       if (error) throw error;
@@ -177,23 +175,28 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
       <Header />
 
       <div className="editor-upload">
-        <h1>{mode === "edit" ? "Edit Print Edition" : "Upload Print Edition"}</h1>
+        <h1>
+          {mode === "edit" ? "Edit Print Edition" : "Upload Print Edition"}
+        </h1>
 
         <div className="editor-upload-columns">
           <div className="editor-upload-left">
             <div className="field">
               <h2>Issue Number</h2>
 
-              <p>Issue  <input
-                type="number"
-                value={draft.name}
-                onChange={(e) =>
-                  setDraft((d) => ({ ...d, name: e.target.value }))
-                }
-                placeholder="XX"
-                spellCheck={false}
-                className="custom-subsection"
-              /></p>
+              <p>
+                Issue{" "}
+                <input
+                  type="number"
+                  value={draft.name}
+                  onChange={(e) =>
+                    setDraft((d) => ({ ...d, name: e.target.value }))
+                  }
+                  placeholder="XX"
+                  spellCheck={false}
+                  className="custom-subsection"
+                />
+              </p>
             </div>
 
             <div className="field">
@@ -225,8 +228,13 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
             <div className="field">
               <h2>Print PDF</h2>
               <p>The pdf file itself.</p>
-              <p>Make sure the filename is formatted as <i>CG[Number]-[Month]-[Year].pdf</i>.</p>
-              <p>For instance <i>CG01-October-2004.pdf</i>.</p>
+              <p>
+                Make sure the filename is formatted as{" "}
+                <i>CG[Number]-[Month]-[Year].pdf</i>.
+              </p>
+              <p>
+                For instance <i>CG01-October-2004.pdf</i>.
+              </p>
               <input
                 type="file"
                 accept="application/pdf"
@@ -264,10 +272,7 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
           </div>
 
           <div className="editor-upload-right">
-            <button
-              className="editor-button"
-              onClick={saveDraft}
-            >
+            <button className="editor-button" onClick={saveDraft}>
               Save Draft
             </button>
 
@@ -280,9 +285,7 @@ export default function EditorUploadPrint({ mode }: { mode: string }) {
             </button>
 
             <Link to="/editor">
-              <button className="editor-button">
-                Back to Editor Menu
-              </button>
+              <button className="editor-button">Back to Editor Menu</button>
             </Link>
           </div>
         </div>

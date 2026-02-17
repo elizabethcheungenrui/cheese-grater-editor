@@ -18,10 +18,7 @@ const S3 = new S3Client({
   },
 });
 
-export default async function handler(
-  req: VercelRequest,
-  res: VercelResponse,
-) {
+export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).end();
   }
@@ -57,7 +54,7 @@ export default async function handler(
     return res.status(403).json({ error: "Invalid slug" });
   }
 
-  const pdfBuffer = fs.readFileSync(pdf.filepath);   
+  const pdfBuffer = fs.readFileSync(pdf.filepath);
   const coverBuffer = fs.readFileSync(cover.filepath);
 
   const pdfKey = `${slug}.pdf`;

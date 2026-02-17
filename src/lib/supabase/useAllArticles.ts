@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllArticles } from "../api/getAllArticles";
-import type { AllArticle } from "../api/getAllArticles";
+import { getAllArticles } from "./getAllArticles";
+import type { AllArticle } from "./getAllArticles";
 
 export function useAllArticles(limit?: number) {
   const [data, setData] = useState<AllArticle[] | null>(null);

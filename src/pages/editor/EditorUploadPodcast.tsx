@@ -1,10 +1,10 @@
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
 import EditorUpload from "./EditorUpload";
 import { Link, useParams } from "react-router-dom";
-import { validatePodcastDraft } from "./validateDraft";
+import { validatePodcastDraft } from "../../lib/methods/validateDraft";
 
 import "./EditorUploadPage.css";
 

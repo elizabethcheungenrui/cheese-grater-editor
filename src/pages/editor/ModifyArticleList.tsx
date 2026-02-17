@@ -1,9 +1,9 @@
-import { useAllArticles } from "../../hooks/useAllArticles";
-import { formatDate } from "../../methods/formatting";
+import { useAllArticles } from "../../lib/supabase/useAllArticles";
+import { formatDate } from "../../lib/methods/formatting";
 import { Link } from "react-router-dom";
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabase/supabaseClient";
 import { useState, useEffect } from "react";
-import { triggerRedeploy } from "../../lib/triggerRedeploy";
+import { triggerRedeploy } from "../../lib/vercel/triggerRedeploy";
 import "./ModifyArticleList.css";
 
 export default function ModifyArticleList() {

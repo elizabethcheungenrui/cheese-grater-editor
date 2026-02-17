@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../supabase/supabaseClient";
 import { Navigate, Outlet } from "react-router-dom";
 
 export default function RequireEditor() {

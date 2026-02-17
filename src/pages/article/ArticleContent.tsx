@@ -1,7 +1,7 @@
 import "./ArticleContent.css";
-import type { Article } from "../../types/Article";
-import { formatDate } from "../../methods/formatting";
-import stringToJSX from "../../methods/stringToJSX";
+import type { Article } from "../../lib/types/Article";
+import { formatDate } from "../../lib/methods/formatting";
+import stringToJSX from "../../lib/methods/stringToJSX";
 
 export default function ArticleContent({ article }: { article: Article }) {
   return (
@@ -35,20 +35,20 @@ export default function ArticleContent({ article }: { article: Article }) {
               alt={article.section}
             />
             <div className="author-text">
-              <span className="author">               
+              <span className="author">
                 {article.authors?.length
                   ? article.authors.map(({ name }, i) => {
-                    const total = article.authors.length;
+                      const total = article.authors.length;
 
-                    return (
-                      <>
-                        {name}
-                        {total > 1 && i < total - 2 && ', '}
-                        {total > 1 && i === total - 2 && ' & '}
-                      </>
-                      )})
-                  : "Unable to retrieve"
-                }
+                      return (
+                        <>
+                          {name}
+                          {total > 1 && i < total - 2 && ", "}
+                          {total > 1 && i === total - 2 && " & "}
+                        </>
+                      );
+                    })
+                  : "Unable to retrieve"}
               </span>
               <span className="role">{article.role}</span>
             </div>

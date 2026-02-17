@@ -1,6 +1,6 @@
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabase/supabaseClient";
 import { useEffect, useState } from "react";
-import './AuthorSelector.css';
+import "./AuthorSelector.css";
 
 export default function AuthorSelector({
   authors,
@@ -57,11 +57,9 @@ export default function AuthorSelector({
       <div className="author-list">
         {authors.map((a) => (
           <div key={a.id} className="author">
-            <p className="author-text">{a.name}</p> 
+            <p className="author-text">{a.name}</p>
             <button
-              onClick={() =>
-                setAuthors(authors.filter((x) => x.id !== a.id))
-              }
+              onClick={() => setAuthors(authors.filter((x) => x.id !== a.id))}
               className="x-button"
             >
               <p className="author-text">×</p>

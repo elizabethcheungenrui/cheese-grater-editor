@@ -1,31 +1,13 @@
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
 import AuthorSelector from "./AuthorSelector";
 import EditorUpload from "./EditorUpload";
 import { Link, useParams } from "react-router-dom";
-import { validateDraft } from "./validateDraft";
-
+import { validateDraft } from "../../lib/methods/validateDraft";
+import type { DraftArticle, ArticleAuthorJoin } from "../../lib/types/Article";
 import "./EditorUploadPage.css";
-
-export type DraftArticle = {
-  id?: string;
-  slug?: string;
-  section: string;
-  subsection: string;
-  title: string;
-  summary: string;
-  authors: { id: string; name: string }[];
-  author_thumbnail: string | null;
-  role: string;
-  image: string | null;
-  image_caption: string;
-  content: string;
-  publish_date: string;
-  updatedAt: number;
-  link: string;
-};
 
 const SECTION_OPTIONS = {
   News: [
@@ -101,7 +83,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         image_caption: "",
         content: "",
         updatedAt: Date.now(),
-        link:"",
+        link: "",
       };
     }
   });
@@ -112,13 +94,14 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     async function loadArticle() {
       const { data, error } = await supabase
         .from("articles")
-        .select(`*,
+        .select(
+          `*,
           article_authors (
             authors (
               id,
               name
             )
-          )`
+          )`,
         )
         .eq("id", id)
         .single();
@@ -135,7 +118,9 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         subsection: data.subsection,
         title: data.title,
         summary: data.summary ?? "",
-        authors: data.article_authors.map((x: any) => x.authors),
+        authors: (data.article_authors as ArticleAuthorJoin[]).map(
+          (x) => x.authors,
+        ),
         author_thumbnail: data.author_thumbnail,
         role: data.role ?? "",
         image: data.image_url,
@@ -511,7 +496,11 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             </div>
             <div>
               <h2>Old Wordpress Link</h2>
-              <p>ONLY USED FOR ARCHIVAL.</p> <p>Fill this in if transferring an old WP article to the new site, leave blank if this is a new article.</p>
+              <p>ONLY USED FOR ARCHIVAL.</p>{" "}
+              <p>
+                Fill this in if transferring an old WP article to the new site,
+                leave blank if this is a new article.
+              </p>
               <div className="field">
                 <input
                   type="text"

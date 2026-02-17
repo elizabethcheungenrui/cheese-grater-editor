@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { supabase } from "../../lib/supabaseClient";
+import { supabase } from "../../lib/supabase/supabaseClient";
 import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
 import "./EditorMain.css";
