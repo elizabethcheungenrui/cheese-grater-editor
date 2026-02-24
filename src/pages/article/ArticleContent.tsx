@@ -9,7 +9,7 @@ export default function ArticleContent({ article }: { article: Article }) {
       <div className="main-article">
         <div className="main-heading">
           <p className="date">
-            {article.section} / {formatDate(article.date_published)}
+            {article.subsection} / {formatDate(article.date_published)}
           </p>
 
           <h1>{article.title}</h1>
