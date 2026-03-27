@@ -30,7 +30,7 @@ export default function ArticleContent({ article }: { article: Article }) {
               className="author-image"
               src={
                 article.author_thumbnail ??
-                "https://lrhddyosfvnhpxojsjpa.supabase.co/storage/v1/object/public/images/author_thumbnails/cg_author.jpeg"
+                "https://images.cheeesgratermagazine.org/author_thumbnails/cg_author.jpeg"
               }
               alt={article.section}
             />

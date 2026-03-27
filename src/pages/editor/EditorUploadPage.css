@@ -6,7 +6,9 @@
 }
 
 .editor-upload h1,
-.editor-upload h2 {
+.editor-upload h2,
+.editor-upload h3,
+.editor-upload h4 {
   color: var(--cg-font);
 }
 
@@ -168,6 +170,37 @@
   outline: none;
   padding: 0.5rem 0;
   resize: vertical;
+}
+
+.ig-card-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.ig-card-list {
+  display: grid;
+  gap: 2rem;
+}
+
+.ig-card-editor {
+  display: grid;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: #f6f6f6;
+  border-radius: 12px;
+}
+
+.ig-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ig-card-header h3 {
+  margin: 0;
 }
 
 .editor-upload .preview-button {

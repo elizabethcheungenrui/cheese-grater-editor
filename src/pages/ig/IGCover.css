@@ -1,29 +1,8 @@
-.ig-container {
-  display: grid;
-  background-color: black;
-  width: 400px;
-  height: 500px;
-  padding: 18px;
-  gap: 15px;
-  align-content: start;
-}
-
-.ig-container.news {
-  background-color: #2c59ac;
-}
-
-.ig-container.humour {
-  background-color: #007036;
-}
-
-.ig-container.voices {
-  background-color: #c42872;
-}
-
 .ig-container .main-heading {
   display: grid;
   align-content: space-between;
-  height: 95px;
+  align-items: center;
+  height: 75px;
 }
 
 .ig-container .ig-section {
@@ -31,11 +10,6 @@
   font-weight: 700;
   font-size: 13px;
   color: white;
-}
-
-.ig-container .ig-title-box {
-  height: 75px;
-  overflow: hidden;
 }
 
 .ig-container .ig-title {

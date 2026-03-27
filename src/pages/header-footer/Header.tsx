@@ -17,7 +17,7 @@ export default function Header() {
         </a>
       </div>
 
-      <span className="best">SPA Best Publication in London 2025</span>
+      <span className="best">Hello Editor</span>
     </header>
   );
 }

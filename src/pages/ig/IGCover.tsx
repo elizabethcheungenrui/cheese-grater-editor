@@ -1,86 +1,56 @@
 import "./IGCover.css";
 import type { Article } from "../../lib/types/Article";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
+import { useFitText } from "../../lib/methods/formatting";
+import IGCardFrame from "./IGCardFrame";
 
-function fitTextToContainer(el: HTMLElement, minPx: number, maxPx: number) {
-  let low = minPx;
-  let high = maxPx;
+function renderAuthors(article: Article) {
+  if (!article.authors?.length) return "Unable to retrieve";
 
-  while (low <= high) {
-    const mid = Math.floor((low + high) / 2);
-    el.style.fontSize = `${mid}px`;
+  return article.authors.map(({ name }, i) => {
+    const total = article.authors.length;
 
-    if (el.scrollHeight > el.parentElement!.clientHeight) {
-      high = mid - 1;
-    } else {
-      low = mid + 1;
-    }
-  }
-
-  el.style.fontSize = `${high}px`;
+    return (
+      <span key={`${name}-${i}`}>
+        {name}
+        {total > 1 && i < total - 2 && ", "}
+        {total > 1 && i === total - 2 && " & "}
+      </span>
+    );
+  });
 }
 
 export default function IGCover({ article }: { article: Article }) {
-  const section =
-    article.section === "Humour"
-      ? "Humour & Satire"
-      : article.section === "News"
-        ? "News & Investigations"
-        : article.section === "Voices"
-          ? "Voices & Reviews"
-          : "Other";
-
+  const coverTitle = article.igCover?.title || article.title;
+  const coverSummary = article.igCover?.summary || article.summary || "";
+  
   const titleRef = useRef<HTMLHeadingElement>(null);
   const summaryRef = useRef<HTMLParagraphElement>(null);
 
-  useLayoutEffect(() => {
-    if (!titleRef.current) return;
-
-    fitTextToContainer(
-      titleRef.current,
-      16, // minimum readable size
-      22, // maximum design size
-    );
-  }, [article.title]);
+  useFitText(titleRef, 16, 22, [coverTitle]);
+  // useFitText(summaryRef, 12, 15, [coverSummary]);
 
   return (
-    <div className={`ig-container ${article.section.toLowerCase()}`}>
+    <IGCardFrame section={article.section}>
       <div className="main-heading">
-        <p className="ig-section">{section}</p>
-        <div className="ig-title-box">
-          <h1 ref={titleRef} className="ig-title">
-            {article.title}
-          </h1>
-        </div>
+        <h1 ref={titleRef} className="ig-title">
+          {coverTitle}
+        </h1>
       </div>
 
       <div className="main-content">
         <div className="yellow-box">
           <p className="ig-author">
-            By{" "}
-            {article.authors?.length
-              ? article.authors.map(({ name }, i) => {
-                  const total = article.authors.length;
-
-                  return (
-                    <>
-                      {name}
-                      {total > 1 && i < total - 2 && ", "}
-                      {total > 1 && i === total - 2 && " & "}
-                    </>
-                  );
-                })
-              : "Unable to retrieve"}{" "}
-            {article.role && <i>[{article.role}]</i>}
+            By {renderAuthors(article)} {article.role && <i>[{article.role}]</i>}
           </p>
 
-          {article.summary && (
+          {coverSummary && (
             <div className="summary-box">
               <p
                 ref={summaryRef}
                 className="article-summary"
                 dangerouslySetInnerHTML={{
-                  __html: article.summary,
+                  __html: coverSummary,
                 }}
               />
             </div>
@@ -95,6 +65,6 @@ export default function IGCover({ article }: { article: Article }) {
           />
         )}
       </div>
-    </div>
+    </IGCardFrame>
   );
 }

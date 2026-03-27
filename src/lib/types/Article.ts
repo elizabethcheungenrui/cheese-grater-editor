@@ -1,3 +1,5 @@
+import type { IGCard, IGCoverDraft } from "./IGCard";
+
 export type AuthorRef = {
   id?: string;
   name: string;
@@ -26,6 +28,8 @@ export type DbArticle = {
   image_height: number | null;
   image_caption: string | null;
   content: string | null;
+  ig_cover: IGCoverDraft | null;
+  ig_cards: IGCard[] | null;
 };
 
 export type Article = {
@@ -42,6 +46,8 @@ export type Article = {
   image_url: string | null;
   image_caption: string | null;
   content: string | null;
+  igCover: IGCoverDraft;
+  igCards: IGCard[];
 };
 
 export type DraftArticle = {
@@ -60,6 +66,8 @@ export type DraftArticle = {
   publish_date: string;
   link: string;
   updatedAt: number;
+  igCover: IGCoverDraft;
+  igCards: IGCard[];
 };
 
 export type PodcastDraftArticle = {
@@ -88,6 +96,11 @@ export function mapDbToArticle(
     image_url: db.image_url,
     image_caption: db.image_caption,
     content: db.content,
+    igCover: db.ig_cover ?? {
+      title: db.title,
+      summary: db.summary ?? "",
+    },
+    igCards: db.ig_cards ?? [],
   };
 }
 
@@ -106,5 +119,10 @@ export function mapDraftToPreviewArticle(draft: DraftArticle): Article {
     image_url: draft.image,
     image_caption: draft.image_caption,
     content: draft.content,
+    igCover: draft.igCover ?? {
+      title: draft.title,
+      summary: draft.summary ?? "",
+    },
+    igCards: draft.igCards ?? [],
   };
 }

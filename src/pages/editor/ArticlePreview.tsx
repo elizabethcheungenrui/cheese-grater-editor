@@ -1,9 +1,7 @@
 import ArticleContent from "../article/ArticleContent";
 import IGCover from "../ig/IGCover";
-import {
-  mapDraftToPreviewArticle,
-  type DraftArticle,
-} from "../../lib/types/Article";
+import IGCardRenderer from "../ig/IGCardRenderer";
+import { mapDraftToPreviewArticle, type DraftArticle } from "../../lib/types/Article";
 import { useEffect, useState } from "react";
 import { validateDraft } from "../../lib/methods/validateDraft";
 import { publishArticle } from "../../lib/articles/publishArticle";
@@ -80,10 +78,13 @@ export default function ArticlePreview() {
 
       <div className="right">
         <div className="ig-heading-text">
-          <h1>IG Cards ( WIP :) )</h1>
+          <h1>IG Cards</h1>
           <p>Screenshot and crop for posting</p>
         </div>
         <IGCover article={article} />
+        {article.igCards.map((card) => (
+          <IGCardRenderer key={card.id} article={article} card={card} />
+        ))}
       </div>
     </div>
   );
