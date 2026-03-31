@@ -54,7 +54,7 @@ export function fitTextToContainer(el: HTMLElement, minPx: number, maxPx: number
     const mid = (low + high) / 2;
     el.style.fontSize = `${mid}px`;
 
-    if (el.scrollHeight > box.clientHeight + 5) {
+    if (el.scrollHeight > box.clientHeight) {
       high = mid;
     } else {
       low = mid;
@@ -73,5 +73,44 @@ export function useFitText(
   useLayoutEffect(() => {
     if (!ref.current) return;
     fitTextToContainer(ref.current, minPx, maxPx);
+  }, deps);
+}
+
+export function fitTextToWidth(
+  el: HTMLElement,
+  minPx: number,
+  maxPx: number,
+) {
+  const box = el.parentElement as HTMLElement | null;
+  if (!box) return;
+
+  let low = minPx;
+  let high = maxPx;
+
+  const precision = 0.1;
+
+  while (high - low >= precision) {
+    const mid = (low + high) / 2;
+    el.style.fontSize = `${mid}px`;
+
+    if (el.scrollWidth > box.clientWidth) {
+      high = mid;
+    } else {
+      low = mid;
+    }
+  }
+
+  el.style.fontSize = `${low.toFixed(1)}px`;
+}
+
+export function useFitTextWidth(
+  ref: RefObject<HTMLElement | null>,
+  minPx: number,
+  maxPx: number,
+  deps: unknown[],
+) {
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    fitTextToWidth(ref.current, minPx, maxPx);
   }, deps);
 }

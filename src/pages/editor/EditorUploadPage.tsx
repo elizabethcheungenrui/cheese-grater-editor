@@ -6,6 +6,7 @@ import AuthorSelector from "./AuthorSelector";
 import EditorUpload from "./EditorUpload";
 import { Link, useParams } from "react-router-dom";
 import { validateDraft } from "../../lib/methods/validateDraft";
+import { countWords } from "../../lib/methods/wordCount";   
 import type { DraftArticle, ArticleAuthorJoin } from "../../lib/types/Article";
 import type { IGCard } from "../../lib/types/IGCard";
 import "./EditorUploadPage.css";
@@ -388,9 +389,9 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             </div>
 
             <div className="field">
-              <h2>Article Title + Summary</h2>
+              <h2>Article Title + Standfirst</h2>
               <p>
-                Summary optional. If you want to add Italics in the summary,
+                Standfirst optional. If you want to add Italics in the standfirst,
                 please enclose the selected text like so: <br />
                 <i>&lt;i&gt;The Cheese Grater&lt;/i&gt;</i>.
               </p>
@@ -409,7 +410,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 onChange={(e) =>
                   setDraft((d) => ({ ...d, summary: e.target.value }))
                 }
-                placeholder="Optional summary shown below the title"
+                placeholder="Optional standfirst shown below the title"
                 className="editor-summary-textarea"
                 spellCheck="false"
                 rows={3}
@@ -602,7 +603,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                       }))
                     }
                   >
-                    Reset to article title/summary
+                    Set to article title/standfirst
                   </button>
                 </div>
 
@@ -627,7 +628,8 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 </div>
 
                 <div className="field">
-                  <h4>Cover Summary</h4>
+                  <h4>Cover Standfirst</h4>
+                  <p>Maximum word count: 20</p>
                   <textarea
                     value={draft.igCover.summary}
                     onChange={(e) =>
@@ -639,7 +641,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                         },
                       }))
                     }
-                    placeholder="Enter Instagram cover summary"
+                    placeholder="Enter Instagram cover standfirst"
                     className="editor-summary-textarea"
                     spellCheck="false"
                     rows={3}
@@ -671,50 +673,59 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               </div>
 
               <div className="ig-card-list">
-                {draft.igCards.map((card, index) => (
-                  <div key={card.id} className="ig-card-editor">
-                    <div className="ig-card-header">
-                      <h3>
-                        Card {index + 1}: {card.type === "text" ? "Text Card" : "Quote Card"}
-                      </h3>
+                {draft.igCards.map((card, index) => {
+                    const wordCount = countWords(card.content);
+                    const limit = card.type === "text" ? 140 : 60;
+                    const overLimit = wordCount > limit;
 
-                      <button
-                        type="button"
-                        className="editor-button"
-                        onClick={() => removeIGCard(card.id)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                    
-                    <p>Maximum word count: {card.type === "text" ? "140" : "60"}</p>
+                    return (
+                      <div key={card.id} className="ig-card-editor">
+                        <div className="ig-card-header">
+                          <h3>
+                            Card {index + 1}: {card.type === "text" ? "Text Card" : "Quote Card"}
+                          </h3>
 
-                    <div className="field">
-                      <h4>Text</h4>
-                      <EditorUpload
-                        key={card.id}
-                        initialContent={card.content}
-                        onChange={(html) => updateIGCard(card.id, { content: html })}
-                      />
-                    </div>
+                          <button
+                            type="button"
+                            className="editor-button"
+                            onClick={() => removeIGCard(card.id)}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                        
+                        <p>Maximum word count: {card.type === "text" ? "140" : "60"}</p>
 
-                    {card.type === "quote" && (
-                      <div className="field">
-                        <h4>Quote Author</h4>
-                        <input
-                          type="text"
-                          value={card.quoteAuthor}
-                          onChange={(e) =>
-                            updateIGCard(card.id, { quoteAuthor: e.target.value })
-                          }
-                          placeholder="Enter quote author"
-                          className="custom-subsection"
-                          spellCheck="false"
-                        />
+                        <div className="field">
+                          <h4>Text</h4>
+                          <EditorUpload
+                            key={card.id}
+                            initialContent={card.content}
+                            onChange={(html) => updateIGCard(card.id, { content: html })}
+                          />
+                          <p className={`ig-word-count ${overLimit ? "over-limit" : ""}`}>
+                            {wordCount}/{limit} words
+                          </p>
+                        </div>
+
+                        {card.type === "quote" && (
+                          <div className="field">
+                            <h4>Quote Author</h4>
+                            <input
+                              type="text"
+                              value={card.quoteAuthor}
+                              onChange={(e) =>
+                                updateIGCard(card.id, { quoteAuthor: e.target.value })
+                              }
+                              placeholder="Enter quote author"
+                              className="custom-subsection"
+                              spellCheck="false"
+                            />
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                ))}
+                    )
+                })}
               </div>
             </div>
 
@@ -745,6 +756,18 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             >
               Preview Article
             </button>
+            <div className="field">
+              {validation.errors.length > 0 && (
+                <>
+                  <p>Errors:</p>
+                  <ul>
+                    {validation.errors.map((field) => (
+                      <li key={field}>{field}</li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </div>
           </div>
 
           <div className="editor-upload-right">

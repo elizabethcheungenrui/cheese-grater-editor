@@ -150,17 +150,17 @@ h6 {
 }
 
 :root {
-  --cg-yellow: #e2ba00;
-  --cg-yellow-t: #e2ba00aa;
+  --cg-yellow: #ffdb4c;
+  --cg-yellow-t: #ffdb4caa;
 
-  --cg-news: #2c59ae;
-  --cg-news-t: #2c59aeaa;
+  --cg-news: #2d59ad;
+  --cg-news-t: #2d59adaa;
 
-  --cg-humour: #00674b;
-  --cg-humour-t: #00674baa;
+  --cg-humour: #007037;
+  --cg-humour-t: #007037aa;
 
-  --cg-voices: #c42873;
-  --cg-voices-t: #c42873aa;
+  --cg-voices: #c52973;
+  --cg-voices-t: #c52973aa;
 
   --cg-podcast: #d24b4b;
   --cg-podcast-t: #d24b4baa;

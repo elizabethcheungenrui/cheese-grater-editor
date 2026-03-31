@@ -3,9 +3,8 @@
   background-color: black;
   width: 400px;
   height: 500px;
-  padding: 18px;
-  gap: 15px;
   align-content: start;
+  position: relative;
 }
 
 .ig-container.news {

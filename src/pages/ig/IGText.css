@@ -1,0 +1,26 @@
+.ig-text-white-box {
+  position: absolute;
+  left: 24px;
+  top: 70px;
+  width: 350px;
+  height: 400px;
+  background-color: white;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+.ig-text-yellow-box {
+  height: 394px;
+  background-color: var(--cg-yellow);
+  padding: 24px;
+}
+
+.ig-text-box {
+  height: 346px;
+  background-color: white;
+  padding: 10px;
+}
+
+.ig-text-content {
+  color: var(--cg-font);
+}

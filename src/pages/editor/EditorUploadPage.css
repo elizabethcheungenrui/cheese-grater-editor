@@ -36,6 +36,11 @@
   font-style: normal;
 }
 
+.editor-upload ul, .editor-upload li {
+  color: var(--cg-font);
+  list-style-type: none;
+}
+
 .editor-upload select,
 .editor-upload .custom-subsection {
   font-family: "Libre Baskerville", serif;
@@ -201,6 +206,17 @@
 
 .ig-card-header h3 {
   margin: 0;
+}
+
+.editor-upload .field .ig-word-count {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.editor-upload .ig-word-count.over-limit {
+  color: #c62828;
+  font-weight: 700;
 }
 
 .editor-upload .preview-button {

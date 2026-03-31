@@ -1,7 +1,7 @@
 import "./IGCover.css";
 import type { Article } from "../../lib/types/Article";
 import { useRef } from "react";
-import { useFitText } from "../../lib/methods/formatting";
+import { useFitText, useFitTextWidth } from "../../lib/methods/formatting";
 import IGCardFrame from "./IGCardFrame";
 
 function renderAuthors(article: Article) {
@@ -26,9 +26,14 @@ export default function IGCover({ article }: { article: Article }) {
   
   const titleRef = useRef<HTMLHeadingElement>(null);
   const summaryRef = useRef<HTMLParagraphElement>(null);
+  const authorRef = useRef<HTMLParagraphElement>(null);
 
-  useFitText(titleRef, 16, 22, [coverTitle]);
-  // useFitText(summaryRef, 12, 15, [coverSummary]);
+  useFitText(titleRef, 16, 30, [coverTitle]);
+  useFitText(summaryRef, 12, 15, [coverSummary]);
+  useFitTextWidth(authorRef, 10, 13, [
+    article.authors,
+    article.role,
+  ]);
 
   return (
     <IGCardFrame section={article.section}>
@@ -40,7 +45,7 @@ export default function IGCover({ article }: { article: Article }) {
 
       <div className="main-content">
         <div className="yellow-box">
-          <p className="ig-author">
+          <p ref={authorRef} className="ig-author">
             By {renderAuthors(article)} {article.role && <i>[{article.role}]</i>}
           </p>
 

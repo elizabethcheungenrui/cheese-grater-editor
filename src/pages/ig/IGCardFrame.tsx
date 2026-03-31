@@ -23,7 +23,6 @@ export default function IGCardFrame({
 }) {
   return (
     <div className={`ig-container ${section.toLowerCase()}`}>
-      <p className="ig-section">{getSectionLabel(section)}</p>
       {children}
     </div>
   );
