@@ -19,8 +19,23 @@
   height: 346px;
   background-color: white;
   padding: 10px;
+  display: grid;
+  align-items: stretch;
 }
 
 .ig-text-content {
+  height: 326px;
+  display: grid;
+  align-items: center;
+  border-left: 2px solid var(--cg-font);
+  padding-left: 5px;
+}
+
+.ig-text-content p {
+  margin: 0;
   color: var(--cg-font);
+}
+
+.ig-text-content p + p {
+  margin-top: 5px;
 }

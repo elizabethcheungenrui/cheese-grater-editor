@@ -4,6 +4,7 @@
   top: 52px;
   width: 352px;
   height: 55px;
+  display: grid;
   align-items: center;
 }
 
@@ -53,13 +54,15 @@
 }
 
 .ig-container .summary-box {
+  display: grid;
+  align-items: center;
   height: 45px;
 }
 
 .ig-container .article-summary {
   font-family: "Bitter";
   font-weight: 700;
-  font-style: italic;
+  /*font-style: italic;*/
   line-height: 1.3;
   margin: 0;
   padding: 0;

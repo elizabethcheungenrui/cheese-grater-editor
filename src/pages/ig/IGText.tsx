@@ -12,7 +12,7 @@ export default function IGText({
 }) {
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useFitText(contentRef, 9, 12, [content]);
+  useFitText(contentRef, 11, 14, [content]);
 
   return (
     <IGCardFrame section={section}>
