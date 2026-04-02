@@ -98,6 +98,26 @@ export async function publishArticle(
 
     const articleId = isEdit ? draft.id : articleData.id;
 
+    // Notify ONLY on insert
+    if (!isEdit) {
+      try {
+        await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ntfy-notify`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title: "New article published",
+            message: `New article: ${draft.title}\nhttps://cheesegratermagazine.org/article/${slug}`,
+          }),
+        });
+      } catch (err) {
+        console.error("ntfy failed:", err);
+        // don't break publishing if notification fails
+      }
+    }
+
     if (isEdit) {
       await supabase
         .from("article_authors")

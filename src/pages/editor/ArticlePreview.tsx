@@ -41,17 +41,6 @@ export default function ArticlePreview() {
     <div className="article-preview">
       <div className="left">
         <ArticleContent article={article} />
-        {!validation.valid && (
-          <div className="publish-warning">
-            <p>Cannot publish. Missing:</p>
-            <ul>
-              {validation.missing.map((field) => (
-                <li key={field}>{field}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
         <div className="editor-buttons">
           <button
             className="editor-button"

@@ -98,6 +98,11 @@ export default function PodcastPreview() {
     image_caption: null,
     content: combinedContent,
     date_published: new Date(draft.publish_date).toISOString(),
+    igCover: {
+      title: draft.title,
+      summary: "",
+    },
+    igCards: [],
   };
 
   const validation = validatePodcastDraft(draft);

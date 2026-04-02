@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import "./IGCard.css";
 
-function getSectionLabel(section: string) {
+/*function getSectionLabel(section: string) {
   switch (section) {
     case "Humour":
       return "Humour & Satire";
@@ -12,7 +12,7 @@ function getSectionLabel(section: string) {
     default:
       return "Other";
   }
-}
+}*/
 
 export default function IGCardFrame({
   section,
