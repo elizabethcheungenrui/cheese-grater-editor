@@ -25,8 +25,10 @@ export default function RequireEditor() {
 
     check();
 
-    const { data: sub } = supabase.auth.onAuthStateChange(() => {
-      check();
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return;
+      setAllowed(!!session);
+      setChecking(false);
     });
 
     return () => {
@@ -36,7 +38,7 @@ export default function RequireEditor() {
   }, []);
 
   if (checking) return null;
-  if (!allowed) return <Navigate to="/login" replace />;
+  if (!allowed) return <Navigate to="/" replace />;
 
   return <Outlet />;
 }
