@@ -112,6 +112,7 @@ export async function publishArticle(
             message: `New article: ${draft.title}\nhttps://cheesegratermagazine.org/article/${slug}`,
           }),
         });
+        console.log("ntfy succeeded"); 
       } catch (err) {
         console.error("ntfy failed:", err);
         // don't break publishing if notification fails

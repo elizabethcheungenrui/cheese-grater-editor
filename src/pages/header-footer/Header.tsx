@@ -17,7 +17,7 @@ export default function Header() {
         </a>
       </div>
 
-      <span className="best">Hello Editor</span>
+      <span className="best">Stay strong Editor.... everything will be Alright</span>
     </header>
   );
 }
