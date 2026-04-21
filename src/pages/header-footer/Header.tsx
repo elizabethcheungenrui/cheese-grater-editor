@@ -16,8 +16,6 @@ export default function Header() {
           </h3>
         </a>
       </div>
-
-      <span className="best">Stay strong Editor.... everything will be Alright</span>
     </header>
   );
 }
