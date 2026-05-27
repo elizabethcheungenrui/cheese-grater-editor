@@ -86,6 +86,7 @@ export async function publishArticle(
       image_height: imageHeight,
       image_caption: draft.image_caption || null,
       content: processedContent,
+      liveblog_eid: draft.liveblog_eid || null,
       ig_cards: draft.igCards ?? [],
     };
 

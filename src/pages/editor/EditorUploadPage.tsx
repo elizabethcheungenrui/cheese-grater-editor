@@ -66,6 +66,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         image: null,
         image_caption: "",
         content: "",
+        liveblog_eid: "",
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
         link: "",
@@ -91,6 +92,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         image: null,
         image_caption: "",
         content: "",
+        liveblog_eid: "",
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
         link: "",
@@ -141,6 +143,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         image: data.image_url,
         image_caption: data.image_caption ?? "",
         content: data.content ?? "",
+        liveblog_eid: data.liveblog_eid ?? "",
         publish_date: data.date_published.slice(0, 10),
         updatedAt: Date.now(),
         link: data.link,
@@ -577,6 +580,22 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               <EditorUpload
                 initialContent={draft.content}
                 onChange={(html) => setDraft((d) => ({ ...d, content: html }))}
+              />
+            </div>
+
+            <div className="field">
+              <h2>24LiveBlog Embed ID</h2>
+              <p>Optional. Paste only the numeric data-eid, not the full script.</p>
+
+              <input
+                type="text"
+                value={draft.liveblog_eid ?? ""}
+                onChange={(e) =>
+                  setDraft((d) => ({ ...d, liveblog_eid: e.target.value.trim() }))
+                }
+                placeholder="4119487725568182970"
+                className="custom-subsection"
+                spellCheck="false"
               />
             </div>
 

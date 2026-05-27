@@ -28,6 +28,7 @@ export type DbArticle = {
   image_height: number | null;
   image_caption: string | null;
   content: string | null;
+  liveblog_eid: string | null;
   ig_cover: IGCoverDraft | null;
   ig_cards: IGCard[] | null;
 };
@@ -46,6 +47,7 @@ export type Article = {
   image_url: string | null;
   image_caption: string | null;
   content: string | null;
+  liveblog_eid: string | null;
   igCover: IGCoverDraft;
   igCards: IGCard[];
 };
@@ -63,6 +65,7 @@ export type DraftArticle = {
   image: string | null;
   image_caption: string;
   content: string;
+  liveblog_eid: string | null;
   publish_date: string;
   link: string;
   updatedAt: number;
@@ -96,6 +99,7 @@ export function mapDbToArticle(
     image_url: db.image_url,
     image_caption: db.image_caption,
     content: db.content,
+    liveblog_eid: db.liveblog_eid,
     igCover: db.ig_cover ?? {
       title: db.title,
       summary: db.summary ?? "",
@@ -119,6 +123,7 @@ export function mapDraftToPreviewArticle(draft: DraftArticle): Article {
     image_url: draft.image,
     image_caption: draft.image_caption,
     content: draft.content,
+    liveblog_eid: draft.liveblog_eid || null,
     igCover: draft.igCover ?? {
       title: draft.title,
       summary: draft.summary ?? "",
