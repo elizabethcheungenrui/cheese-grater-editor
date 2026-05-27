@@ -97,6 +97,7 @@ export default function PodcastPreview() {
     image_url: null,
     image_caption: null,
     content: combinedContent,
+    liveblog_eid: null,
     date_published: new Date(draft.publish_date).toISOString(),
     igCover: {
       title: draft.title,
