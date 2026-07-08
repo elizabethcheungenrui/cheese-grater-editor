@@ -11,37 +11,17 @@ import type { DraftArticle, ArticleAuthorJoin } from "../../lib/types/Article";
 import type { IGCard } from "../../lib/types/IGCard";
 import "./EditorUploadPage.css";
 
-const SECTION_OPTIONS = {
-  News: [
-    "Analysis",
-    "Awards",
-    "Climate",
-    "Club and Soc",
-    "Halls",
-    "Investigations",
-    "News",
-    "Palestine",
-    "Provost",
-    "UCL East",
-    "Union",
-    "University",
-    "Varsity",
-    "Workers",
-  ],
-  Humour: ["Humour", "Graphics", "Pie Media", "Satire", "Soc Bitch"],
-  Voices: ["Editorial", "Reviews", "Voices"],
-} as const;
+const SECTIONS = ["News", "Humour", "Voices"] as const;
 
-const AUTHOR_THUMBNAILS: Record<string, string> = {
-  News: "https://images.cheesegratermagazine.org/author_thumbnails/news.jpg",
-  Humour:
-    "https://images.cheesegratermagazine.org/author_thumbnails/humour.jpg",
-  Voices:
-    "https://images.cheesegratermagazine.org/author_thumbnails/voices_new.jpg",
-  "Soc Bitch":
-    "https://images.cheesegratermagazine.org/author_thumbnails/soc_bitch.jpg",
-  "Pie Media":
-    "https://images.cheesegratermagazine.org/author_thumbnails/pie_media.webp",
+type SectionName = (typeof SECTIONS)[number];
+
+type SubsectionRow = {
+  section: SectionName;
+  name: string;
+  slug: string;
+  sort_order: number;
+  is_active: boolean;
+  default_author_thumbnail: string | null;
 };
 
 const DEFAULT_AUTHOR_THUMBNAIL =
@@ -104,6 +84,31 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
       };
     }
   });
+
+  const [subsections, setSubsections] = useState<SubsectionRow[]>([]);
+
+  useEffect(() => {
+    async function loadSubsections() {
+      const { data, error } = await supabase
+        .from("subsections")
+        .select(
+          "section, name, slug, sort_order, is_active, default_author_thumbnail",
+        )
+        .eq("is_active", true)
+        .order("section", { ascending: true })
+        .order("sort_order", { ascending: true });
+
+      if (error) {
+        console.error("Failed to load subsections:", error);
+        alert("Failed to load section options.");
+        return;
+      }
+
+      setSubsections((data ?? []) as SubsectionRow[]);
+    }
+
+    loadSubsections();
+  }, []);
 
   useEffect(() => {
     if (mode !== "edit" || !id) return;
@@ -258,8 +263,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     if (authorImageOverridden) return;
 
     const autoImage =
-      AUTHOR_THUMBNAILS[draft.subsection] ??
-      AUTHOR_THUMBNAILS[draft.section] ??
+      selectedSubsection?.default_author_thumbnail ??
       DEFAULT_AUTHOR_THUMBNAIL;
 
     setDraft((d) => ({
@@ -268,7 +272,12 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     }));
 
     setAuthorImagePreview(autoImage);
-  }, [draft.section, draft.subsection]);
+  }, [
+    draft.section,
+    draft.subsection,
+    subsections,
+    authorImageOverridden,
+  ]);
 
   useEffect(() => {
     setDraft((d) => {
@@ -286,6 +295,19 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     });
   }, []);
 
+  const currentSubsections = draft.section
+    ? subsections.filter((sub) => sub.section === draft.section)
+    : [];
+
+  const selectedSubsection =
+    draft.section && draft.subsection
+      ? subsections.find(
+          (sub) =>
+            sub.section === draft.section &&
+            sub.name === draft.subsection,
+        ) ?? null
+      : null;
+
   return (
     <div className="page-desktop">
       <Header />
@@ -302,12 +324,13 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   setDraft((d) => ({
                     ...d,
                     section: e.target.value,
-                    subsection: "", // reset subsection when section changes
+                    subsection: "",
                   }))
                 }
               >
                 <option value="">Select section</option>
-                {Object.keys(SECTION_OPTIONS).map((section) => (
+
+                {SECTIONS.map((section) => (
                   <option key={section} value={section}>
                     {section}
                   </option>
@@ -336,14 +359,11 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   {draft.section ? "Select subsection" : "Select section first"}
                 </option>
 
-                {draft.section &&
-                  SECTION_OPTIONS[
-                    draft.section as keyof typeof SECTION_OPTIONS
-                  ]?.map((sub) => (
-                    <option key={sub} value={sub}>
-                      {sub}
-                    </option>
-                  ))}
+                {currentSubsections.map((sub) => (
+                  <option key={sub.slug} value={sub.name}>
+                    {sub.name}
+                  </option>
+                ))}
 
                 {draft.section && <option value="__custom__">Other…</option>}
               </select>
@@ -494,8 +514,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   setAuthorImageOverridden(false);
 
                   const auto =
-                    AUTHOR_THUMBNAILS[draft.section] ??
-                    AUTHOR_THUMBNAILS[draft.subsection] ??
+                    selectedSubsection?.default_author_thumbnail ??
                     DEFAULT_AUTHOR_THUMBNAIL;
 
                   setAuthorImagePreview(auto);

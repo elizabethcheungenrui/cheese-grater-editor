@@ -99,8 +99,8 @@ export async function publishArticle(
 
     const articleId = isEdit ? draft.id : articleData.id;
 
-    // Notify ONLY on insert
-    if (!isEdit) {
+    // Notify ONLY on insert and not for archive (i.e. published immediately)
+    if (!isEdit && !forArchive) {
       try {
         await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ntfy-notify`, {
           method: "POST",
