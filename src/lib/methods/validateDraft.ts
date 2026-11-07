@@ -1,5 +1,4 @@
 import type { DraftArticle, PodcastDraftArticle } from "../types/Article";
-import { countWords } from "./wordCount"
 
 type ValidationResult = {
   valid: boolean;
