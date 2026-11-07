@@ -1433,12 +1433,12 @@ export default function IGGeneratorPage() {
 
                 {/* SOURCE ARTICLE */}
 
-                {article.content && (
+                {previewArticle.content && (
                   <details className="ig-generator-article-reference">
                     <summary>
                       Read Article / Select Excerpts
                     </summary>
-                    <ArticleContent article={article} />
+                    <ArticleContent article={previewArticle} />
                   </details>
                 )}
               </>

@@ -1,6 +1,4 @@
 import ArticleContent from "../article/ArticleContent";
-import IGCover from "../ig/cards/IGCover";
-import IGCardRenderer from "../ig/cards/IGCardRenderer";
 import { mapDraftToPreviewArticle, type DraftArticle } from "../../lib/types/Article";
 import { useEffect, useState } from "react";
 import { validateDraft } from "../../lib/methods/validateDraft";

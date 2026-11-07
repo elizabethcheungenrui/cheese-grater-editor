@@ -6,9 +6,7 @@ import AuthorSelector from "./AuthorSelector";
 import EditorUpload from "./EditorUpload";
 import { Link, useParams } from "react-router-dom";
 import { validateDraft } from "../../lib/methods/validateDraft";
-import { countWords } from "../../lib/methods/wordCount";   
 import type { DraftArticle, ArticleAuthorJoin } from "../../lib/types/Article";
-import type { IGCard } from "../../lib/types/IGCard";
 import "./EditorUploadPage.css";
 
 const SECTIONS = ["News", "Humour", "Voices"] as const;
@@ -50,11 +48,6 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
         link: "",
-        igCover: {
-          title: "",
-          summary: "",
-        },
-        igCards: [],
       };
     }
 
@@ -76,11 +69,6 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         publish_date: new Date().toISOString().slice(0, 10),
         updatedAt: Date.now(),
         link: "",
-        igCover: {
-          title: "",
-          summary: "",
-        },
-        igCards: [],
       };
     }
   });
@@ -152,11 +140,6 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         publish_date: data.date_published.slice(0, 10),
         updatedAt: Date.now(),
         link: data.link,
-        igCover: data.igCover ?? {
-          title: data.title ?? "",
-          summary: data.summary ?? "",
-        },
-        igCards: data.ig_cards ?? [],
       });
     }
 
@@ -171,55 +154,6 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     draft.image,
   );
   const [customSubsection, setCustomSubsection] = useState(false);
-
-  function makeCardId() {
-    return crypto.randomUUID();
-  }
-
-  function addTextCard() {
-    setDraft((d) => ({
-      ...d,
-      igCards: [
-        ...d.igCards,
-        {
-          id: makeCardId(),
-          type: "text",
-          content: "",
-        },
-      ],
-    }));
-  }
-
-  function addQuoteCard() {
-    setDraft((d) => ({
-      ...d,
-      igCards: [
-        ...d.igCards,
-        {
-          id: makeCardId(),
-          type: "quote",
-          content: "",
-          quoteAuthor: "",
-        },
-      ],
-    }));
-  }
-
-  function removeIGCard(cardId: string) {
-    setDraft((d) => ({
-      ...d,
-      igCards: d.igCards.filter((card) => card.id !== cardId),
-    }));
-  }
-
-  function updateIGCard(cardId: string, updates: Partial<IGCard>) {
-    setDraft((d) => ({
-      ...d,
-      igCards: d.igCards.map((card) =>
-        card.id === cardId ? ({ ...card, ...updates } as IGCard) : card,
-      ),
-    }));
-  }
 
   function saveDraft() {
     localStorage.setItem(
@@ -278,22 +212,6 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     subsections,
     authorImageOverridden,
   ]);
-
-  useEffect(() => {
-    setDraft((d) => {
-      if (!d.igCover) {
-        return {
-          ...d,
-          igCover: {
-            title: d.title,
-            summary: d.summary,
-          },
-        };
-      }
-
-      return d;
-    });
-  }, []);
 
   const currentSubsections = draft.section
     ? subsections.filter((sub) => sub.section === draft.section)
@@ -602,7 +520,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               />
             </div>
 
-            <div className="field">
+            {/* <div className="field">
               <h2>24LiveBlog Embed ID</h2>
               <p>Optional. Paste only the numeric data-eid, not the full script.</p>
 
@@ -616,158 +534,9 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                 className="custom-subsection"
                 spellCheck="false"
               />
-            </div>
+            </div> */}
 
-            <div className="field">
-              <h2>Instagram Cover Card</h2>
-              <p>
-                These fields are used for the Instagram cover card only. Leave them matching
-                the article if you do not want a custom cover.
-              </p>
-
-              <div className="ig-card-editor">
-                <div className="ig-card-header">
-                  <h3>Cover Card</h3>
-                  <button
-                    type="button"
-                    className="editor-button"
-                    onClick={() =>
-                      setDraft((d) => ({
-                        ...d,
-                        igCover: {
-                          title: d.title,
-                          summary: d.summary,
-                        },
-                      }))
-                    }
-                  >
-                    Set to article title/standfirst
-                  </button>
-                </div>
-
-                <div className="field">
-                  <h4>Cover Title</h4>
-                  <textarea
-                    value={draft.igCover.title}
-                    onChange={(e) =>
-                      setDraft((d) => ({
-                        ...d,
-                        igCover: {
-                          ...d.igCover,
-                          title: e.target.value,
-                        },
-                      }))
-                    }
-                    placeholder="Enter Instagram cover title"
-                    className="editor-title-textarea"
-                    spellCheck="false"
-                    rows={3}
-                  />
-                </div>
-
-                <div className="field">
-                  <h4>Cover Standfirst</h4>
-                  <p>Maximum word count: 20</p>
-                  <textarea
-                    value={draft.igCover.summary}
-                    onChange={(e) =>
-                      setDraft((d) => ({
-                        ...d,
-                        igCover: {
-                          ...d.igCover,
-                          summary: e.target.value,
-                        },
-                      }))
-                    }
-                    placeholder="Enter Instagram cover standfirst"
-                    className="editor-summary-textarea"
-                    spellCheck="false"
-                    rows={3}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="field">
-              <h2>Instagram Carousel Cards</h2>
-              <p>Add optional text and quote cards after the cover card.</p>
-
-              <div className="ig-card-actions">
-                <button
-                  type="button"
-                  className="editor-button"
-                  onClick={addTextCard}
-                >
-                  Add New Text Card
-                </button>
-
-                <button
-                  type="button"
-                  className="editor-button"
-                  onClick={addQuoteCard}
-                >
-                  Add New Quote Card
-                </button>
-              </div>
-
-              <div className="ig-card-list">
-                {draft.igCards.map((card, index) => {
-                    const wordCount = countWords(card.content);
-                    const limit = card.type === "text" ? 140 : 60;
-                    const overLimit = wordCount > limit;
-
-                    return (
-                      <div key={card.id} className="ig-card-editor">
-                        <div className="ig-card-header">
-                          <h3>
-                            Card {index + 1}: {card.type === "text" ? "Text Card" : "Quote Card"}
-                          </h3>
-
-                          <button
-                            type="button"
-                            className="editor-button"
-                            onClick={() => removeIGCard(card.id)}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                        
-                        <p>Maximum word count: {card.type === "text" ? "140" : "60"}</p>
-
-                        <div className="field">
-                          <h4>Text</h4>
-                          <EditorUpload
-                            key={card.id}
-                            initialContent={card.content}
-                            onChange={(html) => updateIGCard(card.id, { content: html })}
-                          />
-                          <p className={`ig-word-count ${overLimit ? "over-limit" : ""}`}>
-                            {wordCount}/{limit} words
-                          </p>
-                        </div>
-
-                        {card.type === "quote" && (
-                          <div className="field">
-                            <h4>Quote Author</h4>
-                            <input
-                              type="text"
-                              value={card.quoteAuthor}
-                              onChange={(e) =>
-                                updateIGCard(card.id, { quoteAuthor: e.target.value })
-                              }
-                              placeholder="Enter quote author"
-                              className="custom-subsection"
-                              spellCheck="false"
-                            />
-                          </div>
-                        )}
-                      </div>
-                    )
-                })}
-              </div>
-            </div>
-
-            <div className="field">
+            {/* <div className="field">
               <h2>Old Wordpress Link</h2>
               <p>ONLY USED FOR ARCHIVAL.</p>{" "}
               <p>
@@ -786,7 +555,8 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                   spellCheck="false"
                 />
               </div>
-            </div>
+            </div> */}
+
             <button
               className="preview-button"
               disabled={!canProceed}
