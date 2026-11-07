@@ -428,7 +428,7 @@ export default function IGGeneratorPage() {
             "id, slug, title, section, subsection, date_published",
           )
           .order("date_published", { ascending: false })
-          .limit(200);
+          .limit(400);
 
         if (error) throw error;
 
@@ -913,7 +913,6 @@ export default function IGGeneratorPage() {
                   )}
 
                   {filteredArticles
-                    .slice(0, 50)
                     .map((item) => (
                       <button
                         key={item.id}
