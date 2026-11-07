@@ -1,0 +1,51 @@
+.ig-container {
+  display: grid;
+  background-image: url(../../../assets/ig/background-400x500.png);
+  width: 400px;
+  height: 500px;
+  align-content: start;
+  position: relative;
+}
+
+.ig-container .ig-cover-box {
+  position: absolute;
+  left: 24px;
+  top: 12px;
+  width: 352px;
+  height: 477px;
+  
+  background-color: var(--ig-accent);
+  padding: 8.3px;
+}
+
+.ig-container .ig-inner-box {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: #262626;
+}
+
+.ig-container .ig-section-tab {
+  position: absolute;
+  top: -38.1px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 129px;
+  height: 57.7px;
+  border-radius: 10px;
+
+  background-color: var(--ig-accent);
+  
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 5px;
+  box-sizing: border-box;
+
+  font-family: "Bitter";
+  font-size: 10.5px;
+  font-weight: 700;
+  color: white;
+  white-space: nowrap;
+}

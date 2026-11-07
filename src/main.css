@@ -38,6 +38,28 @@
   font-display: swap;
 }
 
+/* BIITER LIGHT (300) */
+@font-face {
+  font-family: "Bitter";
+  src:
+    url("/src/assets/fonts/Bitter/static/Bitter-Light.woff2") format("woff2"),
+    url("/src/assets/fonts/Bitter/static/Bitter-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BIITER LIGHT ITALIC (300) */
+@font-face {
+  font-family: "Bitter";
+  src:
+    url("/src/assets/fonts/Bitter/static/Bitter-LightItalic.woff2") format("woff2"),
+    url("/src/assets/fonts/Bitter/static/Bitter-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
 /* BIITER REGULAR (400) */
 @font-face {
   font-family: "Bitter";
@@ -49,13 +71,57 @@
   font-display: swap;
 }
 
-/* BIITER ITALIC (400) */
+/* BIITER REGULAR ITALIC (400) */
 @font-face {
   font-family: "Bitter";
   src:
     url("/src/assets/fonts/Bitter/static/Bitter-Italic.woff2") format("woff2"),
     url("/src/assets/fonts/Bitter/static/Bitter-Italic.woff") format("woff");
   font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* BIITER MEDIUM (500) */
+@font-face {
+  font-family: "Bitter";
+  src:
+    url("/src/assets/fonts/Bitter/static/Bitter-Medium.woff2") format("woff2"),
+    url("/src/assets/fonts/Bitter/static/Bitter-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BIITER MEDIUM ITALIC (500) */
+@font-face {
+  font-family: "Bitter";
+  src:
+    url("/src/assets/fonts/Bitter/static/Bitter-MediumItalic.woff2") format("woff2"),
+    url("/src/assets/fonts/Bitter/static/Bitter-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* BIITER SEMIBOLD (600) */
+@font-face {
+  font-family: "Bitter";
+  src:
+    url("/src/assets/fonts/Bitter/static/Bitter-SemiBold.woff2") format("woff2"),
+    url("/src/assets/fonts/Bitter/static/Bitter-SemiBold.woff") format("woff");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* BIITER SEMIBOLD ITALIC (600) */
+@font-face {
+  font-family: "Bitter";
+  src:
+    url("/src/assets/fonts/Bitter/static/Bitter-SemiBoldItalic.woff2") format("woff2"),
+    url("/src/assets/fonts/Bitter/static/Bitter-SemiBoldItalic.woff") format("woff");
+  font-weight: 600;
   font-style: italic;
   font-display: swap;
 }

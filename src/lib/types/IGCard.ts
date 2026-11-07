@@ -14,6 +14,7 @@ export type IGQuoteCard = {
   type: "quote";
   content: string;
   quoteAuthor: string;
+  quoteAuthorRole: string;
 };
 
 export type IGCard = IGTextCard | IGQuoteCard;

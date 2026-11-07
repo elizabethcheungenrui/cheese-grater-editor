@@ -51,6 +51,15 @@ export default function EditorMain() {
             </button>
           </Link>
         </div>
+        
+        <div className="editor-submain">
+          <h3>Create Instagram Carousel</h3>
+          <Link to="/ig-generator">
+            <button className="editor-button">
+              <p>Click Here</p>
+            </button>
+          </Link>
+        </div>
 
         <div className="editor-submain">
           <h3>

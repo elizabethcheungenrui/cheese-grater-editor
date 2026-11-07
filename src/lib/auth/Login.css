@@ -10,7 +10,9 @@
 
 .login h2 {
   color: var(--cg-font);
+  font-family: "Bitter";
   font-size: 1.8rem;
+  font-weight: 800;
 }
 
 .login input {

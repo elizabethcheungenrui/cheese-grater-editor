@@ -12,6 +12,7 @@
 
 .editor-main h1 {
   color: var(--cg-font);
+  font-weight: 700;
 }
 
 .editor-main h3 {

@@ -1,5 +1,5 @@
-import type { Article } from "../../lib/types/Article";
-import type { IGCard } from "../../lib/types/IGCard";
+import type { Article } from "../../../lib/types/Article";
+import type { IGCard } from "../../../lib/types/IGCard";
 import IGText from "./IGText";
 import IGQuote from "./IGQuote";
 
@@ -20,6 +20,7 @@ export default function IGCardRenderer({
           section={article.section}
           content={card.content}
           quoteAuthor={card.quoteAuthor}
+          quoteAuthorRole={card.quoteAuthorRole}
         />
       );
 

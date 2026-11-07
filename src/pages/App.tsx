@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import RequireEditor from "../lib/auth/RequireEditor";
 import Login from "../lib/auth/Login";
+
 import EditorMain from "./editor/EditorMain";
 import EditorUploadPage from "./editor/EditorUploadPage";
 import EditorModify from "./editor/EditorModify";
@@ -10,6 +11,9 @@ import ArticlePreview from "./editor/ArticlePreview";
 import EditorUploadPodcast from "./editor/EditorUploadPodcast";
 import PodcastPreview from "./editor/PodcastPreview";
 import EditorUploadPrint from "./editor/EditorUploadPrint";
+
+import IGGeneratorPage from "./ig/IGGeneratorPage";
+
 import NotFound from "./NotFound";
 
 export default function App() {
@@ -39,6 +43,11 @@ export default function App() {
           <Route path="/editor/preview" element={<ArticlePreview />} />
           <Route path="/editor/preview-podcast" element={<PodcastPreview />} />
         </Route>
+
+        <Route
+          path="/ig-generator"
+          element={<IGGeneratorPage />}
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

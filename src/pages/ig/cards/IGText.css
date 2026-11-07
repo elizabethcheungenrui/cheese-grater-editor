@@ -1,0 +1,47 @@
+.ig-container .ig-logo-text {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 40.2px;
+  height: 38px;
+}
+
+.ig-container .ig-text-box {
+  position: absolute;
+
+  top: 65px;
+  bottom: 50px;
+  left: 15px;
+  right: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  min-height: 0;
+}
+
+.ig-container .ig-text-content {
+  width: 100%;
+  height: auto;
+  flex: none;
+
+  font-family: "Bitter";
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1.35;
+
+  color: white;
+  overflow-wrap: break-word;
+}
+
+.ig-container .ig-text-content p {
+  margin: 0;
+}
+
+.ig-container .ig-text-content p + p {
+  margin-top: 5px;
+}
+
+.ig-container .ig-text-content strong {
+  font-weight: 600;
+}
