@@ -3,6 +3,7 @@ import IGCardFrame from "./IGCardFrame";
 import "./IGQuote.css";
 
 import quotes from "../../../assets/ig/quotes.png";
+import cgLogo from "../../../assets/ig/cg-full-opacity.png";
 
 export default function IGQuote({
   section,
@@ -92,6 +93,11 @@ export default function IGQuote({
       <img
         className="ig-quote-logo"
         src={quotes}
+      />
+      
+      <img
+        className="ig-logo-text"
+        src={cgLogo}
       />
 
       <div 
