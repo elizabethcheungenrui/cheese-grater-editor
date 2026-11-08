@@ -26,6 +26,8 @@ import Footer from "../header-footer/Footer";
 import IGCover from "./cards/IGCover";
 import IGCardRenderer from "./cards/IGCardRenderer";
 
+import endCard from "../../assets/ig/end-card.png";
+
 import "./IGGeneratorPage.css";
 import ArticleContent from "../article/ArticleContent";
 
@@ -832,6 +834,18 @@ export default function IGGeneratorPage() {
           base64: true,
         });
       }
+
+      // Append the static end card after all carousel slides
+      const endCardResponse = await fetch(endCard);
+
+      if (!endCardResponse.ok) {
+        throw new Error("Failed to load end card.");
+      }
+
+      zip.file(
+        `${String(elements.length + 1).padStart(2, "0")}-end-card.png`,
+        await endCardResponse.blob(),
+      );
 
       const blob = await zip.generateAsync({
         type: "blob",
