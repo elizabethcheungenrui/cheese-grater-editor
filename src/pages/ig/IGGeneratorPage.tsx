@@ -1384,7 +1384,23 @@ export default function IGGeneratorPage() {
           {/* RIGHT: LIVE PREVIEW */}
 
           <section className="ig-generator-preview">
-            <h2>Live Preview</h2>
+            <div className="ig-generator-preview-heading">
+              <h2>Live Preview</h2>
+              {previewArticle ? (
+              <button
+                type="button"
+                className="ig-generator-button primary"
+                disabled={exporting}
+                onClick={() =>
+                  void downloadImages()
+                }
+              >
+                {exporting
+                  ? "Rendering..."
+                  : "Download Images (ZIP)"}
+              </button>
+              ) : null}
+            </div>
 
             {!previewArticle ? (
               <p>Select an article to begin.</p>
@@ -1433,12 +1449,24 @@ export default function IGGeneratorPage() {
                 {/* SOURCE ARTICLE */}
 
                 {previewArticle.content && (
-                  <details className="ig-generator-article-reference">
-                    <summary>
-                      Read Article / Select Excerpts
-                    </summary>
-                    <ArticleContent article={previewArticle} />
-                  </details>
+                  <div className="ig-generator-article-reference">
+                    <a
+                      className="ig-generator-article-link"
+                      href={`https://cheesegratermagazine.org/article/${article?.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Go to Article Page
+                    </a>
+
+                    <details>
+                      <summary>Read Article / Select Excerpts</summary>
+
+                      <div className="ig-generator-article-body">
+                        <ArticleContent article={previewArticle} />
+                      </div>
+                    </details>
+                  </div>
                 )}
               </>
             )}

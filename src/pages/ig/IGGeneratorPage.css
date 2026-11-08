@@ -283,6 +283,12 @@
   margin: 0;
 }
 
+.ig-generator-preview-heading {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
 .ig-generator-preview-slot {
   max-width: 100%;
   overflow-x: auto;
@@ -311,19 +317,45 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 6px;
+  position: relative;
+}
+
+.ig-generator-article-link {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.25rem;
+
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+
+  font-family: "Bitter";
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cg-font);
+
+  text-decoration: none;
+  display: inline-block;
+  z-index: 1;
+}
+
+.ig-generator-article-link:hover {
+  background-color: #f0f0f0;
+}
+
+.ig-generator-article-reference .ig-generator-article-body {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-top: 1rem;
+  line-height: 1.6;
 }
 
 .ig-generator-article-reference summary {
   font-family: "Bitter", serif;
   font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-}
-
-.ig-generator-article-reference > div {
-  max-height: 500px;
-  overflow-y: auto;
-  margin-top: 1rem;
-  line-height: 1.6;
+  padding-right: 165px;
 }
 
 /* RESPONSIVE */
