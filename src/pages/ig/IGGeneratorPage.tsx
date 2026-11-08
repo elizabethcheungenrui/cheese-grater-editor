@@ -1134,24 +1134,6 @@ export default function IGGeneratorPage() {
                     *italic*, and paragraphs.
                   </p>
 
-                  <div className="ig-generator-actions">
-                    <button
-                      type="button"
-                      className="ig-generator-button"
-                      onClick={() => addCard("text")}
-                    >
-                      Add Text Card
-                    </button>
-
-                    <button
-                      type="button"
-                      className="ig-generator-button"
-                      onClick={() => addCard("quote")}
-                    >
-                      Add Quote Card
-                    </button>
-                  </div>
-
                   {cards.map((card, index) => {
                     const limit =
                       card.type === "text" ? 70 : 50;
@@ -1270,6 +1252,24 @@ export default function IGGeneratorPage() {
                       </div>
                     );
                   })}
+
+                  <div className="ig-generator-actions">
+                    <button
+                      type="button"
+                      className="ig-generator-button"
+                      onClick={() => addCard("text")}
+                    >
+                      Add Text Card
+                    </button>
+
+                    <button
+                      type="button"
+                      className="ig-generator-button"
+                      onClick={() => addCard("quote")}
+                    >
+                      Add Quote Card
+                    </button>
+                  </div>
                 </div>
 
                 {/* EXPORT */}
