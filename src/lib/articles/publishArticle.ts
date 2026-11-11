@@ -8,7 +8,8 @@ export async function publishArticle(
   draft: DraftArticle,
   isEdit: boolean,
   forArchive: boolean,
-) {
+  options: { bulk?: boolean } = {},
+): Promise<{ id: string; slug: string } | null> {
   const date = new Date(draft.publish_date);
   const datePrefix = date.toISOString().slice(0, 10);
 
@@ -25,11 +26,20 @@ export async function publishArticle(
     slug = `${datePrefix}-${slugify(draft.title)}`;
   }
 
+  let insertedArticleId: string | null = null;
   try {
+    // Detect duplicates before any image upload or database write.
+    if (options.bulk) {
+      const { data: existing, error: lookupError } = await supabase
+        .from("articles").select("id").eq("slug", slug).maybeSingle();
+      if (lookupError) throw lookupError;
+      if (existing) throw new Error(`An article already exists with slug ${slug}. Review the date/title or skip this entry.`);
+    }
+
     // Upload author image (if overridden blob)
     let authorThumbnailUrl = draft.author_thumbnail;
 
-    if (authorThumbnailUrl?.startsWith("blob:")) {
+    if (authorThumbnailUrl && /^(blob:|data:)/.test(authorThumbnailUrl)) {
       const file = await blobUrlToFile(authorThumbnailUrl, "author.webp");
       const { url } = await uploadImage(
         file,
@@ -42,7 +52,7 @@ export async function publishArticle(
     let imageWidth: number | null = null;
     let imageHeight: number | null = null;
 
-    if (draft.image?.startsWith("blob:")) {
+    if (draft.image && /^(blob:|data:)/.test(draft.image)) {
       const file = await blobUrlToFile(draft.image, "main.webp");
       const { url, width, height } = await uploadImage(
         file,
@@ -75,7 +85,7 @@ export async function publishArticle(
       link: normalisedLink,
       section: draft.section,
       subsection: draft.subsection,
-      date_published: date.toISOString(),
+      date_published: options.bulk ? `${datePrefix}T12:00:00` : date.toISOString(),
       title: draft.title,
       summary: draft.summary || null,
       author: authorString,
@@ -97,6 +107,7 @@ export async function publishArticle(
     if (error) throw error;
 
     const articleId = isEdit ? draft.id : articleData.id;
+    if (options.bulk && !isEdit) insertedArticleId = articleId as string;
 
     // Notify ONLY on insert and not for archive (i.e. published immediately)
     if (!isEdit && !forArchive) {
@@ -126,50 +137,67 @@ export async function publishArticle(
         .eq("article_id", articleId);
     }
 
-    // Ensure all authors exist in DB
-    const resolvedAuthors = [];
-
+    // Resolve authors by their unique normalised name to avoid duplicates.
+    const resolvedAuthors: { id: string; name: string }[] = [];
     for (const author of draft.authors) {
       if (author.id) {
-        resolvedAuthors.push(author);
+        resolvedAuthors.push({ id: author.id, name: author.name });
         continue;
       }
-
-      // New author -> insert
-      const normalisedName = normaliseAuthorName(author.name);
-      const slug = slugify(normalisedName);
-
-      const { data, error } = await supabase
+      const nameNormalized = normaliseAuthorName(author.name);
+      const { data: existing, error: findError } = await supabase
+        .from("authors").select("id, name").eq("name_normalized", nameNormalized).maybeSingle();
+      if (findError) throw findError;
+      if (existing) {
+        resolvedAuthors.push(existing);
+        continue;
+      }
+      const { data: created, error: insertError } = await supabase
         .from("authors")
-        .insert({
-          name: author.name,
-          name_normalized: normalisedName,
-          slug,
-        })
-        .select("id, name, slug")
-        .single();
-
-      if (error) throw error;
-
-      resolvedAuthors.push(data);
+        .insert({ name: author.name, name_normalized: nameNormalized, slug: slugify(nameNormalized) })
+        .select("id, name").single();
+      if (insertError) {
+        // A concurrent import may have inserted this author after lookup.
+        if (insertError.code !== "23505") throw insertError;
+        const { data: concurrent, error: secondError } = await supabase
+          .from("authors").select("id, name").eq("name_normalized", nameNormalized).single();
+        if (secondError) throw secondError;
+        resolvedAuthors.push(concurrent);
+      } else {
+        resolvedAuthors.push(created);
+      }
     }
 
-    // Insert joins
-    await Promise.all(
-      resolvedAuthors.map(author =>
-        supabase.from("article_authors").insert({
-          article_id: articleId,
-          author_id: author.id,
-        })
-      )
-    );
+    // Check the result of each join insert rather than ignoring its error.
+    for (const author of resolvedAuthors) {
+      const { error: joinError } = await supabase.from("article_authors").insert({
+        article_id: articleId,
+        author_id: author.id,
+      });
+      if (joinError) throw joinError;
+    }
 
     if (!forArchive) await triggerRedeploy();
 
-    localStorage.removeItem("draft:article:new");
-    window.location.href = "/editor";
+    if (!options.bulk) {
+      localStorage.removeItem("draft:article:new");
+      window.location.href = "/editor";
+    }
+    return { id: articleId as string, slug };
   } catch (err: any) {
+    if (options.bulk && insertedArticleId) {
+      // Best-effort rollback for an incomplete archival article/author write.
+      const { error: joinsDeleteError } = await supabase.from("article_authors")
+        .delete().eq("article_id", insertedArticleId);
+      const { error: articleDeleteError } = await supabase.from("articles")
+        .delete().eq("id", insertedArticleId);
+      if (joinsDeleteError || articleDeleteError) {
+        console.error("Bulk import rollback incomplete:", joinsDeleteError, articleDeleteError);
+        alert("The import failed after creating the article; rollback may be incomplete. Check Supabase before retrying.");
+      }
+    }
     console.error("Publish error:", err);
     alert(err?.message?? "Failed to publish article.");
+    return null;
   }
 }

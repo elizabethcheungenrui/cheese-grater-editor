@@ -7,7 +7,7 @@ import "./EditorUpload.css";
 import Image from "@tiptap/extension-image";
 import { Figure } from "./nodes/Figure";
 import { Figcaption } from "./nodes/Figcaption";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 type EditorProps = {
   initialContent?: string;
@@ -234,6 +234,12 @@ export default function EditorUpload({
       onChange?.(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (editor && editor.getHTML() !== initialContent) {
+      (editor.commands.setContent as (...args: any[]) => boolean)(initialContent || "", { emitUpdate: false });
+    }
+  }, [editor, initialContent]);
 
   return (
     <div className="editor">

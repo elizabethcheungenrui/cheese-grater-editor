@@ -6,6 +6,7 @@ import Login from "../lib/auth/Login";
 
 import EditorMain from "./editor/EditorMain";
 import EditorUploadPage from "./editor/EditorUploadPage";
+import BulkImportPage from "./editor/BulkImportPage";
 import EditorModify from "./editor/EditorModify";
 import ArticlePreview from "./editor/ArticlePreview";
 import EditorUploadPodcast from "./editor/EditorUploadPodcast";
@@ -23,6 +24,8 @@ export default function App() {
         <Route path="/" element={<Login />} />
         <Route element={<RequireEditor />}>
           <Route path="/editor/" element={<EditorMain />} />
+          <Route path="/editor/bulk-import" element={<BulkImportPage />} />
+          <Route path="/editor/bulk-import/article/:id" element={<EditorUploadPage mode="bulk" />} />
           <Route
             path="/editor/upload-article"
             element={<EditorUploadPage mode="create" />}

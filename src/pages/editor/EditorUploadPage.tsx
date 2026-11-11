@@ -4,7 +4,8 @@ import Footer from "../header-footer/Footer";
 import Header from "../header-footer/Header";
 import AuthorSelector from "./AuthorSelector";
 import EditorUpload from "./EditorUpload";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { readEntry, saveEntry, type BulkEntry } from "../../lib/bulk/bulkStore";
 import { validateDraft } from "../../lib/methods/validateDraft";
 import type { DraftArticle, ArticleAuthorJoin } from "../../lib/types/Article";
 import "./EditorUploadPage.css";
@@ -29,9 +30,12 @@ const DRAFT_KEY = "draft:article:new";
 
 export default function EditorUploadPage({ mode }: { mode: string }) {
   const { id } = useParams<{ id: string }>();
-  console.log(id);
+  const navigate = useNavigate();
+  const [bulkEntry, setBulkEntry] = useState<BulkEntry | null>(null);
+  const [bulkReady, setBulkReady] = useState(mode !== "bulk");
+  const [bulkError, setBulkError] = useState("");
   const [draft, setDraft] = useState<DraftArticle>(() => {
-    const raw = localStorage.getItem(DRAFT_KEY);
+    const raw = mode === "bulk" ? null : localStorage.getItem(DRAFT_KEY);
     if (!raw) {
       return {
         section: "",
@@ -146,6 +150,28 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
     loadArticle();
   }, [mode, id]);
 
+  useEffect(() => {
+    if (mode !== "bulk") return;
+    let cancelled = false;
+    setBulkReady(false);
+    if (!id) {
+      setBulkError("Missing bulk article ID");
+      return;
+    }
+    readEntry(id).then((entry) => {
+      if (cancelled) return;
+      if (!entry) {
+        setBulkError("This draft is no longer in the bulk queue.");
+        return;
+      }
+      setBulkEntry(entry);
+      setDraft(entry.draft);
+      setBulkError("");
+      setBulkReady(true);
+    }).catch((err) => { if (!cancelled) setBulkError(String(err)); });
+    return () => { cancelled = true; };
+  }, [mode, id]);
+
   const [authorImagePreview, setAuthorImagePreview] = useState<string | null>(
     draft.author_thumbnail,
   );
@@ -155,14 +181,34 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
   );
   const [customSubsection, setCustomSubsection] = useState(false);
 
-  function saveDraft() {
-    localStorage.setItem(
-      DRAFT_KEY,
-      JSON.stringify({
-        ...draft,
-        updatedAt: Date.now(),
-      }),
-    );
+  useEffect(() => {
+    setAuthorImagePreview(draft.author_thumbnail);
+    setMainImagePreview(draft.image);
+  }, [bulkEntry?.id]);
+
+  async function saveDraft() {
+    const nextDraft = { ...draft, updatedAt: Date.now() };
+    if (mode === "bulk") {
+      if (!bulkReady || !bulkEntry) return;
+      await saveEntry({ ...bulkEntry, draft: nextDraft });
+    } else {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(nextDraft));
+    }
+  }
+
+  async function backToQueue() {
+    await saveDraft();
+    navigate("/editor/bulk-import");
+  }
+
+  async function openPreview() {
+    if (mode === "bulk") {
+      await saveDraft();
+      navigate(`/editor/preview?mode=bulk&id=${encodeURIComponent(id ?? "")}`);
+    } else {
+      await saveDraft();
+      window.open(`/editor/preview?mode=${mode}`);
+    }
   }
 
   const validation = validateDraft(draft);
@@ -183,15 +229,16 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
   }
 
   useEffect(() => {
-    const id = setTimeout(() => {
-      localStorage.setItem(
-        DRAFT_KEY,
-        JSON.stringify({ ...draft, updatedAt: Date.now() }),
-      );
-    }, 500);
-
-    return () => clearTimeout(id);
-  }, [draft]);
+    if (mode === "bulk" && (!bulkReady || !bulkEntry)) return;
+    const timeoutId = window.setTimeout(() => {
+      if (mode === "bulk" && bulkEntry) {
+        void saveEntry({ ...bulkEntry, draft: { ...draft, updatedAt: Date.now() } });
+      } else {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...draft, updatedAt: Date.now() }));
+      }
+    }, 600);
+    return () => clearTimeout(timeoutId);
+  }, [draft, mode, bulkEntry, bulkReady]);
 
   useEffect(() => {
     if (authorImageOverridden) return;
@@ -226,11 +273,18 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
         ) ?? null
       : null;
 
+  if (mode === "bulk" && !bulkReady) {
+    return <p role="status">{bulkError || "Loading archived draft…"} <Link to="/editor/bulk-import">Back to queue</Link></p>;
+  }
+
   return (
     <div className="page-desktop">
       <Header />
       <div className="editor-upload">
-        <h1>{mode == "create" ? "Article Upload" : "Edit Article"}</h1>
+        <h1>{mode === "bulk" ? `Review archive article ${bulkEntry ? bulkEntry.position + 1 : ""}` : mode === "create" ? "Article Upload" : "Edit Article"}</h1>
+        {mode === "bulk" && (
+          <p><button className="editor-button" type="button" onClick={() => void backToQueue()}>Back to bulk queue</button> — review the category, author and extraction before publishing.</p>
+        )}
 
         <div className="editor-upload-columns">
           <div className="editor-upload-left">
@@ -238,13 +292,21 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
               <h2>Article Section</h2>
               <select
                 value={draft.section}
-                onChange={(e) =>
-                  setDraft((d) => ({
-                    ...d,
-                    section: e.target.value,
-                    subsection: "",
-                  }))
-                }
+                onChange={(e) => {
+                  const nextSection = e.target.value;
+                  setDraft((d) => {
+                    const fallbackNames = ["The News Desk", "The Humour Desk", "The Cheese Grater"];
+                    const existing = d.authors.length === 1 ? d.authors[0].name : "";
+                    const replaceFallback = mode === "bulk" && fallbackNames.includes(existing);
+                    const bySection = nextSection === "News" ? "The News Desk" : nextSection === "Voices" ? "The Cheese Grater" : "The Humour Desk";
+                    return {
+                      ...d,
+                      section: nextSection,
+                      subsection: "",
+                      authors: replaceFallback ? [{ name: bySection }] : d.authors,
+                    };
+                  });
+                }}
               >
                 <option value="">Select section</option>
 
@@ -394,15 +456,21 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                     const file = e.target.files?.[0];
                     if (!file) return;
 
-                    const preview = URL.createObjectURL(file);
-
-                    setAuthorImagePreview(preview);
-                    setAuthorImageOverridden(true);
-
-                    setDraft((d) => ({
-                      ...d,
-                      author_thumbnail: preview,
-                    }));
+                    if (mode === "bulk") {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        const preview = String(reader.result);
+                        setAuthorImagePreview(preview);
+                        setAuthorImageOverridden(true);
+                        setDraft((d) => ({ ...d, author_thumbnail: preview }));
+                      };
+                      reader.readAsDataURL(file);
+                    } else {
+                      const preview = URL.createObjectURL(file);
+                      setAuthorImagePreview(preview);
+                      setAuthorImageOverridden(true);
+                      setDraft((d) => ({ ...d, author_thumbnail: preview }));
+                    }
                   }}
                 />
 
@@ -473,13 +541,19 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
                     const file = e.target.files?.[0];
                     if (!file) return;
 
-                    const preview = URL.createObjectURL(file);
-
-                    setMainImagePreview(preview);
-                    setDraft((d) => ({
-                      ...d,
-                      image: preview, // TEMP preview only
-                    }));
+                    if (mode === "bulk") {
+                      const reader = new FileReader();
+                      reader.onload = () => {
+                        const preview = String(reader.result);
+                        setMainImagePreview(preview);
+                        setDraft((d) => ({ ...d, image: preview }));
+                      };
+                      reader.readAsDataURL(file);
+                    } else {
+                      const preview = URL.createObjectURL(file);
+                      setMainImagePreview(preview);
+                      setDraft((d) => ({ ...d, image: preview }));
+                    }
                   }}
                 />
 
@@ -560,7 +634,7 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
             <button
               className="preview-button"
               disabled={!canProceed}
-              onClick={() => window.open(`/editor/preview?mode=${mode}`)}
+              onClick={() => void openPreview()}
             >
               Preview Article
             </button>
@@ -579,20 +653,22 @@ export default function EditorUploadPage({ mode }: { mode: string }) {
           </div>
 
           <div className="editor-upload-right">
-            <button className="editor-button" onClick={saveDraft}>
+            <button className="editor-button" onClick={() => void saveDraft()}>
               Save
             </button>
             <button
               className="editor-button"
               disabled={!canProceed}
-              onClick={() => window.open(`/editor/preview?mode=${mode}`)}
+              onClick={() => void openPreview()}
             >
               Preview Article
             </button>
 
-            <Link to="/editor">
-              <button className="editor-button">Back to Editor Menu</button>
-            </Link>
+            {mode === "bulk" ? (
+              <button type="button" className="editor-button" onClick={() => void backToQueue()}>Back to Bulk Queue</button>
+            ) : (
+              <Link to="/editor"><button className="editor-button">Back to Editor Menu</button></Link>
+            )}
           </div>
         </div>
       </div>
